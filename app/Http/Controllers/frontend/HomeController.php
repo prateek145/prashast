@@ -24,6 +24,9 @@ class HomeController extends Controller
 {
     public function home()
     {
+        dd('prateek ');
+
+        
         $categories = ProductCategories::where('status', 1)->get()->take(4);
         $products = Product::where(['status' => 1, 'show_in_featuredproduct' => 1])->get();
         $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
