@@ -164,11 +164,11 @@ class ProductSubcategoryController extends Controller
 
         if ($request->featured_image) {
             # code...
-            if ($productcategories->featured_image) {
-                # code...
-                $destination_path = public_path('productsubcategory/' . $productcategories->featured_image);
-                unlink($destination_path);
-            }
+            // if ($productcategories->featured_image) {
+            //     # code...
+            //     $destination_path = public_path('productsubcategory/' . $productcategories->featured_image);
+            //     unlink($destination_path);
+            // }
 
             $image = $request->featured_image;
             $filename = rand() . $image->getClientoriginalName();
