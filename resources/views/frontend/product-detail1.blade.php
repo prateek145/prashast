@@ -117,14 +117,14 @@
                       </button>
                     </span>
                     <span class="catbox mx-auto">
-                      <img src="images/cat-icon.png" class="mb-1" />
+                      <img src="{{asset('public/frontend/images/cat-icon.png')}}" class="mb-1" />
                       <img
-                        src="images/top-separator-white.png"
+                        src="{{asset('public/frontend/images/top-separator-white.png')}}"
                         class="img-fluid d-block mx-auto"
                       />
                       <p>New Collection</p>
                     </span>
-                    <img src="images/07.png" class="card-img-top" />
+                    <img src="{{asset('public/frontend/images/07.png')}}" class="card-img-top" />
                     <span class="content">
                       <h6>Clay Kulhad Set of 6</h6>
                       <p>₹899.00</p>
@@ -147,14 +147,14 @@
                       </button>
                     </span>
                     <span class="catbox mx-auto">
-                      <img src="images/cat-icon.png" class="mb-1" />
+                      <img src="{{asset('public/frontend/images/cat-icon.png')}}" class="mb-1" />
                       <img
-                        src="images/top-separator-white.png"
+                        src="{{asset('public/frontend/images/top-separator-white.png')}}"
                         class="img-fluid d-block mx-auto"
                       />
                       <p>New Collection</p>
                     </span>
-                    <img src="images/08.png" class="card-img-top" />
+                    <img src="{{asset('public/frontend/images/08.png')}}" class="card-img-top" />
                     <span class="content">
                       <h6>Clay Kulhad Set of 6</h6>
                       <p>₹899.00</p>
@@ -177,14 +177,12 @@
                       </button>
                     </span>
                     <span class="catbox mx-auto">
-                      <img src="images/cat-icon.png" class="mb-1" />
-                      <img
-                        src="images/top-separator-white.png"
-                        class="img-fluid d-block mx-auto"
+                      <img src="{{ asset('public/frontend/images/cat-icon.png') }}" class="mb-1" />
+                      <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto"
                       />
                       <p>New Collection</p>
                     </span>
-                    <img src="images/09.png" class="card-img-top" />
+                    <img src="{{ asset('public/frontend/images/09.png') }}" class="card-img-top" />
                     <span class="content">
                       <h6>Clay Kulhad Set of 6</h6>
                       <p>₹899.00</p>

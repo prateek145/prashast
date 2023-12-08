@@ -222,7 +222,7 @@
                                         </span>
                                         <span class="catbox mx-auto">
                                             @if ($item->product_subcategory($item->product_subcategories)->icon_image)
-                                            <img src="{{ asset('public/productsubcategory/') .  $item->product_subcategory($item->product_subcategories)->icon_image}}" class="mb-1">
+                                            <img src="{{ asset('public/frontend/images/cat-icon.png') }}" class="mb-1">
                                                 
                                             @else
                                             <img src="{{ asset('public/frontend/images/cat-icon.png') }}" class="mb-1">

@@ -39,14 +39,64 @@
                             </span>
                         @enderror
                         </div>
+                        
+                        <div class="form-outline mb-3">
+                            <input type="text" id="form2Example1" class="form-control @error('pincode') is-invalid @enderror" placeholder="Pincode" />
+                            @error('pincode')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        </div>
+                        
                         <div class="form-outline mb-5">
-                            <textarea class="form-control form-text @error('address') is-invalid @enderror" name="address" placeholder="Address" rows="5"></textarea>
+                            <textarea class="form-control form-text @error('address') is-invalid @enderror" name="address" placeholder="Flat, House no, Buildings, Company, Apartment" rows="5"></textarea>
                             @error('address')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                         </div>
+                        
+                        <div class="form-outline mb-5">
+                            <textarea class="form-control form-text @error('address1') is-invalid @enderror" placeholder="Area, Street, Sector, Villages" rows="5"></textarea>
+                            @error('address1')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        </div>
+                        
+                                               
+                        <div class="form-outline mb-3">
+                            <input type="text" id="form2Example1"  class="form-control @error('landmark') is-invalid @enderror" placeholder="Landmark" />
+                            @error('landmark')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        </div>
+                        
+                                               
+                        <div class="form-outline mb-3">
+                            <input type="text" id="form2Example1"  class="form-control @error('town') is-invalid @enderror" placeholder="Town/City" />
+                            @error('town')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        </div>
+                        
+                                               
+                        <div class="form-outline mb-3">
+                            <input type="text" id="form2Example1" class="form-control @error('city') is-invalid @enderror" placeholder="City" />
+                            @error('city')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        </div>
+                        
                         <!-- Password input -->
                         <div class="form-outline mb-3">
                             <input type="password" id="form2Example2" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Set password" />

@@ -32,7 +32,7 @@
                         <div class="col-md-12">
                             <input type="email" name="email"
                                 class="form-control mb-2 @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}" placeholder="Email" name="">
+                                value="{{ old('email') }}" placeholder="Email or Mobile Number" name="">
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
