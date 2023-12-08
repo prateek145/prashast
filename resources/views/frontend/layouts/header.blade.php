@@ -10,7 +10,7 @@
                     <div class="container-fluid">
                         <a class="navbar-brand d-lg-none logo-link" href="index.html"><img
                                 src="{{ asset('public/frontend/images/Regalia-logo-light.png') }}"
-                                class="img-fluid logo  pt-5" /></a>
+                                class="img-fluid logo  pt-md-5" /></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                             aria-label="Toggle navigation">

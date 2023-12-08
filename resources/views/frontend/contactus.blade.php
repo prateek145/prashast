@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <img src="{{asset('public/frontend/images/cat-icon-dark.png')}}" class="d-block mx-auto">
+                    <img src="{{asset('public/frontend/images/contact us.png')}}" class="d-block mx-auto" width="40px">
                     <img src="{{asset('public/frontend/images/line_separator_01.png')}}" class="my-5">
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="col-lg-4">
                     <h1 class="text-center mb-5">We would love
                         to hear from you!</h1>
-                    <form class="text-center" action="{{ route('contact.us') }}" method="POST">
+                    <form class="text-center form" action="{{ route('contact.us') }}" method="POST">
                         @csrf
                         <div class="mb-3">
 
@@ -42,20 +42,21 @@
                     </form>
                 </div>
                 <div class="col-lg-2 text-center">
-                    <h1 class="text-center mb-5">Reach Us</h1>
+            <h1 class="text-center mb-5">Reach Us</h1>
 
-                    <h4>ADDRESS</h4>
-                    <p>c-98, Gr ound floor,<br>
-                        Sector-10, Noida,<br>
-                        Uttar Pradesh- 201301</p>
+            <!-- <h4>ADDRESS</h4>
+            <p>
+              c-98, Gr ound floor,<br />
+              Sector-10, Noida,<br />
+              Uttar Pradesh- 201301
+            </p> -->
 
-                    <h4>EMAIL</h4>
-                    <p>info@eprashast.co.in</p>
+            <h4>EMAIL</h4>
+            <p>info@prashast.co.in</p>
 
-                    <h4>PHONE</h4>
-                    <p>+91 7982512636</p>
-
-                </div>
+            <h4>PHONE</h4>
+            <p>+91 9625 663737</p>
+          </div>
                 <div class="col-lg-3"></div>
 
 
@@ -65,92 +66,117 @@
                     <img src="{{asset('public/frontend/images/line_separator_01.png')}}" class="my-5">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="mx-auto text-center col-lg-3">
-                    <h5>PLACE BULK ORDER</h5>
-                    <div class="col-lg-12">
-                        <h1 class="text-center mb-5">We would love
-                            to hear from you!</h1>
-                        <form class="text-center" action="{{ route('bulk.order.page.save') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
+             <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="mx-auto text-center col-lg-3">
+            <!-- <h5>PLACE BULK ORDER</h5> -->
+            <button
+              type="submit"
+              class="btn btn-primary text-white shadow"
+              style="background-color: #986633"
+            >
+              Place Bulk Order
+            </button>
+          </div>
+          <div class="mx-auto text-center col-lg-3">
+            <!-- <h5>SCHEDULE A PURCHASE</h5> -->
+            <button
+              type="submit"
+              class="btn btn-primary text-white shadow"
+              style="background-color: #986633"
+            >
+              Schedule a Purchase
+            </button>
+          </div>
+          <div class="col-lg-2"></div>
+        </div>
+      </div>
+            <!--<div class="row">-->
+            <!--    <div class="col-lg-2"></div>-->
+            <!--    <div class="mx-auto text-center col-lg-3">-->
+            <!--        <h5>PLACE BULK ORDER</h5>-->
+            <!--        <div class="col-lg-12">-->
+            <!--            <h1 class="text-center mb-5">We would love-->
+            <!--                to hear from you!</h1>-->
+            <!--            <form class="text-center" action="{{ route('bulk.order.page.save') }}" method="POST">-->
+            <!--                @csrf-->
+            <!--                <div class="mb-3">-->
     
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name *">
+            <!--                    <input type="text" class="form-control" id="name" name="name" placeholder="Name *">-->
     
-                            </div>
-                            <div class="mb-3">
+            <!--                </div>-->
+            <!--                <div class="mb-3">-->
     
-                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject *">
+            <!--                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject *">-->
     
-                            </div>
-                            <div class="mb-3">
+            <!--                </div>-->
+            <!--                <div class="mb-3">-->
     
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email *">
+            <!--                    <input type="email" class="form-control" id="email" name="email" placeholder="Email *">-->
     
-                            </div>
-                            <div class="mb-3">
+            <!--                </div>-->
+            <!--                <div class="mb-3">-->
     
-                                <textarea class="form-control" name="message" placeholder="Message"></textarea>
+            <!--                    <textarea class="form-control" name="message" placeholder="Message"></textarea>-->
     
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="mx-auto text-center col-lg-3">
-                    <h5>SCHEDULE A PURCHASE</h5>
-                    <div class="col-lg-12">
-                        <h1 class="text-center mb-5">We would love
-                            to hear from you!</h1>
-                        <form class="text-center" action="{{ route('schedule.a.purchase') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
+            <!--                </div>-->
+            <!--                <button type="submit" class="btn btn-primary">Submit</button>-->
+            <!--            </form>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--    <div class="mx-auto text-center col-lg-3">-->
+            <!--        <h5>SCHEDULE A PURCHASE</h5>-->
+            <!--        <div class="col-lg-12">-->
+            <!--            <h1 class="text-center mb-5">We would love-->
+            <!--                to hear from you!</h1>-->
+            <!--            <form class="text-center" action="{{ route('schedule.a.purchase') }}" method="POST">-->
+            <!--                @csrf-->
+            <!--                <div class="mb-3">-->
     
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name *">
+            <!--                    <input type="text" class="form-control" id="name" name="name" placeholder="Name *">-->
     
-                            </div>
-                            <div class="mb-3">
+            <!--                </div>-->
+            <!--                <div class="mb-3">-->
     
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email *">
+            <!--                    <input type="email" class="form-control" id="email" name="email" placeholder="Email *">-->
     
-                            </div>
+            <!--                </div>-->
 
-                            <div class="mb-3">
+            <!--                <div class="mb-3">-->
     
-                                <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone *">
+            <!--                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone *">-->
     
-                            </div>
+            <!--                </div>-->
 
-                            <div class="mb-3">
-                                <label for="">Start Date</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date" placeholder="Start *">
+            <!--                <div class="mb-3">-->
+            <!--                    <label for="">Start Date</label>-->
+            <!--                    <input type="date" class="form-control" id="start_date" name="start_date" placeholder="Start *">-->
     
-                            </div>
+            <!--                </div>-->
 
-                            <div class="mb-3">
-                                <label for="">End Date</label>
-                                <input type="date" class="form-control" id="end_date" name="end_date" placeholder="End Date *">
+            <!--                <div class="mb-3">-->
+            <!--                    <label for="">End Date</label>-->
+            <!--                    <input type="date" class="form-control" id="end_date" name="end_date" placeholder="End Date *">-->
     
-                            </div>
+            <!--                </div>-->
 
-                            <div class="mb-3">
+            <!--                <div class="mb-3">-->
     
-                                <textarea class="form-control" name="address" placeholder="Address"></textarea>
+            <!--                    <textarea class="form-control" name="address" placeholder="Address"></textarea>-->
     
-                            </div>
+            <!--                </div>-->
 
-                            <div class="mb-3">
+            <!--                <div class="mb-3">-->
     
-                                <textarea class="form-control" name="message" placeholder="Message"></textarea>
+            <!--                    <textarea class="form-control" name="message" placeholder="Message"></textarea>-->
     
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-2"></div>
-            </div>
+            <!--                </div>-->
+            <!--                <button type="submit" class="btn btn-primary">Submit</button>-->
+            <!--            </form>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--    <div class="col-lg-2"></div>-->
+            <!--</div>-->
 
         </div>
     </section>

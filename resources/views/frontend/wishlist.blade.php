@@ -1,5 +1,10 @@
 @extends('frontend.layouts.app')
 @section('content')
+<style>
+    .line:hover {
+      border: 4px dashed #f0b53f !important;
+    }
+</style>
     <section class="hero-myaccount">
     </section>
     <section class="contact py-5">
@@ -31,9 +36,9 @@
                 <div class="row mt-5">
                     @if (count($products) > 0)
                     @foreach ($products as $item)
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-12 d-flex">
                             <div
-                                class="card w-100 my-2 shadow-2-strong {{ strtolower($item->product_subcategory($item->product_subcategories)->name) ?? 'maati' }}">
+                                class="line card w-100 my-2 shadow-2-strong {{ strtolower($item->product_subcategory($item->product_subcategories)->name) ?? 'maati' }}">
                                 <a class="btn-link product-link">
                                     <span class="wishlst">
                                         <div class="btn-group" role="group" aria-label="Basic example">

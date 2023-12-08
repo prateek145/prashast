@@ -129,31 +129,31 @@ class HomeController extends Controller
 
     public function paytm_payment(Request $request){
 
-        $rules = [
-        'name' => 'required',
-        'email' => 'required|email',
-        // 'phone' => 'required|integer|min:10',
-        'address' => 'required',
-        'country' => 'required',
-        'state' => 'required',
-        // 'pincode' => 'required|integer',
+        // $rules = [
+        // 'name' => 'required',
+        // 'email' => 'required|email',
+        // // 'phone' => 'required|integer|min:10',
+        // 'address' => 'required',
+        // 'country' => 'required',
+        // 'state' => 'required',
+        // // 'pincode' => 'required|integer',
 
-         ];
+        //  ];
 
-         $custommessages = [
-             'name.required' => 'Name is required *',
-             'phone.required' => 'Phone is required *',
-            //  'phone.integer' => 'Phone should be number *',
-             'email.required' => 'Email is required *',
-             'address.required' => 'Address is required *',
-             'country.required' => 'Country is required *',
-             'state.required' => 'State is required *',
-            //  'pincode.required' => 'Pincode is required *',
-            //  'pincode.integer' => 'Phone should be number *',
+        //  $custommessages = [
+        //      'name.required' => 'Name is required *',
+        //      'phone.required' => 'Phone is required *',
+        //     //  'phone.integer' => 'Phone should be number *',
+        //      'email.required' => 'Email is required *',
+        //      'address.required' => 'Address is required *',
+        //      'country.required' => 'Country is required *',
+        //      'state.required' => 'State is required *',
+        //     //  'pincode.required' => 'Pincode is required *',
+        //     //  'pincode.integer' => 'Phone should be number *',
 
-         ];
+        //  ];
      
-         $this->validate($request, $rules, $custommessages);
+        //  $this->validate($request, $rules, $custommessages);
         try {
             //code...
           
