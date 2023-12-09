@@ -232,10 +232,10 @@ class HomeController extends Controller
                 // echo "<pre/>";
     
                 $txn_token = $data['body']['txnToken'];
-                dd('working Testing Credentials', $data);
+                // dd('working Testing Credentials', $data);
                 $userdetails = $request->all();
                 // dd('prateek');
-                dd($txn_token, $order_id, $userdetails, $amount);
+                // dd($txn_token, $order_id, $userdetails, $amount);
                 return view('frontend/paytm', ['token'=>'done', 'txn_token'=>$txn_token, 'userdetails'=>$userdetails, 'order_id'=>$order_id, 'amount'=>$amount]);
         } catch (\Throwable $th) {
             //throw $th;
