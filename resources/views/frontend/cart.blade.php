@@ -13,31 +13,28 @@
                         <span class="badge bg-primary rounded-pill">2</span>
                     </h4>
                     <ul class="list-group mb-3">
+                        @php
+                            $totalprice = 0;
+                        @endphp
+                        @foreach ($products as $key => $value)
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
-                                <h6 class="my-0">Product name</h6>
+                                <h6 class="my-0">{{$value['name']}}</h6>
 
                             </div>
-                            <span class="text-muted">Q</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Second product</h6>
+                            <span class="text-muted">{{$value['quantity']}}</span>
 
-                            </div>
-                            <span class="text-muted">8</span>
+                            <span class="text-muted">{{$value['price']}}</span>
+                            @php
+                                $totalprice += $value['price'];
+                            @endphp
                         </li>
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">Third item</h6>
-
-                            </div>
-                            <span class="text-muted">5</span>
-                        </li>
+                            
+                        @endforeach
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (INR)</span>
-                            <strong>2000</strong>
+                            <strong>{{$totalprice}}</strong>
                         </li>
                     </ul>
 
@@ -49,8 +46,7 @@
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="firstName" class="form-label">Full name</label>
-                                <input type="text" class="form-control" name="name" id="firstName" placeholder="" value=""
-                                    required="">
+                                <input type="text" class="form-control" name="name" id="firstName" value="testing">
                                 <div class="invalid-feedback">
                                     Valid first name is required.
                                 </div>
@@ -67,7 +63,7 @@
                                 <label for="username" class="form-label">Username</label>
                                 <div class="input-group has-validation">
                                     <span class="input-group-text">@</span>
-                                    <input type="text" name="username" class="form-control" id="username" placeholder="Username"
+                                    <input type="text" name="username" class="form-control" id="username" value="username" placeholder="Username"
                                         required="">
                                     <div class="invalid-feedback">
                                         Your username is required.
@@ -77,14 +73,14 @@
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span
                                         class="text-muted">(Optional)</span></label>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com">
+                                <input type="email" name="email" class="form-control" id="email" value="test@gmail.com" placeholder="you@example.com">
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.
                                 </div>
                             </div>
                             <div class="col-12">
                                 <label for="address" class="form-label">Address</label>
-                                <input type="text" name="address" class="form-control" id="address" placeholder="1234 Main St"
+                                <input type="text" name="address" class="form-control" id="address" value="1234 Main St" placeholder="1234 Main St"
                                     required="">
                                 <div class="invalid-feedback">
                                     Please enter your shipping address.
@@ -93,13 +89,12 @@
                             <div class="col-12">
                                 <label for="address2" class="form-label">Address 2 <span
                                         class="text-muted">(Optional)</span></label>
-                                <input type="text" name="address2" class="form-control" id="address2" placeholder="Apartment or suite">
+                                <input type="text" name="address2" class="form-control" id="address2" value="Apartment or suite" placeholder="Apartment or suite">
                             </div>
                             <div class="col-md-5">
                                 <label for="country" class="form-label">Country</label>
                                 <select class="form-select" name="country" id="country" required="">
-                                    <option value="">Choose...</option>
-                                    <option>United States</option>
+                                    <option value="us" selected>United States</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select a valid country.
@@ -108,8 +103,7 @@
                             <div class="col-md-4">
                                 <label for="state" class="form-label">State</label>
                                 <select class="form-select" name="state" id="state" required="">
-                                    <option value="">Choose...</option>
-                                    <option>California</option>
+                                    <option value="california" selected>California</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please provide a valid state.
@@ -117,7 +111,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="zip" class="form-label">Zip</label>
-                                <input type="text" name="zip" class="form-control" id="zip" placeholder=""
+                                <input type="text" name="zip" class="form-control" id="zip" value="110059" placeholder=""
                                     required="">
                                 <div class="invalid-feedback">
                                     Zip code required.

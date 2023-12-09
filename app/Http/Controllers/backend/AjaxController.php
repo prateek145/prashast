@@ -55,6 +55,7 @@ class AjaxController extends Controller
                 if ($variance->sale_price != null) {
                     # code...
                     $cart['variable' . $variance->id] = [
+                        "id" => $product->id,
                         "name" => $product->name,
                         "quantity" => $request->qty,
                         "price" => $variance->sale_price,
@@ -63,6 +64,7 @@ class AjaxController extends Controller
                     ];
                 } else {
                     $cart['variable' . $variance->id] = [
+                        "id" => $product->id,
                         "name" => $product->name,
                         "quantity" => $request->qty,
                         "price" => $variance->sale_price,
@@ -89,6 +91,7 @@ class AjaxController extends Controller
                 if ($product->sale_price != null) {
                     # code...
                     $cart['simple' . $product->id] = [
+                        "id" => $product->id,
                         "name" => $product->name,
                         "quantity" => $request->qty,
                         "price" => $product->sale_price,
@@ -97,6 +100,7 @@ class AjaxController extends Controller
                     ];
                 } else {
                     $cart['simple' . $product->id] = [
+                        "id" => $product->id,
                         "name" => $product->name,
                         "quantity" => $request->qty,
                         "price" => $product->regular_price,
@@ -238,23 +242,42 @@ class AjaxController extends Controller
             $cart[$id] = $deatils;
         }
         session()->put('cart', $cart);
-        return response()->json(['result' => 'success']);
+        return redirect()->back()->with('showcart', 'true');
+        // return response()->json(['result' => 'success']);
     }
 
     public function remove_qty_cart(Request $request)
     {
         $cart = session()->get('cart');
-        foreach ($cart as $id => $deatils) {
-            if ($deatils['sku'] == $request->sku) {
-                # code...
-                $val = $deatils['quantity'];
-                $val--;
-                $deatils['quantity'] = $val;
+        // dd($request->all());
+        if ($request->quantity <= 1) {
+            # code...
+            $cart = session()->get('cart');
+            foreach ($cart as $id => $deatils) {
+                if ($deatils['sku'] == $request->sku) {
+                    # code...
+                    unset($cart[$id]);
+                }
             }
-            $cart[$id] = $deatils;
+            session()->put('cart', $cart);
+            return redirect()->back()->with('showcart', 'true');
+        } else {
+            # code...
+            foreach ($cart as $id => $deatils) {
+                if ($deatils['sku'] == $request->sku) {
+                    # code...
+                    $val = $deatils['quantity'];
+                    $val--;
+                    $deatils['quantity'] = $val;
+                }
+                $cart[$id] = $deatils;
+            }
+            session()->put('cart', $cart);
         }
-        session()->put('cart', $cart);
-        return response()->json(['result' => 'success']);
+        
+        return redirect()->back()->with('showcart', 'true');
+
+        // return response()->json(['result' => 'success']);
     }
 
     public function remove_cart(Request $request)
@@ -267,7 +290,9 @@ class AjaxController extends Controller
             }
         }
         session()->put('cart', $cart);
-        return response()->json(['result' => 'success']);
+        return redirect()->back()->with('showcart', 'true');
+
+        // return response()->json(['result' => 'success']);
     }
 
     public function remove_wishlist(Request $request)

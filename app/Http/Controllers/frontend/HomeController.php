@@ -124,6 +124,7 @@ class HomeController extends Controller
     public function cart()
     {
         $products = session()->get('cart');
+        // dd($products);
         return view('frontend.cart', compact('products' ));
     }
 
@@ -157,22 +158,22 @@ class HomeController extends Controller
         try {
             //code...
           
+            // dd($request->all());
             session()->put('userdetails', $request->all());
             $currentTime = time();
-            // dd($request->all());
     
-            $environment    = "PROD";
+            $environment    = "TEST";
             $mid="BZktXB05180965204710";
             $order_id="ORDER_".time();
             $PAYTM_MERCHANT_KEY="VM60ziBspua&p%lk";
             $WEBSITE="WEBSTAGING";
-            $amount = $request->subtotal;
+            $amount = 1;
            
-            
+          
             // $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"amount":"1.00","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
             $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"value":"'. $amount .'","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
             
-            
+    
             $Checksumhash = self::generateSignature($chbody,$PAYTM_MERCHANT_KEY);
             
             $Checksumhash = '"'.$Checksumhash.'"';
@@ -231,6 +232,7 @@ class HomeController extends Controller
                 // echo "<pre/>";
     
                 $txn_token = $data['body']['txnToken'];
+                dd('prateek', $data);
                 $userdetails = $request->all();
                 // dd('prateek');
                 dd($txn_token, $order_id, $userdetails, $amount);

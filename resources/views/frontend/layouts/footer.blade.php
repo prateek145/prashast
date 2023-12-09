@@ -23,15 +23,15 @@
             <div class="col-lg-4">
                 <ul class="footlink text-center text-lg-start">
                     <li>
-                        <a href="{{route('frontend.home')}}">Home</a>
+                        <a style="color: #6e6e6e;" href="{{ route('frontend.home') }}">Home</a>
                     </li>
                     <li>
-                        <a href="{{ route('dynamic.page', 'about-prashast') }}">
+                        <a style="color: #6e6e6e;" href="{{ route('dynamic.page', 'about-prashast') }}">
                             About us
                         </a>
                     </li>
-                    <li> <a href="{{ route('shop.page') }}">Shop</a> </li>
-                    <li> <a href="{{ route('frontend.contact') }}">Contact Us</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('shop.page') }}">Shop</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('frontend.contact') }}">Contact Us</a> </li>
                 </ul>
                 <ul class="footlink text-center text-lg-start">
                     <li>Disclaimer</li>
@@ -49,15 +49,12 @@
                 <ul class="footlink text-center text-lg-end">
                     {{-- <li>Cart</li> --}}
                     @if (auth()->user())
-                    <form action="{{ route('logout') }}" method="post" style="margin-left: 10%;">
-                        @csrf
-                        <button class="btn btn-danger btn-xs"
-                            style="background-color:#030303"> Logout</button>
-                    </form>
-                        
+                        <form action="{{ route('logout') }}" method="post" style="margin-left: 10%;">
+                            @csrf
+                            <button class="btn btn-danger btn-xs" style="background-color:#6e6e6e"> Logout</button>
+                        </form>
                     @else
-                    <li> <a href="{{route('login')}}">Sign in</a> </li>
-                        
+                        <li> <a style="color: #6e6e6e;" href="{{ route('login') }}">Sign in</a> </li>
                     @endif
                 </ul>
                 <div class="d-none d-lg-block w-100 min-height-60">
@@ -84,8 +81,9 @@
     <button class="cart-btn btn btn-primary" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="bi bi-cart3"></i>
         Cart</button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasWithBackdrop"
-        aria-labelledby="offcanvasWithBackdropLabel">
+ 
+    <div class="offcanvas offcanvas-end {{session()->get('showcart') == 'true' ? 'show':''}}" tabindex="-1"
+        id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">Shopping Cart</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -113,16 +111,31 @@
                             <td>{{ $value['price'] }}</td>
                             <td><input type="number" value="{{ $value['quantity'] }}" min=1 class="form-control" />
                                 <div class="input-group-btn-vertical">
-                                    <button class="btn btn-default" onclick="add('add', '{{ $value['sku'] }}')"><i
-                                            class="fas fa-angle-up"></i></button>
-                                    <button class="btn btn-default" onclick="remove('remove', '{{ $value['sku'] }}')"><i
-                                            class="fas fa-angle-down"></i></button>
+                                    <form action="{{ route('add.qty.cart') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" value="{{$value['sku']}}" name="sku">
+                                        <button class="btn btn-default" type="submit">++</button>
+
+                                    </form>
+                                    <form action="{{ route('remove.qty.cart') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" value="{{$value['sku']}}" name="sku">
+                                        <input type="hidden" value="{{ $value['quantity'] }}" name="quantity">
+                                        <button class="btn btn-default" type="submit">--</button>
+
+                                    </form>
                                 </div>
 
                             </td>
                             <td>{{ $value['price'] * $value['quantity'] }}</td>
-                            <td><button class="btn bg-light"
-                                    onclick="delete1('delete', '{{ $value['sku'] }}')">X</button></td>
+                            <td>
+                                <form action="{{route('remove.cart')}}" method="post">
+                                @csrf
+                                <input type="hidden" value="{{ $value['sku'] }}" name="sku">
+                                <button class="btn bg-light" >X</button>
+
+                                </form>
+                            </td>
                         </tr>
                         @php
                             $final_total += $value['price'] * $value['quantity'];
