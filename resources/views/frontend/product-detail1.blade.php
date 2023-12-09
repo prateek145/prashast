@@ -104,7 +104,7 @@
             <div class="row">
               <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
                 <div class="card w-100 my-2 shadow-2-strong maati">
-                  <a href="product.html" class="btn-link product-link">
+                  <a href="#" class="btn-link product-link">
                     <span class="wish">
                       <button
                         type="button"
@@ -134,7 +134,7 @@
               </div>
               <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
                 <div class="card w-100 my-2 shadow-2-strong maati">
-                  <a href="product.html" class="btn-link product-link">
+                  <a href="#" class="btn-link product-link">
                     <span class="wish">
                       <button
                         type="button"
