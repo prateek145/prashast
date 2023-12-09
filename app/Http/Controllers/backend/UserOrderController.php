@@ -5,8 +5,6 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\backend\Order;
 use Illuminate\Http\Request;
-use App\Models\backend\ProductSubcategory;
-
 
 class UserOrderController extends Controller
 {
@@ -22,8 +20,7 @@ class UserOrderController extends Controller
             $user = auth()->user();
             $user_order = $user->orders()->get();
             $no = 1;
-            $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
-            return view('backend.userorders.index', compact('user_order', 'no', 'sub_categories'));
+            return view('backend.userorders.index', compact('user_order', 'no'));
         } catch (\Exception $e) {
             //throw $th;
             return redirect()->back()->with('error', $e->getMessage());

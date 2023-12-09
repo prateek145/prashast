@@ -403,8 +403,9 @@ class HomeController extends Controller
 
     public function user_orders()
     {
+        $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
         $orders = Order::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
-        return view('frontend/orders', compact('orders'));
+        return view('frontend/orders', compact('orders', 'sub_categories'));
     }
 
     public function schedule_purchase(){
