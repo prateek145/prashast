@@ -141,7 +141,7 @@
                     <div class="row mt-5">
                         <div class="col-12 col-lg-2 align-self-center">
                             <h6>1.</h6>
-                            <img src="{{ asset('public/frontend/' . $value->image) }}" class="img-fluid">
+                            <img src="{{ asset('public/frontend/images/product.png') }}" class="img-fluid">
                         </div>
                         <div class="col-12 col-lg-4 align-self-center">
                             <h3>{{$value->name}}</h3>
