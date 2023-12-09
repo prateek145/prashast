@@ -232,7 +232,7 @@ class HomeController extends Controller
                 // echo "<pre/>";
     
                 $txn_token = $data['body']['txnToken'];
-                dd('prateek', $data);
+                dd('working Testing Credentials', $data);
                 $userdetails = $request->all();
                 // dd('prateek');
                 dd($txn_token, $order_id, $userdetails, $amount);
