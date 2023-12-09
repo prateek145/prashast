@@ -137,7 +137,7 @@
                         $order_deatails = json_decode($item->product_details);
                     @endphp
 
-                    @foreach ($collection as $item => $value)
+                    @foreach ($order_deatails as $item1 => $value)
                     <div class="row mt-5">
                         <div class="col-12 col-lg-2 align-self-center">
                             <h6>1.</h6>
