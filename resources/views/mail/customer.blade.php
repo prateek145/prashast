@@ -36,7 +36,7 @@ tr:nth-child(even) {
     <div>
         Order Id : {{ $order['order_id'] }}<br>
         Total Amount : {{ $order['amount'] }}<br>
-        Bill Download link : {{url('download-bill', $order->order_id)}} 
+        {{-- Bill Download link : {{url('download-bill', $order->order_id)}}  --}}
     </div>
 
     <div >
