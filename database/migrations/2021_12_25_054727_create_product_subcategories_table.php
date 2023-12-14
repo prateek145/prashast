@@ -22,7 +22,7 @@ class CreateProductSubcategoriesTable extends Migration
             $table->longText('description')->nullable();
             $table->string('featured_image')->nullable();
             $table->string('icon_image')->nullable();
-            $table->string('background_image')->nullable();
+            $table->string('dark_icon')->nullable();
             $table->string('icon')->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();

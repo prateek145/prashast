@@ -215,7 +215,7 @@
                             {{-- {{dd($item->product_subcategory($item->product_subcategories))}} --}}
                             <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
                                 <div
-                                    class="card w-100 my-2 shadow-2-strong line {{ strtolower($item->product_subcategory($item->product_subcategories)->name) ?? 'maati' }}">
+                                    class="card w-100 my-2 shadow-2-strong line {{ strtolower($item->product_subcategory($item->product_subcategories)->name) == 'kala' ? 'zevar' : strtolower($item->product_subcategory($item->product_subcategories)->name)}}">
                                     <a class="btn-link product-link" href="{{ route('product.detail', $item->slug) }}">
                                         @php
                                             $pro = \App\Models\wishlist::where(['product_id' => $item->id, 'user_id' => auth()->id()])->first();

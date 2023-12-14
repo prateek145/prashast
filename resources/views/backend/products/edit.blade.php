@@ -195,7 +195,7 @@
                         @endif
                         <div class="form-group">
                             <label for="control-label font-weight-bold">Image</label>
-                            <input class="form-control" id="featuredimage" name="image" type="file" required />
+                            <input class="form-control" id="featuredimage" name="image" type="file" />
                             @error('image')
                                 <label id="image-error" class="error text-danger" for="image">{{ $message }}</label>
                             @enderror

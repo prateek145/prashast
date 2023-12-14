@@ -60,6 +60,17 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="control-label font-weight-bold">Icon Image</label>
+                            <input class="form-control" name="dark_icon" type="file" required />
+                            @error('dark_icon')
+                                <label id="dark_icon-error" class="error text-danger"
+                                    for="dark_icon">{{ $message }}</label>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
 
 

@@ -14,9 +14,9 @@
 
                     <div id="carouselExampleIndicatorsf" class="carousel slide d-flex">
                         <div class="carousel-indicators">
-                            @foreach (json_decode($product->featured_image) as $item)
-                                <button type="button" data-bs-target="#carouselExampleIndicatorsf" data-bs-slide-to="0"
-                                    class="active" aria-current="true" aria-label="Slide 1"><img
+                            @foreach (json_decode($product->featured_image) as $key => $item)
+                                <button type="button" data-bs-target="#carouselExampleIndicatorsf" data-bs-slide-to="{{$key}}"
+                                    class="active" aria-current="true" aria-label="Slide {{$key + 1}}"><img
                                         src="{{ asset('public/product/' . $item) }}" class="d-block" style="width:100px"
                                         alt=""></button>
                             @endforeach
@@ -42,7 +42,12 @@
                 </div>
                 <div class="col-lg-7  mt-5 mt-lg-auto">
 
-                    <img src="{{ asset('public/frontend/images/cat-icon-dark.png') }}" class="d-block kulhad-icon">
+                    @if ($product->product_subcategory($product->product_subcategories)->name)
+                        <img src="{{ asset('public/productsubcategory/' . $product->product_subcategory($product->product_subcategories)->dark_icon) }}"
+                            class="d-block kulhad-icon">
+                    @else
+                        <img src="{{ asset('public/frontend/images/cat-icon-dark.png') }}" class="d-block kulhad-icon">
+                    @endif
                     <img src="{{ asset('public/frontend/images/line_separator_01.png') }}">
                     <h6>New Collection</h6>
                     @php
@@ -108,8 +113,7 @@
                                             </button>
                                         </span>
                                         <span class="catbox mx-auto">
-                                            <img src="{{ asset('public/frontend/images/cat-icon.png') }}" class="mb-1" />
-                                            <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            <img src="{{ asset('public/productsubcategory/' . $item->product_subcategory($item->product_subcategories)->icon_image) }}"
                                                 class="img-fluid d-block mx-auto" />
                                             <p>New Collection</p>
                                         </span>

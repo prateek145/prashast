@@ -89,6 +89,18 @@ class ProductSubcategoryController extends Controller
             $data['icon_image'] = $filename;
         }
 
+        if ($request->dark_icon) {
+            # code...
+            $image = $request->dark_icon;
+            $filename = rand() . $image->getClientoriginalName();
+            // dd($filename);
+            // $image_resize = Image::make($image->getRealPath());
+            // $image_resize->resize(400, 400);
+            $destination_path = public_path('/productsubcategory');
+            $image->move($destination_path, $filename);
+            $data['dark_icon'] = $filename;
+        }
+
         $data['slug'] = Str::slug($request->name);
         unset($data['_token']);
         ProductSubcategory::create($data);
@@ -191,6 +203,18 @@ class ProductSubcategoryController extends Controller
             $destination_path = public_path('/productsubcategory');
             $image->move($destination_path, $filename);
             $data['icon_image'] = $filename;
+        }
+
+        if ($request->dark_icon) {
+            # code...
+            $image = $request->dark_icon;
+            $filename = rand() . $image->getClientoriginalName();
+            // dd($filename);
+            // $image_resize = Image::make($image->getRealPath());
+            // $image_resize->resize(400, 400);
+            $destination_path = public_path('/productsubcategory');
+            $image->move($destination_path, $filename);
+            $data['dark_icon'] = $filename;
         }
         $data['slug'] = Str::slug($request->name);
         $productcategories->update($data);

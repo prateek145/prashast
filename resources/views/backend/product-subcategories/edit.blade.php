@@ -94,6 +94,25 @@
                         </div>
                     </div>
 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @if ($productcategories->dark_icon != null)
+                                
+                                <img src="{{ asset('public/productsubcategory/' . $productcategories->dark_icon) }}" alt=""
+                                    width="90%" height="90%" class="p-5">
+    
+                            @else
+                                <h4>Dark icon is not available</h4>
+                            @endif
+                            <label for="control-label font-weight-bold">Dark icon</label>
+                            <input class="form-control" name="dark_icon" type="file" />
+                            @error('dark_icon')
+                                <label id="dark_icon-error" class="error text-danger"
+                                    for="dark_icon">{{ $message }}</label>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
 
 
