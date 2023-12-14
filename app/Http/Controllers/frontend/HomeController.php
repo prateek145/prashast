@@ -54,24 +54,23 @@ class HomeController extends Controller
             $categroy = ProductCategories::find(1);
             $products1 = Product::where('status', 1)->get();
             $productids = [];
-            for ($i=0; $i <count($products1) ; $i++) { 
+            for ($i = 0; $i < count($products1); $i++) {
                 # code...
                 $product = Json_decode($products1[$i]->product_categories);
                 if (in_array($categroy->id, $product)) {
                     # code...
                     array_push($productids, $products1[$i]->id);
                 }
-            }    
+            }
             $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
             $products = Product::whereIn('id', $productids)->get();
             return view('frontend.dynamic_subcat', compact('products', 'sub_categories'));
-
         } else {
             # code...
             $subcategory = ProductSubcategory::where('slug', $slug)->first();
             $products1 = Product::where('status', 1)->get();
             $productids = [];
-            for ($i=0; $i <count($products1) ; $i++) { 
+            for ($i = 0; $i < count($products1); $i++) {
                 # code...
                 $product = Json_decode($products1[$i]->product_subcategories);
                 if (in_array($subcategory->id, $product)) {
@@ -83,7 +82,6 @@ class HomeController extends Controller
             $products = Product::whereIn('id', $productids)->get();
             return view('frontend.dynamic_subcat', compact('products', 'subcategory', 'sub_categories'));
         }
-        
     }
 
     public function product_detail($slug)
@@ -124,11 +122,17 @@ class HomeController extends Controller
     public function cart()
     {
         $products = session()->get('cart');
-        // dd($products);
-        return view('frontend.cart', compact('products' ));
+        if ($products) {
+            // dd($products);
+            return view('frontend.cart', compact('products'));
+        } else {
+            # code...
+            return redirect()->back('error', 'Add Product In Cart');
+        }
     }
 
-    public function paytm_payment(Request $request){
+    public function paytm_payment(Request $request)
+    {
 
         // $rules = [
         // 'name' => 'required',
@@ -153,99 +157,100 @@ class HomeController extends Controller
         //     //  'pincode.integer' => 'Phone should be number *',
 
         //  ];
-     
+
         //  $this->validate($request, $rules, $custommessages);
         try {
             //code...
-          
+
             // dd($request->all());
             session()->put('userdetails', $request->all());
             $currentTime = time();
-    
+
             $environment    = "PROD";
-            $mid="BZktXB05180965204710";
-            $order_id="ORDER_".time();
-            $PAYTM_MERCHANT_KEY="VM60ziBspua&p%lk";
-            $WEBSITE="WEBSTAGING";
+            $mid = "BZktXB05180965204710";
+            $order_id = "ORDER_" . time();
+            $PAYTM_MERCHANT_KEY = "VM60ziBspua&p%lk";
+            $WEBSITE = "WEBSTAGING";
             $amount = 1;
-           
-          
+
+
             // $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"amount":"1.00","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
-            $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"value":"'. $amount .'","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/Stagging/paytm-done"}}';
-            
-    
-            $Checksumhash = self::generateSignature($chbody,$PAYTM_MERCHANT_KEY);
-            
-            $Checksumhash = '"'.$Checksumhash.'"';
-            
-            
+            $chbody = '{"requestType":"Payment","mid":"' . $mid . '","orderId":"' . $order_id . '","websiteName":"' . $WEBSITE . '","txnAmount":{"value":"' . $amount . '","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/Stagging/paytm-done"}}';
+
+
+            $Checksumhash = self::generateSignature($chbody, $PAYTM_MERCHANT_KEY);
+
+            $Checksumhash = '"' . $Checksumhash . '"';
+
+
             $body = '{
             "head":{
                "clientId":"C11",
-               "signature":'.$Checksumhash.'
+               "signature":' . $Checksumhash . '
             },
-            "body":'.$chbody.'
+            "body":' . $chbody . '
             }';
-            
-            
-            
+
+
+
             $header = array('Content-Type:application/json');
-            
-            if($environment == "TEST")
-            $url = "https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid=$mid&orderId=$order_id";
-            if($environment == "PROD") {
-            $url = "https://securegw.paytm.in/theia/api/v1/initiateTransaction?mid=$mid&orderId=$order_id";
+
+            if ($environment == "TEST")
+                $url = "https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid=$mid&orderId=$order_id";
+            if ($environment == "PROD") {
+                $url = "https://securegw.paytm.in/theia/api/v1/initiateTransaction?mid=$mid&orderId=$order_id";
             }
-            
-            
+
+
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return the output in string format
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);     
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);   
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-            $output = curl_exec ($ch); // execute
-                $info = curl_getinfo($ch);
-            
-                $data = json_decode($output, true);
-                // dd($data);
-                // echo "<pre/>";
-                // echo "URL:  ";
-                // //echo "<pre/>";
-                // echo $url;
-                // echo "<pre/>";
-                // echo "HEADER:  ";
-                // echo "<pre/>";
-                // print_r($header);
-                // echo "<pre/>";
-                // echo "REQUEST:";  
-                // //echo $data_string;
-                // echo "<pre/>";
-                // echo wordwrap($body,150, "\n",true);
-                // echo "<pre/>";
-                // echo "RESPONSE:";
-                // echo "<pre/>";
-                // echo $output;
-                // echo "<pre/>";
-                // print_r($data);
-                // echo "<pre/>";
-    
-                $txn_token = $data['body']['txnToken'];
-                // dd('working Testing Credentials', $data);
-                $userdetails = $request->all();
-                // dd('prateek');
-                // dd($txn_token, $order_id, $userdetails, $amount);
-                return view('frontend/paytm', ['token'=>'done', 'txn_token'=>$txn_token, 'userdetails'=>$userdetails, 'order_id'=>$order_id, 'amount'=>$amount]);
+            $output = curl_exec($ch); // execute
+            $info = curl_getinfo($ch);
+
+            $data = json_decode($output, true);
+            // dd($data);
+            // echo "<pre/>";
+            // echo "URL:  ";
+            // //echo "<pre/>";
+            // echo $url;
+            // echo "<pre/>";
+            // echo "HEADER:  ";
+            // echo "<pre/>";
+            // print_r($header);
+            // echo "<pre/>";
+            // echo "REQUEST:";  
+            // //echo $data_string;
+            // echo "<pre/>";
+            // echo wordwrap($body,150, "\n",true);
+            // echo "<pre/>";
+            // echo "RESPONSE:";
+            // echo "<pre/>";
+            // echo $output;
+            // echo "<pre/>";
+            // print_r($data);
+            // echo "<pre/>";
+
+            $txn_token = $data['body']['txnToken'];
+            // dd('working Testing Credentials', $data);
+            $userdetails = $request->all();
+            // dd('prateek');
+            // dd($txn_token, $order_id, $userdetails, $amount);
+            return view('frontend/paytm', ['token' => 'done', 'txn_token' => $txn_token, 'userdetails' => $userdetails, 'order_id' => $order_id, 'amount' => $amount]);
         } catch (\Throwable $th) {
             //throw $th;
             return redirect()->back($th->getMessage());
         }
     }
 
-    public function paytm_done(Request $request){
+    public function paytm_done(Request $request)
+    {
         // dd($request->all(), session()->get('userdetails'));
-        
+
         if ($request->STATUS == 'TXN_SUCCESS') {
             # code...
             if (auth()->user()) {
@@ -265,18 +270,18 @@ class HomeController extends Controller
                 $data['order_id'] = $order_id;
                 $data['user_id'] = auth()->id();
                 $orders1 = Order::create($data);
-                Mail::send('mail.customer', ['order' => $orders1 ], function ($message) use ($data) {
+                Mail::send('mail.customer', ['order' => $orders1], function ($message) use ($data) {
                     $message->sender(env('MAILFROM'), 'Donatofy');
                     $message->subject('Purchase');
                     $message->to($data['email']);
                 });
-        
+
                 Mail::send('mail.admin', ['cdetails' => $data, 'pdetails' => json_decode($pdetails, true)], function ($message) {
                     $message->sender(env('MAILFROM'), 'Donatofy');
                     $message->subject('Purchase');
                     $message->to(env('ADMINMAIL'));
                 });
-        
+
                 // dd('auth');
                 session()->flush('cart');
                 session()->flush('userdetails');
@@ -297,27 +302,24 @@ class HomeController extends Controller
                 $data['order_id'] = $order_id;
                 // dd($data);
                 $orders1 = Order::create($data);
-                Mail::send('mail.customer', ['order' => $orders1 ], function ($message) use ($data) {
+                Mail::send('mail.customer', ['order' => $orders1], function ($message) use ($data) {
                     $message->sender(env('MAILFROM'), 'Donatofy');
                     $message->subject('Purchase');
                     $message->to($data['email']);
                 });
-        
+
                 Mail::send('mail.admin', ['cdetails' => $data, 'pdetails' => json_decode($pdetails, true)], function ($message) {
                     $message->sender(env('MAILFROM'), 'Donatofy');
                     $message->subject('Purchase');
                     $message->to(env('ADMINMAIL'));
                 });
-        
+
                 // dd('guest');
                 session()->flush('cart');
                 session()->flush('userdetails');
                 return redirect('frontend.home')->with('success', 'Payment done Please Check Your Email');
             }
-            
-
-
-        }else {
+        } else {
             return redirect()->back()->with('error', 'Payment Failed.');
         }
     }
@@ -389,7 +391,7 @@ class HomeController extends Controller
         $data['product_details'] = json_encode($request->product_details);
         // dd($data);
         $orders1 = Order::create($data);
-        Mail::send('mail.customer', ['order' => $orders1 ], function ($message) use ($data) {
+        Mail::send('mail.customer', ['order' => $orders1], function ($message) use ($data) {
             $message->sender(env('MAILFROM'), 'Donatofy');
             $message->subject('Purchase');
             $message->to($data['email']);
@@ -412,11 +414,13 @@ class HomeController extends Controller
         return view('frontend/orders', compact('orders', 'sub_categories'));
     }
 
-    public function schedule_purchase(){
+    public function schedule_purchase()
+    {
         return view('frontend.scheduleapurchase');
     }
 
-    public function schedule_a_purchase(Request $request){
+    public function schedule_a_purchase(Request $request)
+    {
         $data = $request->all();
         unset($data['_token']);
         // dd($data);
@@ -424,27 +428,28 @@ class HomeController extends Controller
         return redirect()->back()->with('success', 'Your message was sent successfully! We will be in touch as soon as We can !');
     }
 
-    public function categories(){
+    public function categories()
+    {
         $categories = ProductCategories::all();
         // dd($categories);
         return view('frontend.categories', compact('categories'));
     }
 
-    public function password_change(Request $request){
+    public function password_change(Request $request)
+    {
         // dd($request->all());
         $user = User::where('email', $request->email)->first();
         if ($user) {
             # code...
-            return response()->json(['user'=>'found']);
+            return response()->json(['user' => 'found']);
         } else {
             # code...
-            return response()->json(['user'=>'notfound']);
-
+            return response()->json(['user' => 'notfound']);
         }
-        
     }
 
-    public function password_change1(Request $request){
+    public function password_change1(Request $request)
+    {
         // dd($request->all());
 
         if ($request->password != '') {
@@ -453,14 +458,11 @@ class HomeController extends Controller
             $password = Hash::make($request->password);
             $user->password = $password;
             $user->save();
-            return response()->json(['result'=>'done']);
+            return response()->json(['result' => 'done']);
         } else {
             # code...
-            return response()->json(['result'=>'empty']);
-
+            return response()->json(['result' => 'empty']);
         }
-        
-        
     }
 
 
@@ -470,119 +472,131 @@ class HomeController extends Controller
 
     private static $iv = "@@@@&&&&####$$$$";
 
-	static public function encrypt($input, $key) {
-		$key = html_entity_decode($key);
+    static public function encrypt($input, $key)
+    {
+        $key = html_entity_decode($key);
 
-		if(function_exists('openssl_encrypt')){
-			$data = openssl_encrypt ( $input , "AES-128-CBC" , $key, 0, self::$iv );
-		} else {
-			$size = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, 'cbc');
-			$input = self::pkcs5Pad($input, $size);
-			$td = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', 'cbc', '');
-			mcrypt_generic_init($td, $key, self::$iv);
-			$data = mcrypt_generic($td, $input);
-			mcrypt_generic_deinit($td);
-			mcrypt_module_close($td);
-			$data = base64_encode($data);
-		}
-		return $data;
-	}
+        if (function_exists('openssl_encrypt')) {
+            $data = openssl_encrypt($input, "AES-128-CBC", $key, 0, self::$iv);
+        } else {
+            $size = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, 'cbc');
+            $input = self::pkcs5Pad($input, $size);
+            $td = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', 'cbc', '');
+            mcrypt_generic_init($td, $key, self::$iv);
+            $data = mcrypt_generic($td, $input);
+            mcrypt_generic_deinit($td);
+            mcrypt_module_close($td);
+            $data = base64_encode($data);
+        }
+        return $data;
+    }
 
-	static public function decrypt($encrypted, $key) {
-		$key = html_entity_decode($key);
-		
-		if(function_exists('openssl_decrypt')){
-			$data = openssl_decrypt ( $encrypted , "AES-128-CBC" , $key, 0, self::$iv );
-		} else {
-			$encrypted = base64_decode($encrypted);
-			$td = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', 'cbc', '');
-			mcrypt_generic_init($td, $key, self::$iv);
-			$data = mdecrypt_generic($td, $encrypted);
-			mcrypt_generic_deinit($td);
-			mcrypt_module_close($td);
-			$data = self::pkcs5Unpad($data);
-			$data = rtrim($data);
-		}
-		return $data;
-	}
+    static public function decrypt($encrypted, $key)
+    {
+        $key = html_entity_decode($key);
 
-	static public function generateSignature($params, $key) {
-		if(!is_array($params) && !is_string($params)){
-			throw new \Exception("string or array expected, ".gettype($params)." given");			
-		}
-		if(is_array($params)){
-			$params = self::getStringByParams($params);			
-		}
-		return self::generateSignatureByString($params, $key);
-	}
+        if (function_exists('openssl_decrypt')) {
+            $data = openssl_decrypt($encrypted, "AES-128-CBC", $key, 0, self::$iv);
+        } else {
+            $encrypted = base64_decode($encrypted);
+            $td = mcrypt_module_open(MCRYPT_RIJNDAEL_128, '', 'cbc', '');
+            mcrypt_generic_init($td, $key, self::$iv);
+            $data = mdecrypt_generic($td, $encrypted);
+            mcrypt_generic_deinit($td);
+            mcrypt_module_close($td);
+            $data = self::pkcs5Unpad($data);
+            $data = rtrim($data);
+        }
+        return $data;
+    }
 
-	static public function verifySignature($params, $key, $checksum){
-		if(!is_array($params) && !is_string($params)){
-			throw new \Exception("string or array expected, ".gettype($params)." given");
-		}
-		if(isset($params['CHECKSUMHASH'])){
-			unset($params['CHECKSUMHASH']);
-		}
-		if(is_array($params)){
-			$params = self::getStringByParams($params);
-		}		
-		return self::verifySignatureByString($params, $key, $checksum);
-	}
+    static public function generateSignature($params, $key)
+    {
+        if (!is_array($params) && !is_string($params)) {
+            throw new \Exception("string or array expected, " . gettype($params) . " given");
+        }
+        if (is_array($params)) {
+            $params = self::getStringByParams($params);
+        }
+        return self::generateSignatureByString($params, $key);
+    }
 
-	static private function generateSignatureByString($params, $key){
-		$salt = self::generateRandomString(4);
-		return self::calculateChecksum($params, $key, $salt);
-	}
+    static public function verifySignature($params, $key, $checksum)
+    {
+        if (!is_array($params) && !is_string($params)) {
+            throw new \Exception("string or array expected, " . gettype($params) . " given");
+        }
+        if (isset($params['CHECKSUMHASH'])) {
+            unset($params['CHECKSUMHASH']);
+        }
+        if (is_array($params)) {
+            $params = self::getStringByParams($params);
+        }
+        return self::verifySignatureByString($params, $key, $checksum);
+    }
 
-	static private function verifySignatureByString($params, $key, $checksum){
-		$paytm_hash = self::decrypt($checksum, $key);
-		$salt = substr($paytm_hash, -4);
-		return $paytm_hash == self::calculateHash($params, $salt) ? true : false;
-	}
+    static private function generateSignatureByString($params, $key)
+    {
+        $salt = self::generateRandomString(4);
+        return self::calculateChecksum($params, $key, $salt);
+    }
 
-	static private function generateRandomString($length) {
-		$random = "";
-		srand((double) microtime() * 1000000);
+    static private function verifySignatureByString($params, $key, $checksum)
+    {
+        $paytm_hash = self::decrypt($checksum, $key);
+        $salt = substr($paytm_hash, -4);
+        return $paytm_hash == self::calculateHash($params, $salt) ? true : false;
+    }
 
-		$data = "9876543210ZYXWVUTSRQPONMLKJIHGFEDCBAabcdefghijklmnopqrstuvwxyz!@#$&_";	
+    static private function generateRandomString($length)
+    {
+        $random = "";
+        srand((float) microtime() * 1000000);
 
-		for ($i = 0; $i < $length; $i++) {
-			$random .= substr($data, (rand() % (strlen($data))), 1);
-		}
+        $data = "9876543210ZYXWVUTSRQPONMLKJIHGFEDCBAabcdefghijklmnopqrstuvwxyz!@#$&_";
 
-		return $random;
-	}
+        for ($i = 0; $i < $length; $i++) {
+            $random .= substr($data, (rand() % (strlen($data))), 1);
+        }
 
-	static private function getStringByParams($params) {
-		ksort($params);	
+        return $random;
+    }
+
+    static private function getStringByParams($params)
+    {
+        ksort($params);
         // dd($params);	
-		$params = array_map(function ($value){
+        $params = array_map(function ($value) {
             // dd($value);
-			return ($value !== null && strtolower($value) !== "null") ? $value : "";
-	  	}, $params);
-		return implode("|", $params);
-	}
+            return ($value !== null && strtolower($value) !== "null") ? $value : "";
+        }, $params);
+        return implode("|", $params);
+    }
 
-	static private function calculateHash($params, $salt){
-		$finalString = $params . "|" . $salt;
-		$hash = hash("sha256", $finalString);
-		return $hash . $salt;
-	}
+    static private function calculateHash($params, $salt)
+    {
+        $finalString = $params . "|" . $salt;
+        $hash = hash("sha256", $finalString);
+        return $hash . $salt;
+    }
 
-	static private function calculateChecksum($params, $key, $salt){
-		$hashString = self::calculateHash($params, $salt);
-		return self::encrypt($hashString, $key);
-	}
+    static private function calculateChecksum($params, $key, $salt)
+    {
+        $hashString = self::calculateHash($params, $salt);
+        return self::encrypt($hashString, $key);
+    }
 
-	static private function pkcs5Pad($text, $blocksize) {
-		$pad = $blocksize - (strlen($text) % $blocksize);
-		return $text . str_repeat(chr($pad), $pad);
-	}
+    static private function pkcs5Pad($text, $blocksize)
+    {
+        $pad = $blocksize - (strlen($text) % $blocksize);
+        return $text . str_repeat(chr($pad), $pad);
+    }
 
-	static private function pkcs5Unpad($text) {
-		$pad = ord($text[strlen($text) - 1]);
-		if ($pad > strlen($text))
-			return false;
-		return substr($text, 0, -1 * $pad);
-	}
+    static private function pkcs5Unpad($text)
+    {
+        $pad = ord($text[strlen($text) - 1]);
+        if ($pad > strlen($text))
+            return false;
+        return substr($text, 0, -1 * $pad);
+    }
 }
