@@ -50,7 +50,8 @@ tr:nth-child(even) {
               <th style="border:1px solid black">Sub Total</th>
             </tr>
     
-            @foreach ($productdetails as $item)
+            Customer Mail After Payment
+            {{-- @foreach ($productdetails as $item)
             <tr>
               <td style="border:1px solid black">{{$item->name}}</td>
               <td style="border:1px solid black">{{$item->sku}}</td>
@@ -59,7 +60,7 @@ tr:nth-child(even) {
               <td style="border:1px solid black">₹ {{$item->pqty * $item->pprice}}</td>
             </tr>
                 
-            @endforeach
+            @endforeach --}}
         </table><br>
 
     </div>

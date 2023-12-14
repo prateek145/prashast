@@ -16,7 +16,9 @@
 
 <div class="card" style="width:70%; margin:auto;">
 
-    Customer Details !!. <br>
+    Admin Mail After Customer Payment
+
+    {{-- Customer Details !!. <br>
 
     Customer Name : {{ $cdetails['name'] }}<br>
     Customer Phone : {{ $cdetails['phone'] }}<br>
@@ -35,7 +37,7 @@
         Product Sku : {{ $pdetails[$i]['sku'] }}<br>
         Product Qty : {{ $pdetails[$i]['pqty'] }}<br>
         Product Price : {{ $pdetails[$i]['pprice'] }}<br><br>
-    @endfor
+    @endfor --}}
 </div>
 
 <footer class="row footer2">
