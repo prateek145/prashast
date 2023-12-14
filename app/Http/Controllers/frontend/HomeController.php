@@ -162,7 +162,7 @@ class HomeController extends Controller
             session()->put('userdetails', $request->all());
             $currentTime = time();
     
-            $environment    = "TEST";
+            $environment    = "PROD";
             $mid="BZktXB05180965204710";
             $order_id="ORDER_".time();
             $PAYTM_MERCHANT_KEY="VM60ziBspua&p%lk";
@@ -171,7 +171,7 @@ class HomeController extends Controller
            
           
             // $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"amount":"1.00","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
-            $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"value":"'. $amount .'","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
+            $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"value":"'. $amount .'","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/Stagging/paytm-done"}}';
             
     
             $Checksumhash = self::generateSignature($chbody,$PAYTM_MERCHANT_KEY);
@@ -255,7 +255,7 @@ class HomeController extends Controller
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
                 $pdetails = $data['productdetail'];
-                $amount = $data['subtotal'];
+                $amount = $request->TXNAMOUNT;
                 unset($data['productdetail']);
                 unset($data['subtotal']);
 
@@ -277,6 +277,7 @@ class HomeController extends Controller
                     $message->to(env('ADMINMAIL'));
                 });
         
+                // dd('auth');
                 session()->flush('cart');
                 session()->flush('userdetails');
                 return redirect('user-orders')->with('success', 'Payment Done');
@@ -287,7 +288,7 @@ class HomeController extends Controller
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
                 $pdetails = $data['productdetail'];
-                $amount = $data['subtotal'];
+                $amount = $request->TXNAMOUNT;
                 unset($data['productdetail']);
                 unset($data['subtotal']);
                 $data['product_details'] = $pdetails;
@@ -308,9 +309,10 @@ class HomeController extends Controller
                     $message->to(env('ADMINMAIL'));
                 });
         
+                // dd('guest');
                 session()->flush('cart');
                 session()->flush('userdetails');
-                return redirect('cart')->with('success', 'Payment done Please Check Your Email');
+                return redirect('frontend.home')->with('success', 'Payment done Please Check Your Email');
             }
             
 
