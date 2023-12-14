@@ -1,14 +1,15 @@
 @extends('frontend.layouts.app')
 {{-- @include('frontend.layouts.header') --}}
 @section('content')
-<style>
-     h2 {
-      font-size: 1.5rem;
-    }
-    .line:hover {
-      border: 4px dashed #f0b53f !important;
-    }
-</style>
+    <style>
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        .line:hover {
+            border: 4px dashed #f0b53f !important;
+        }
+    </style>
     <section class="hero-shop">
     </section>
     <section class="offers py-5">
@@ -58,33 +59,33 @@
                     <!-- Collapsible wrapper -->
                     <div class="collapse show" id="collapseExample">
                         <h2 style="padding: 1rem">Collections</h2>
-              <h5 class="tag active" style="padding-left: 1rem">
-                <a href="">All products</a>
-              </h5>
-              <h5 class="tag" style="padding-left: 1rem">
-                <a href="">Accessories</a>
-              </h5>
-              <h5 class="tag" style="padding-left: 1rem">
-                <a href="">Utility pouches</a>
-              </h5>
-              <h2 style="padding: 1rem">Home & Lifestyle</h2>
-              <h5 class="tag" style="padding-left: 1rem">
-                <a href="">Home decor</a>
-              </h5>
-              <h5 class="tag" style="padding-left: 1rem">
-                <a href="">Storage</a>
-              </h5>
-              <h5 class="tag" style="padding-left: 1rem">
-                <a href="">Kitchen and dining</a>
-              </h5>
-              <h2 style="padding: 1rem">Filter</h2>
-              <form>
-                <select class="form-select form-control">
-                  <option>1000</option>
-                  <option>1001 to 10000</option>
-                  <option>10001 ></option>
-                </select>
-              </form>
+                        <h5 class="tag active" style="padding-left: 1rem">
+                            <a href="">All products</a>
+                        </h5>
+                        <h5 class="tag" style="padding-left: 1rem">
+                            <a href="">Accessories</a>
+                        </h5>
+                        <h5 class="tag" style="padding-left: 1rem">
+                            <a href="">Utility pouches</a>
+                        </h5>
+                        <h2 style="padding: 1rem">Home & Lifestyle</h2>
+                        <h5 class="tag" style="padding-left: 1rem">
+                            <a href="">Home decor</a>
+                        </h5>
+                        <h5 class="tag" style="padding-left: 1rem">
+                            <a href="">Storage</a>
+                        </h5>
+                        <h5 class="tag" style="padding-left: 1rem">
+                            <a href="">Kitchen and dining</a>
+                        </h5>
+                        <h2 style="padding: 1rem">Filter</h2>
+                        <form>
+                            <select class="form-select form-control">
+                                <option>1000</option>
+                                <option>1001 to 10000</option>
+                                <option>10001 ></option>
+                            </select>
+                        </form>
                         <h2 style="padding:1rem;">Categories</h2>
                         <div class="accordion" id="accordionPanelsStayOpenExample">
                             @foreach ($sub_categories as $item)
@@ -195,8 +196,8 @@
                 <div class="col-lg-9">
                     <header>
                         <form class="form searchform d-flex col-12 col-lg-5"><input type="text"
-                                class=" border-0 form-control" placeholder="Search"><button class="btn border-0 bg-light"><i
-                                    class="bi bi-search"></i></button></form>
+                                class=" border-0 form-control" placeholder="Search"><button
+                                class="btn border-0 bg-light"><i class="bi bi-search"></i></button></form>
                     </header>
                     <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                         <p class="d-block py-2 m-0">Showing {{ count($products) }} of {{ count($products) }} results </p>
@@ -213,20 +214,35 @@
                         @foreach ($products as $item)
                             {{-- {{dd($item->product_subcategory($item->product_subcategories))}} --}}
                             <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
-                                <div class="card w-100 my-2 shadow-2-strong line {{strtolower($item->product_subcategory($item->product_subcategories)->name) ?? "maati"}}">
-                                    <a class="btn-link product-link" href="{{route('product.detail', $item->slug)}}">
+                                <div
+                                    class="card w-100 my-2 shadow-2-strong line {{ strtolower($item->product_subcategory($item->product_subcategories)->name) ?? 'maati' }}">
+                                    <a class="btn-link product-link" href="{{ route('product.detail', $item->slug) }}">
+                                        @php
+                                            $pro = \App\Models\wishlist::where(['product_id' => $item->id, 'user_id' => auth()->id()])->first();
+                                           
+                                        @endphp
+                                        @if ($pro)
                                         <span class="wish">
                                             <button type="button" class="btn wishlist-btn" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')" title="Wishlist"><i
-                                                    class="bi bi-heart"></i></button>
+                                                data-bs-placement="top"
+                                                onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')"
+                                                title="Wishlist"><i class="bi bi-heart-fill"></i></button>
                                         </span>
+                                        @else
+                                        <span class="wish">
+                                            <button type="button" class="btn wishlist-btn" data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')"
+                                                title="Wishlist"><i class="bi bi-heart"></i></button>
+                                        </span>
+                                        @endif
                                         <span class="catbox mx-auto">
                                             @if ($item->product_subcategory($item->product_subcategories)->icon_image)
-                                            <img src="{{ asset('public/frontend/images/cat-icon.png') }}" class="mb-1">
-                                                
+                                                <img src="{{ asset('public/productsubcategory/' . $item->product_subcategory($item->product_subcategories)->icon_image) }}"
+                                                    class="mb-1">
                                             @else
-                                            <img src="{{ asset('public/frontend/images/cat-icon.png') }}" class="mb-1">
-                                                
+                                                <img src="{{ asset('public/frontend/images/cat-icon.png') }}"
+                                                    class="mb-1">
                                             @endif
                                             <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
                                                 class="img-fluid d-block mx-auto">
@@ -234,11 +250,10 @@
                                         </span>
 
                                         @if ($item->image)
-                                        <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top" height="200px" width="200px">
-                                            
+                                            <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top"
+                                                height="200px" width="200px">
                                         @else
-                                        <img src="{{ asset('public/frontend/images/07.png') }}" class="card-img-top">
-                                            
+                                            <img src="{{ asset('public/frontend/images/07.png') }}" class="card-img-top">
                                         @endif
                                         <span class="content">
                                             <h6>{{ $item->name }}</h6>

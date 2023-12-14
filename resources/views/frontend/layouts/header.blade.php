@@ -23,7 +23,7 @@
                                         href="{{ route('frontend.home') }}">Home</a>
                                 </li>
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link" href="{{ route('dynamic.page', 'about-prashast') }}">About Us</a>
+                                    <a class="nav-link" href="{{ route('dynamic.page', 'about-us') }}">About Us</a>
                                 </li>
                                 <li class="nav-item mx-4">
                                     <a class="nav-link" href="{{ route('dynamic.subcategories', 'shop') }}">Shop</a>

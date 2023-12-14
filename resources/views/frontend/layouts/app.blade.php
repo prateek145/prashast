@@ -109,6 +109,7 @@
         function addtowishlist(productId, productSku, qtyuppr) {
             // console.log(productId, productSku, qtyuppr);
             // alert();
+            event.preventDefault();
             var sku = productSku;
             var qty = 1;
 
@@ -126,13 +127,14 @@
                 success: function(response) {
                     // console.log(response.result);
                     if (response.result == 'unauthorized') {
-                        window.location.href = '/login';
+                        window.location.href = "{{route('login')}}";
                     }
 
                     if (response.result == 'found') {
-                        alert('Product Already Added in Wishlist.')
+                        alert('Product Already Added in Wishlist.');
                     } else {
-                        alert('Product Add In Wishlist.')
+                        alert('Product Add In Wishlist.');
+                        location.reload();
                     }
 
                 }

@@ -17,31 +17,29 @@
                             $totalprice = 0;
                         @endphp
                         @foreach ($products as $key => $value)
-                        <li class="list-group-item d-flex justify-content-between lh-sm">
-                            <div>
-                                <h6 class="my-0">{{$value['name']}}</h6>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">{{ $value['name'] }}</h6>
+                                </div>
+                                <span class="text-muted">{{ $value['quantity'] }}</span>
 
-                            </div>
-                            <span class="text-muted">{{$value['quantity']}}</span>
-
-                            <span class="text-muted">{{$value['price']}}</span>
+                                <span class="text-muted">{{ $value['price'] }}</span>
+                            </li>
                             @php
-                                $totalprice += $value['price'];
+                                $totalprice += ($value['price'] * $value['quantity']);
                             @endphp
-                        </li>
-                            
                         @endforeach
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (INR)</span>
-                            <strong>{{$totalprice}}</strong>
+                            <strong>{{ $totalprice }}</strong>
                         </li>
                     </ul>
 
                 </div>
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Billing address</h4>
-                    <form class="needs-validation" novalidate="" action="{{route('paytm.payment')}}" method="POST">
+                    <form class="needs-validation" novalidate="" action="{{ route('paytm.payment') }}" method="POST">
                         @csrf
                         <div class="row g-3">
                             <div class="col-sm-12">
@@ -63,8 +61,8 @@
                                 <label for="username" class="form-label">Username</label>
                                 <div class="input-group has-validation">
                                     <span class="input-group-text">@</span>
-                                    <input type="text" name="username" class="form-control" id="username" value="username" placeholder="Username"
-                                        required="">
+                                    <input type="text" name="username" class="form-control" id="username"
+                                        value="username" placeholder="Username" required="">
                                     <div class="invalid-feedback">
                                         Your username is required.
                                     </div>
@@ -73,15 +71,16 @@
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span
                                         class="text-muted">(Optional)</span></label>
-                                <input type="email" name="email" class="form-control" id="email" value="test@gmail.com" placeholder="you@example.com">
+                                <input type="email" name="email" class="form-control" id="email"
+                                    placeholder="you@example.com">
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.
                                 </div>
                             </div>
                             <div class="col-12">
                                 <label for="address" class="form-label">Address</label>
-                                <input type="text" name="address" class="form-control" id="address" value="1234 Main St" placeholder="1234 Main St"
-                                    required="">
+                                <input type="text" name="address" class="form-control" id="address"
+                                    value="1234 Main St" placeholder="1234 Main St" required="">
                                 <div class="invalid-feedback">
                                     Please enter your shipping address.
                                 </div>
@@ -89,7 +88,8 @@
                             <div class="col-12">
                                 <label for="address2" class="form-label">Address 2 <span
                                         class="text-muted">(Optional)</span></label>
-                                <input type="text" name="address2" class="form-control" id="address2" value="Apartment or suite" placeholder="Apartment or suite">
+                                <input type="text" name="address2" class="form-control" id="address2"
+                                    value="Apartment or suite" placeholder="Apartment or suite">
                             </div>
                             <div class="col-md-5">
                                 <label for="country" class="form-label">Country</label>
@@ -111,8 +111,8 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="zip" class="form-label">Zip</label>
-                                <input type="text" name="zip" class="form-control" id="zip" value="110059" placeholder=""
-                                    required="">
+                                <input type="text" name="zip" class="form-control" id="zip" value="110059"
+                                    placeholder="" required="">
                                 <div class="invalid-feedback">
                                     Zip code required.
                                 </div>
@@ -126,15 +126,15 @@
                             <label class="form-check-label" for="same-address">Shipping address is the different as my
                                 billing address</label>
                         </div>
-                        <input type="hidden" value="{{json_encode(session()->get('cart'))}}" name="productdetail">
+                        <input type="hidden" value="{{ json_encode(session()->get('cart')) }}" name="productdetail">
                         <!--shipping-->
                         <div class="collapse" id="collapseExample">
                             <h4 class="mb-3">Shipping address</h4>
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <label for="firstName" class="form-label">Full name</label>
-                                    <input type="text" class="form-control" name="shipping_name" id="firstName" placeholder=""
-                                        value="" required="">
+                                    <input type="text" class="form-control" name="shipping_name" id="firstName"
+                                        placeholder="" value="" required="">
                                     <div class="invalid-feedback">
                                         Valid first name is required.
                                     </div>
@@ -149,8 +149,8 @@
                                 </div> --}}
                                 <div class="col-12">
                                     <label for="address" class="form-label">Address</label>
-                                    <input type="text" class="form-control" name="shipping_address" id="address" placeholder="1234 Main St"
-                                        required="">
+                                    <input type="text" class="form-control" name="shipping_address" id="address"
+                                        placeholder="1234 Main St" required="">
                                     <div class="invalid-feedback">
                                         Please enter your shipping address.
                                     </div>
@@ -183,8 +183,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="zip" class="form-label">Zip</label>
-                                    <input type="text" class="form-control" name="zip" id="zip" placeholder=""
-                                        required="">
+                                    <input type="text" class="form-control" name="zip" id="zip"
+                                        placeholder="" required="">
                                     <div class="invalid-feedback">
                                         Zip code required.
                                     </div>

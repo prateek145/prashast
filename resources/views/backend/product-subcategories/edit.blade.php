@@ -60,7 +60,7 @@
                         <div class="form-group">
                             @if ($productcategories->featured_image != null)
                                 
-                                <img src="{{ asset('productsubcategory/' . $productcategories->featured_image) }}" alt=""
+                                <img src="{{ asset('public/productsubcategory/' . $productcategories->featured_image) }}" alt=""
                                     width="90%" height="90%" class="p-5">
     
                             @else
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             @if ($productcategories->icon_image != null)
                                 
-                                <img src="{{ asset('productsubcategory/' . $productcategories->icon_image) }}" alt=""
+                                <img src="{{ asset('public/productsubcategory/' . $productcategories->icon_image) }}" alt=""
                                     width="90%" height="90%" class="p-5">
     
                             @else

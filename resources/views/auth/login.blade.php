@@ -24,7 +24,7 @@
                     </div>
             
                     <div class="col-md-12">
-                        <input type="password" class="form-control mb-4  @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="Passwowrd" placeholder="Password" name="">
+                        <input type="password" class="form-control mb-4  @error('password') is-invalid @enderror" value="{{ old('password') }}" placeholder="Passwowrd" name="password">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

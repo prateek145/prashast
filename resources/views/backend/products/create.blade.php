@@ -27,8 +27,8 @@
                             <label for="control-label font-weight-bold">Product Type</label>
                             <select name="product_type" onchange="ptype(this.value)" id="" class="form-control" required>
                                 <option value="">Select Type</option>
-                                <option value="simple_product">Simple product</option>
-                                <option value="variable_product">variable product</option>
+                                <option value="simple_product" selected>Simple product</option>
+                                {{-- <option value="variable_product">variable product</option> --}}
                             </select>
 
                         </div>

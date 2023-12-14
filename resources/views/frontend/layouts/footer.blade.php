@@ -110,20 +110,22 @@
                             <td>{{ $value['name'] }}</td>
                             <td>{{ $value['price'] }}</td>
                             <td><input type="number" value="{{ $value['quantity'] }}" min=1 class="form-control" />
-                                <div class="input-group-btn-vertical">
-                                    <form action="{{ route('add.qty.cart') }}" method="post">
-                                        @csrf
-                                        <input type="hidden" value="{{$value['sku']}}" name="sku">
-                                        <button class="btn btn-default" type="submit">++</button>
-
-                                    </form>
+                                <div class="input-group-btn-vertical d-flex">
                                     <form action="{{ route('remove.qty.cart') }}" method="post">
                                         @csrf
                                         <input type="hidden" value="{{$value['sku']}}" name="sku">
                                         <input type="hidden" value="{{ $value['quantity'] }}" name="quantity">
-                                        <button class="btn btn-default" type="submit">--</button>
+                                        <button class="btn btn-default" type="submit"><i class="bi bi-dash-square-fill"></i></button>
 
                                     </form>
+                                    
+                                    <form action="{{ route('add.qty.cart') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" value="{{$value['sku']}}" name="sku">
+                                        <button class="btn btn-default" type="submit"><i class="bi bi-plus-square-fill"></i></button>
+
+                                    </form>
+
                                 </div>
 
                             </td>

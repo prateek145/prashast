@@ -169,7 +169,7 @@
                             @if ($product->featured_image != null)
                                 <div class="row ml-2 mb-2">
                                     @foreach ($images as $item)
-                                        <img class="ml-2" src="{{ asset('product/' . $item) }}" alt=""
+                                        <img class="ml-2" src="{{ asset('public/product/' . $item) }}" alt=""
                                             width="10%" height="10%">
                                     @endforeach
 
@@ -190,7 +190,7 @@
                     <div class="col-md-3">
                         @if ($product->image != null)
                             <div class="row ml-2 mb-2">
-                                <img class="ml-2" src="{{ asset('product/' . $item) }}" alt="" width="100%" height="100%">
+                                <img class="ml-2" src="{{ asset('public/product/' . $item) }}" alt="" width="100%" height="100%">
                             </div>
                         @endif
                         <div class="form-group">

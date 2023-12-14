@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $categories = ProductCategories::where('status', 1)->get()->take(4);
         $products = Product::where(['status' => 1, 'show_in_featuredproduct' => 1])->get();
-        $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
+        $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
         // dd($sub_categories);
         $desiners = Desiner::all()->take(4);
         return view('frontend.welcome', compact('categories', 'products', 'desiners', 'sub_categories'));
@@ -51,7 +51,7 @@ class HomeController extends Controller
     {
         if ($slug == 'shop') {
             # code...
-            $categroy = ProductCategories::find(4);
+            $categroy = ProductCategories::find(1);
             $products1 = Product::where('status', 1)->get();
             $productids = [];
             for ($i=0; $i <count($products1) ; $i++) { 
@@ -62,7 +62,7 @@ class HomeController extends Controller
                     array_push($productids, $products1[$i]->id);
                 }
             }    
-            $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
+            $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
             $products = Product::whereIn('id', $productids)->get();
             return view('frontend.dynamic_subcat', compact('products', 'sub_categories'));
 
@@ -79,7 +79,7 @@ class HomeController extends Controller
                     array_push($productids, $products1[$i]->id);
                 }
             }
-            $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
+            $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
             $products = Product::whereIn('id', $productids)->get();
             return view('frontend.dynamic_subcat', compact('products', 'subcategory', 'sub_categories'));
         }
@@ -100,7 +100,7 @@ class HomeController extends Controller
 
         if ($product->product_type == 'simple_product') {
             # code...
-            $latestproduct = Product::orderBy('id', 'DESC')->where('status', 1)->get()->take(4);
+            $latestproduct = Product::orderBy('id', 'ASC')->where('status', 1)->get()->take(3);
             // dd($product);
             return view('frontend.product-detail1', compact('product', 'latestproduct', 'desiner_name'));
         }
@@ -109,7 +109,7 @@ class HomeController extends Controller
             # code...
             $attr = $product->attributes()->get();
             $variance = $product->variance()->get();
-            $latestproduct = Product::orderBy('id', 'DESC')->where('status', 1)->get()->take(4);
+            $latestproduct = Product::orderBy('id', 'DESC')->where('status', 1)->get()->take(3);
             // dd($latestproduct);
             // dd($product, $attr, $variance, $latestproduct);
             return view('frontend.product-detail1', compact('product', 'attr', 'variance', 'latestproduct', 'desiner_name'));
@@ -325,8 +325,10 @@ class HomeController extends Controller
 
         $products_id = wishlist::where(['user_id' => auth()->id()])->pluck('product_id');
         $products = Product::whereIn('id', $products_id)->get();
+        $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
+
         // dd($products);
-        return view('frontend.wishlist', compact('products'));
+        return view('frontend.wishlist', compact('products', 'sub_categories'));
     }
 
     public function productpage()

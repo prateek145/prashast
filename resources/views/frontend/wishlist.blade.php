@@ -48,7 +48,7 @@
                                     </span>
                                     <span class="catbox mx-auto">
                                         @if ($item->product_subcategory($item->product_subcategories)->icon_image)
-                                            <img src="{{ asset('public/productsubcategory/') . $item->product_subcategory($item->product_subcategories)->icon_image }}"
+                                            <img src="{{ asset('public/productsubcategory/'. $item->product_subcategory($item->product_subcategories)->icon_image)  }}"
                                                 class="mb-1">
                                         @else
                                             <img src="{{ asset('public/frontend/images/cat-icon.png') }}" class="mb-1">
@@ -85,16 +85,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="owl-carousel cate">
-                        <div class="item"> <img src="{{ asset('public/frontend/images/zevar.png') }}"
-                                class="img-fluid icon" /> </div>
-                        <div class="item"> <img src="{{ asset('public/frontend/images/baans.png') }}"
-                                class="img-fluid icon" /> </div>
-                        <div class="item"> <img src="{{ asset('public/frontend/images/soot.png') }}"
-                                class="img-fluid icon" /> </div>
-                        <div class="item"> <img src="{{ asset('public/frontend/images/maati.png') }}"
-                                class="img-fluid icon" /> </div>
-                        <div class="item"> <img src="{{ asset('public/frontend/images/kala.png') }}"
-                                class="img-fluid icon" /> </div>
+                        @foreach ($sub_categories as $item)
+                        <div class="item"> <img src="{{route('dynamic.subcategories', $item->slug)}}"
+                            class="img-fluid icon" /> </div>
+                            
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -104,11 +99,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mx-auto position-relative">
-                    <img src="{{ asset('public/frontend/images/zevar.png') }}" class="img-fluid icon m-grid rounded-4" />
-                    <img src="{{ asset('public/frontend/images/baans.png') }}" class="img-fluid icon m-grid rounded-4" />
-                    <img src="{{ asset('public/frontend/images/soot.png') }}" class="img-fluid icon m-grid rounded-4" />
-                    <img src="{{ asset('public/frontend/images/maati.png') }}" class="img-fluid icon m-grid rounded-4" />
-                    <img src="{{ asset('public/frontend/images/kala.png') }}" class="img-fluid icon m-grid rounded-4" />
+                    @foreach ($sub_categories as $item)
+                    <a href="{{route('dynamic.subcategories', $item->slug)}}"><img src="{{asset('public/productsubcategory/'.$item->featured_image)}}" class="img-fluid icon m-grid rounded-4" /></a> 
+                        
+                    @endforeach
+
                 </div>
             </div>
         </div>
