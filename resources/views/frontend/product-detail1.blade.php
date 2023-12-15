@@ -11,31 +11,39 @@
             </div>
             <div class="row">
                 <div class="col-lg-5 mb-5 mb-lg-auto">
-
                     <div id="carouselExampleIndicatorsf" class="carousel slide d-flex">
                         <div class="carousel-indicators">
+                            {{-- <button type="button" data-bs-target="#carouselExampleIndicatorsf" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1">
+                            <img src="{{ asset('public/frontend/images/03.png') }}" class="d-block" style="width:100px"
+                                alt=""></button> --}}
+
                             @foreach (json_decode($product->featured_image) as $key => $item)
-                                <button type="button" {{$key == 0 ? 'class="active" aria-current="true"' : ''}} data-bs-target="#carouselExampleIndicatorsf" data-bs-slide-to="{{$key}}"
-                                      aria-label="Slide {{$key + 1}}"><img
-                                        src="{{ asset('public/product/' . $item) }}" class="d-block" style="width:100px"
-                                        alt=""></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicatorsf"
+                                    data-bs-slide-to="{{ $key }}" class="active" aria-current="true"
+                                    aria-label="Slide {{ $key + 1 }}"><img src="{{ asset('public/product/' . $item) }}"
+                                        class="d-block" style="width:100px" alt=""></button>
                             @endforeach
-                            {{-- <button type="button" data-bs-target="#carouselExampleIndicatorsf" data-bs-slide-to="1"
-                                aria-label="Slide 2"><img src="{{asset('public/frontend/images/04.png')}}" class="d-block" style="width:100px"
-                                    alt=""></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicatorsf" data-bs-slide-to="2"
-                                aria-label="Slide 3"><img src="{{asset('public/frontend/images/05.png')}}" class="d-block" style="width:100px"
-                                    alt=""></button> --}}
+
+              
                         </div>
                         <div class="carousel-inner">
-                            @foreach (json_decode($product->featured_image) as $item)
-                                <div class="carousel-item active">
+                            {{-- <div class="carousel-item active">
+                                <img src="{{ asset('public/frontend/images/03.png') }}" class="d-block" alt="">
+                            </div> --}}
+                            
+                            @foreach (json_decode($product->featured_image) as $key => $item)
+                            {{-- {{dd($key)}} --}}
+                                <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
                                     <img src="{{ asset('public/product/' . $item) }}" class="d-block" alt="">
                                 </div>
                             @endforeach
+         
 
                         </div>
                     </div>
+
+ 
 
 
 
@@ -155,13 +163,13 @@
                                 <h5>MOST VIEWED</h5>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplayingb"
-                            data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplayingb"
-                            data-bs-slide="next">
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>

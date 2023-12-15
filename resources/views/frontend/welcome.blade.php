@@ -150,7 +150,6 @@
 
     <section class="category py-5 d-none d-lg-block">
         <div class="container">
-
             <div class="row">
                 <div class="col-12 text-center mx-auto position-relative">
                     @foreach ($sub_categories as $item)
