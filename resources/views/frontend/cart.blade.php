@@ -47,7 +47,7 @@
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="firstName" class="form-label">Full name</label>
-                                <input type="text" class="form-control" name="name" id="firstName" value="testing">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="firstName" value="testing">
                                 <div class="invalid-feedback">
                                     Valid first name is required.
                                 </div>
@@ -65,7 +65,7 @@
                                 <div class="input-group has-validation">
                                     <span class="input-group-text">@</span>
                                     <input type="text" name="username" class="form-control" id="username"
-                                        value="username" placeholder="Username" required="">
+                                        value="username" placeholder="Username" required>
                                     <div class="invalid-feedback">
                                         Your username is required.
                                     </div>
@@ -73,9 +73,9 @@
                             </div>
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span
-                                        class="text-muted">(Optional)</span></label>
-                                <input type="email" name="email" class="form-control" id="email"
-                                    placeholder="you@example.com">
+                                        class="text-muted"></span></label>
+                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                    placeholder="you@example.com" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.
                                 </div>

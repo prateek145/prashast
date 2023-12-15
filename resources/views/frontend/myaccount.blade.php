@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <section class="hero-signin">
+    <section class="hero-myaccount">
     </section>
     <section class="contact py-5">
         <div class="container">

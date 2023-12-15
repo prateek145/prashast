@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 {{-- @include('frontend.layouts.header') --}}
 @section('content')
-    <section class="hero-signin">
+    <section class="hero">
     </section>
 
 

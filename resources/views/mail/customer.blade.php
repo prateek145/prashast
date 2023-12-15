@@ -34,8 +34,8 @@ tr:nth-child(even) {
     @endphp
 
     <div>
-        Order Id : {{ $order['order_id'] }}<br>
-        Total Amount : {{ $order['amount'] }}<br>
+        Order Id : {{ $order['order_id'] ?? ""}}<br>
+        Total Amount : {{ $order['amount'] ?? ""}}<br>
         {{-- Bill Download link : {{url('download-bill', $order->order_id)}}  --}}
     </div>
 
@@ -51,26 +51,26 @@ tr:nth-child(even) {
             </tr>
     
             Customer Mail After Payment
-            {{-- @foreach ($productdetails as $item)
+            @foreach ($productdetails as $item)
             <tr>
-              <td style="border:1px solid black">{{$item->name}}</td>
-              <td style="border:1px solid black">{{$item->sku}}</td>
-              <td style="border:1px solid black">{{$item->pqty}}</td>
-              <td style="border:1px solid black">₹ {{$item->pprice}}</td>
-              <td style="border:1px solid black">₹ {{$item->pqty * $item->pprice}}</td>
+              <td style="border:1px solid black">{{$item->name ?? ""}}</td>
+              <td style="border:1px solid black">{{$item->sku ?? ""}}</td>
+              <td style="border:1px solid black">{{$item->quantity ?? ""}}</td>
+              <td style="border:1px solid black">₹ {{$item->price ?? ""}}</td>
+              <td style="border:1px solid black">₹ {{$item->quantity * $item->price ?? ""}}</td>
             </tr>
                 
-            @endforeach --}}
+            @endforeach
         </table><br>
 
     </div>
 
     <div>
         This product(s) will shipped to following Address.
-        <h3>{{ $order['name'] }}</h3>
-        {{ $order['address'] }}<br>
-        {{ $order['state'] }} - {{ $order['pincode'] }} <br>
-        {{ $order['country'] }}<br>
+        <h3>{{ $order['name']  ?? ""}}</h3>
+        {{ $order['address']  ?? ""}}<br>
+        {{ $order['state']  ?? ""}} - {{ $order['pincode']  ?? ""}} <br>
+        {{ $order['country']  ?? ""}}<br>
 
     </div>
 </div>

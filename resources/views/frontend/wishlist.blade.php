@@ -38,7 +38,7 @@
                     @foreach ($products as $item)
                         <div class="col-lg-4 col-md-12 col-sm-12 col-12 d-flex">
                             <div
-                                class="line card w-100 my-2 shadow-2-strong {{ strtolower($item->product_subcategory($item->product_subcategories)->name) ?? 'maati' }}">
+                                class="line card w-100 my-2 shadow-2-strong {{ strtolower($item->product_subcategory($item->product_subcategories)->name) == 'kala' ? 'zevar' : strtolower($item->product_subcategory($item->product_subcategories)->name) }}">
                                 <a class="btn-link product-link">
                                     <span class="wishlst">
                                         <div class="btn-group" role="group" aria-label="Basic example">

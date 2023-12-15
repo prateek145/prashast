@@ -89,8 +89,7 @@
                         <h2 style="padding:1rem;">Categories</h2>
                         <div class="accordion" id="accordionPanelsStayOpenExample">
                             @foreach ($sub_categories as $item)
-                                {{-- {{dd($categories)}} --}}
-                                <div class="accordion-item">
+                                <a href="{{route('dynamic.subcategories', $item->name)}}">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#panelsStayOpen-collapseOne{{ $item->id }}"
@@ -98,28 +97,9 @@
                                             {{ $item->name }}
                                         </button>
                                     </h2>
-                                    <div id="panelsStayOpen-collapseOne{{ $item->id }}"
-                                        class="accordion-collapse collapse">
-                                        <div class="accordion-body">
-                                            <ul>
 
-                                                @if (count($item->subproducts($item->id)) > 0)
-                                                    @foreach ($item->subproducts($item->id) as $item1)
-                                                        <li><a
-                                                                href="{{ route('product.detail', $item1->slug) }}">{{ $item1->name }}</a>
-                                                        </li>
-                                                    @endforeach
-                                                @else
-                                                    <li>No Item</li>
-                                                @endif
-
-                                                {{-- <li><a href="">Choker</a></li>
-                                    <li><a href="">Earring</a></li>
-                                    <li><a href="">Necklace</a></li> --}}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                </a>
+                              
                             @endforeach
                             {{-- <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -195,9 +175,12 @@
                 <!-- content -->
                 <div class="col-lg-9">
                     <header>
-                        <form class="form searchform d-flex col-12 col-lg-5"><input type="text"
-                                class=" border-0 form-control" placeholder="Search"><button
-                                class="btn border-0 bg-light"><i class="bi bi-search"></i></button></form>
+                        <form class="form searchform d-flex col-12 col-lg-5" action="{{route('searchproduct')}}" method="post">
+                            @csrf
+                            <input type="text"
+                                class=" border-0 form-control" onkeyup="searchproducts(this.value)" list="datalistname" placeholder="Search">
+                                <datalist id="datalistname"></datalist>
+                                <button class="btn border-0 bg-light"><i class="bi bi-search"></i></button></form>
                     </header>
                     <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                         <p class="d-block py-2 m-0">Showing {{ count($products) }} of {{ count($products) }} results </p>
@@ -215,26 +198,26 @@
                             {{-- {{dd($item->product_subcategory($item->product_subcategories))}} --}}
                             <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
                                 <div
-                                    class="card w-100 my-2 shadow-2-strong line {{ strtolower($item->product_subcategory($item->product_subcategories)->name) == 'kala' ? 'zevar' : strtolower($item->product_subcategory($item->product_subcategories)->name)}}">
+                                    class="card w-100 my-2 shadow-2-strong line {{ strtolower($item->product_subcategory($item->product_subcategories)->name) == 'kala' ? 'zevar' : strtolower($item->product_subcategory($item->product_subcategories)->name) }}">
                                     <a class="btn-link product-link" href="{{ route('product.detail', $item->slug) }}">
                                         @php
                                             $pro = \App\Models\wishlist::where(['product_id' => $item->id, 'user_id' => auth()->id()])->first();
-                                           
+
                                         @endphp
                                         @if ($pro)
-                                        <span class="wish">
-                                            <button type="button" class="btn wishlist-btn" data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')"
-                                                title="Wishlist"><i class="bi bi-heart-fill"></i></button>
-                                        </span>
+                                            <span class="wish">
+                                                <button type="button" class="btn wishlist-btn" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')"
+                                                    title="Wishlist"><i class="bi bi-heart-fill"></i></button>
+                                            </span>
                                         @else
-                                        <span class="wish">
-                                            <button type="button" class="btn wishlist-btn" data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')"
-                                                title="Wishlist"><i class="bi bi-heart"></i></button>
-                                        </span>
+                                            <span class="wish">
+                                                <button type="button" class="btn wishlist-btn" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')"
+                                                    title="Wishlist"><i class="bi bi-heart"></i></button>
+                                            </span>
                                         @endif
                                         <span class="catbox mx-auto">
                                             @if ($item->product_subcategory($item->product_subcategories)->icon_image)

@@ -46,16 +46,16 @@
                     <hr>
                     <div class="row">
                         <div class="col-lg-2">order placed<br>
-                            <strong>October 19, 2023</strong>
+                            <strong>{{$item->created_at->format('d-m-y')}}</strong>
                         </div>
                         <div class="col-lg-2">Ship to V<br>
-                            <strong>C 98, Ground F...</strong>
+                            <strong>Testing</strong>
                         </div>
                         <div class="col-lg-2">Bill to V<br>
-                            <strong>C 98, Ground F...</strong>
+                            <strong>Testing</strong>
                         </div>
                         <div class="col-lg-2">Total<br>
-                            <strong>Rs. 26,309.00</strong>
+                            <strong>Rs. 1.00(For Testing)</strong>
                         </div>
                         <div class="col-lg-4">
                             <button type="button" class="btn float-end" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -71,14 +71,14 @@
                     @foreach ($order_deatails as $item1 => $value)
                     <div class="row mt-5">
                         <div class="col-12 col-lg-2 align-self-center">
-                            <h6>1.</h6>
-                            <img src="{{ asset('public/frontend/images/product.png') }}" class="img-fluid">
+                            <h6>{{$count++}}</h6>
+                            <img src="{{ asset('public/' . $value->image) }}" class="img-fluid">
                         </div>
                         <div class="col-12 col-lg-4 align-self-center">
                             <h3>{{$value->name}}</h3>
                             {{-- <p><strong>Secondary product title</strong></p> --}}
-                            <p>Quantity: testing</p>
-                            <p>Rs. testing.00</p>
+                            <p>Quantity: {{$value->quantity}}</p>
+                            <p>Rs. {{$value->price}}</p>
 
                             <div>
                                 <p><strong>Payment method 1.</strong></p>
@@ -86,10 +86,9 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 align-self-center">
-                            <a class="btn btn-secondary float-end" href="#">Buy Again</a>
+                            <a class="btn btn-secondary float-end" href="{{route('dynamic.subcategories', 'shop')}}">Buy Again</a>
                         </div>
                     </div>
-                        
                     @endforeach
 
                 </div>

@@ -18,26 +18,26 @@
 
     Admin Mail After Customer Payment
 
-    {{-- Customer Details !!. <br>
+    Customer Details !!. <br>
 
-    Customer Name : {{ $cdetails['name'] }}<br>
-    Customer Phone : {{ $cdetails['phone'] }}<br>
-    Customer Email : {{ $cdetails['email'] }}<br>
-    Customer Address :{{ $cdetails['address'] }}<br>
-    Customer Country : {{ $cdetails['country'] }}<br>
-    Customer State : {{ $cdetails['state'] }}<br>
-    Customer Pincode : {{ $cdetails['pincode'] }}<br>
-    Order Id :{{ $cdetails['order_id'] }}<br>
-    Amount : {{ $cdetails['amount'] }}<br><br><br>
+    Customer Name : {{ $cdetails['name'] ?? ""}}<br>
+    Customer Phone : {{ $cdetails['phone'] ?? ""}}<br>
+    Customer Email : {{ $cdetails['email'] ?? ""}}<br>
+    Customer Address :{{ $cdetails['address'] ?? ""}}<br>
+    Customer Country : {{ $cdetails['country'] ?? ""}}<br>
+    Customer State : {{ $cdetails['state'] ?? ""}}<br>
+    Customer Pincode : {{ $cdetails['pincode'] ?? ""}}<br>
+    Order Id :{{ $cdetails['order_id'] ?? ""}}<br>
+    Amount : {{ $cdetails['amount'] ?? ""}}<br><br><br>
 
 
     PRODUCT DETAILS:<br><br>
     @for ($i = 0; $i < count($pdetails); $i++)
-        Product Name : {{ $pdetails[$i]['name'] }}<br>
-        Product Sku : {{ $pdetails[$i]['sku'] }}<br>
-        Product Qty : {{ $pdetails[$i]['pqty'] }}<br>
-        Product Price : {{ $pdetails[$i]['pprice'] }}<br><br>
-    @endfor --}}
+        Product Name : {{ $pdetails[$i]['name'] ?? ""}}<br>
+        Product Sku : {{ $pdetails[$i]['sku'] ?? ""}}<br>
+        Product Qty : {{ $pdetails[$i]['pqty'] ?? ""}}<br>
+        Product Price : {{ $pdetails[$i]['pprice'] ?? ""}}<br><br>
+    @endfor
 </div>
 
 <footer class="row footer2">

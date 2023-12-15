@@ -134,31 +134,31 @@ class HomeController extends Controller
     public function paytm_payment(Request $request)
     {
 
-        // $rules = [
-        // 'name' => 'required',
-        // 'email' => 'required|email',
-        // // 'phone' => 'required|integer|min:10',
-        // 'address' => 'required',
-        // 'country' => 'required',
-        // 'state' => 'required',
-        // // 'pincode' => 'required|integer',
+        $rules = [
+        'name' => 'required',
+        'email' => 'required|email',
+        // 'phone' => 'required|integer|min:10',
+        'address' => 'required',
+        'country' => 'required',
+        'state' => 'required',
+        // 'pincode' => 'required|integer',
 
-        //  ];
+         ];
 
-        //  $custommessages = [
-        //      'name.required' => 'Name is required *',
-        //      'phone.required' => 'Phone is required *',
-        //     //  'phone.integer' => 'Phone should be number *',
-        //      'email.required' => 'Email is required *',
-        //      'address.required' => 'Address is required *',
-        //      'country.required' => 'Country is required *',
-        //      'state.required' => 'State is required *',
-        //     //  'pincode.required' => 'Pincode is required *',
-        //     //  'pincode.integer' => 'Phone should be number *',
+         $custommessages = [
+             'name.required' => 'Name is required *',
+             'phone.required' => 'Phone is required *',
+            //  'phone.integer' => 'Phone should be number *',
+             'email.required' => 'Email is required *',
+             'address.required' => 'Address is required *',
+             'country.required' => 'Country is required *',
+             'state.required' => 'State is required *',
+            //  'pincode.required' => 'Pincode is required *',
+            //  'pincode.integer' => 'Phone should be number *',
 
-        //  ];
+         ];
 
-        //  $this->validate($request, $rules, $custommessages);
+         $this->validate($request, $rules, $custommessages);
         try {
             //code...
 
@@ -343,9 +343,11 @@ class HomeController extends Controller
 
     public function searchproduct(Request $request)
     {
-        $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->where('status', 1)->get();
-        // dd($products);
-        return view('frontend.shoppage', compact('products'));
+
+        $product = Product::where('name', 'LIKE', '%' . $request->search . '%')->where('status', 1)->first();
+        $latestproduct = Product::orderBy('id', 'ASC')->where('status', 1)->get()->take(3);
+        // dd($product);
+        return view('frontend.product-detail1', compact('product', 'latestproduct'));
     }
 
     public function become_a_vendor()
@@ -410,8 +412,11 @@ class HomeController extends Controller
     public function user_orders()
     {
         $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
-        $orders = Order::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
-        return view('frontend/orders', compact('orders', 'sub_categories'));
+        $orders = Order::where('user_id', auth()->id())->latest()->get();
+        $count = 1;
+        // $product_details = json_decode($orders['product_details']);
+        // dd($orders);
+        return view('frontend/orders', compact('orders', 'sub_categories', 'count'));
     }
 
     public function schedule_purchase()

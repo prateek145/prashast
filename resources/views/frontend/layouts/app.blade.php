@@ -127,13 +127,13 @@
                 success: function(response) {
                     // console.log(response.result);
                     if (response.result == 'unauthorized') {
-                        window.location.href = "{{route('login')}}";
+                        window.location.href = "{{ route('login') }}";
                     }
 
                     if (response.result == 'found') {
-                        alert('Product Already Added in Wishlist.');
+                        // alert('Product Already Added in Wishlist.');
                     } else {
-                        alert('Product Add In Wishlist.');
+                        // alert('Product Add In Wishlist.');
                         location.reload();
                     }
 
@@ -201,10 +201,10 @@
                 var qty11 = document.getElementById("input_quantity");
                 if (qty11) {
                     var qty = document.getElementById("input_quantity").value;
-                    
+
                 } else {
                     var qty = 1;
-                    
+
                 }
 
             }
@@ -250,6 +250,34 @@
 
                 }
             });
+        }
+
+        function searchproducts(keyword) {
+            //   console.log(keyword);
+
+            $.ajax({
+                url: "{{ route('product.search') }}",
+                method: "POST",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    "keyword": keyword
+                },
+                success: function(response) {
+                    console.log(response);
+                    var listname = document.getElementById('datalistname');
+                    listname.innerHTML = '';
+                    for (let index = 0; index < response.length; index++) {
+                        const option = document.createElement('option');
+                        option.setAttribute('id', response[index].id);
+                        option.innerHTML = response[index].name;
+                        // option.onselect = selectinput(this.value_);
+                        // console.log(option);
+                        listname.appendChild(option);
+                    }
+                }
+            });
+
+
         }
     </script>
 
