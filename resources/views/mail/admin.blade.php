@@ -20,24 +20,51 @@
 
     Customer Details !!. <br>
 
-    Customer Name : {{ $cdetails['name'] ?? ""}}<br>
-    Customer Phone : {{ $cdetails['phone'] ?? ""}}<br>
-    Customer Email : {{ $cdetails['email'] ?? ""}}<br>
-    Customer Address :{{ $cdetails['address'] ?? ""}}<br>
-    Customer Country : {{ $cdetails['country'] ?? ""}}<br>
-    Customer State : {{ $cdetails['state'] ?? ""}}<br>
-    Customer Pincode : {{ $cdetails['pincode'] ?? ""}}<br>
-    Order Id :{{ $cdetails['order_id'] ?? ""}}<br>
-    Amount : {{ $cdetails['amount'] ?? ""}}<br><br><br>
+    Customer Name : {{ $cdetails['name'] ?? '' }}<br>
+    Customer Phone : {{ $cdetails['phone'] ?? '' }}<br>
+    Customer Email : {{ $cdetails['email'] ?? '' }}<br>
+    Customer Address :{{ $cdetails['address'] ?? '' }}<br>
+    Customer Country : {{ $cdetails['country'] ?? '' }}<br>
+    Customer State : {{ $cdetails['state'] ?? '' }}<br>
+    Customer Pincode : {{ $cdetails['pincode'] ?? '' }}<br>
+    Order Id :{{ $cdetails['order_id'] ?? '' }}<br>
+    Amount : {{ $cdetails['amount'] ?? '' }}<br><br><br>
 
+    @php
+        $productdetails = json_decode($order['product_details']);
+    @endphp
 
-    PRODUCT DETAILS:<br><br>
-    @for ($i = 0; $i < count($pdetails); $i++)
-        Product Name : {{ $pdetails[$i]['name'] ?? ""}}<br>
-        Product Sku : {{ $pdetails[$i]['sku'] ?? ""}}<br>
-        Product Qty : {{ $pdetails[$i]['pqty'] ?? ""}}<br>
-        Product Price : {{ $pdetails[$i]['pprice'] ?? ""}}<br><br>
-    @endfor
+    <h3>Order Details</h3>
+    <div>
+        Order Id : {{ $order['order_id'] ?? '' }}<br>
+        Total Amount : {{ $order['amount'] ?? '' }}<br>
+        {{-- Bill Download link : {{url('download-bill', $order->order_id)}}  --}}
+    </div>
+
+    <div>
+        <h3>Order Details</h3>
+        <table>
+            <tr>
+                <th style="border:1px solid black">Product Name</th>
+                <th style="border:1px solid black">Product Sku</th>
+                <th style="border:1px solid black">Quantity</th>
+                <th style="border:1px solid black">Price</th>
+                <th style="border:1px solid black">Sub Total</th>
+            </tr>
+
+            Customer Mail After Payment
+            @foreach ($productdetails as $item)
+                <tr>
+                    <td style="border:1px solid black">{{ $item->name ?? '' }}</td>
+                    <td style="border:1px solid black">{{ $item->sku ?? '' }}</td>
+                    <td style="border:1px solid black">{{ $item->quantity ?? '' }}</td>
+                    <td style="border:1px solid black">₹ {{ $item->price ?? '' }}</td>
+                    <td style="border:1px solid black">₹ {{ $item->quantity * $item->price ?? '' }}</td>
+                </tr>
+            @endforeach
+        </table><br>
+
+    </div>
 </div>
 
 <footer class="row footer2">

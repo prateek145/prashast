@@ -259,7 +259,7 @@ class HomeController extends Controller
                 // dd($transaction_detials);
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
-                $pdetails = $data['productdetail'];
+                $pdetails = $data['product_detail'];
                 $amount = $request->TXNAMOUNT;
                 unset($data['productdetail']);
                 unset($data['subtotal']);
@@ -276,7 +276,7 @@ class HomeController extends Controller
                     $message->to($data['email']);
                 });
 
-                Mail::send('mail.admin', ['cdetails' => $data, 'pdetails' => json_decode($pdetails, true)], function ($message) {
+                Mail::send('mail.admin', ['cdetails' => $data, 'order' => $orders1], function ($message) {
                     $message->sender(env('MAILFROM'), 'Donatofy');
                     $message->subject('Purchase');
                     $message->to(env('ADMINMAIL'));
@@ -292,7 +292,7 @@ class HomeController extends Controller
                 // dd($transaction_detials);
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
-                $pdetails = $data['productdetail'];
+                $pdetails = $data['product_detail'];
                 $amount = $request->TXNAMOUNT;
                 unset($data['productdetail']);
                 unset($data['subtotal']);
