@@ -259,7 +259,7 @@ class HomeController extends Controller
                 // dd($transaction_detials);
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
-                $pdetails = $data['product_details'];
+                $pdetails = $data['productdetail'];
                 $amount = $request->TXNAMOUNT;
                 unset($data['productdetail']);
                 unset($data['subtotal']);
@@ -292,7 +292,7 @@ class HomeController extends Controller
                 // dd($transaction_detials);
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
-                $pdetails = $data['product_details'];
+                $pdetails = $data['productdetail'];
                 $amount = $request->TXNAMOUNT;
                 unset($data['productdetail']);
                 unset($data['subtotal']);
