@@ -118,107 +118,17 @@ class AjaxController extends Controller
 
     public function add_to_wishlist(Request $request)
     {
-        // dd($request->all(), \Auth::check());
-
         if (\Auth::check()) {
-
-            $wishlistItems = wishlist::all();
-            // dd($wishlistItems);
-
-            $variable = '';
-
-            for ($i = 0; $i < count($wishlistItems); $i++) {
+            $wishlist = wishlist::where(['product_id'=> $request->productId, 'user_id'=>auth()->id()])->first();
+            // dd($wishlist);
+            if (is_null($wishlist)) {
                 # code...
-                if ($wishlistItems[$i]->sku == $request->sku) {
-                    # code...
-                    $variable = 'found';
-                }
-            }
-
-            if ($variable == '') {
-                # code...
-                # code...
-                // dd($request->all());
-                $product = Product::find($request->productId);
-                $variance = ProductVariance::where(['product_id' => $request->productId, 'sku' => $request->sku])->first();
-                // dd($variance, $product);
-                $cart = session()->get('wishlist', []);
-
-                // dd($cart);
-                $images = json_decode($product->featured_image);
-                if ($variance != null) {
-                    # code...
-                    if (isset($cart['variable' . $variance->id])) {
-                        $cart['variable' . $variance->id]['quantity']++;
-                    } else {
-                        if ($variance->sale_price != null) {
-                            # code...
-                            $cart = [
-                                "name" => $product->name,
-                                "quantity" => $request->qty,
-                                "price" => $variance->sale_price,
-                                "image" => 'product/' . $images[0],
-                                "sku" => $request->sku,
-                                "product_id" => $product->id,
-                                "product_type" => 'variable' . $variance->id
-                            ];
-                        } else {
-                            $cart = [
-                                "name" => $product->name,
-                                "quantity" => $request->qty,
-                                "price" => $variance->sale_price,
-                                "image" => 'product/' . $images[0],
-                                "sku" => $request->sku,
-                                "product_id" => $product->id,
-                                "product_type" => 'variable' . $variance->id
-                            ];
-                        }
-                    }
-
-                    // dd($cart);
-                    // session()->flush('cart');
-                    $cart['user_id'] = auth()->id();
-                    // dd($cart);
-
-                    wishlist::create($cart);
-                    return response()->json(['result' => $cart, 'var_id' => 'variable' . $variance->id, 'qty' => $request->qty]);
-                } else {
-                    if (isset($cart['simple' . $product->id])) {
-                        // dd($request->sku);
-                        $cart['simple' . $product->id]['quantity']++;
-                        // dd($cart);
-                    } else {
-                        // dd($request->sku);
-                        $images = json_decode($product->featured_image);
-                        if ($product->sale_price != null) {
-                            # code...
-                            $cart = [
-                                "name" => $product->name,
-                                "quantity" => $request->qty,
-                                "price" => $product->sale_price,
-                                "image" => 'product/' . $images[0],
-                                "sku" => $request->sku,
-                                "product_id" => $product->id,
-                                "product_type" => 'simple' . $product->id
-                            ];
-                        } else {
-                            $cart = [
-                                "name" => $product->name,
-                                "quantity" => $request->qty,
-                                "price" => $product->regular_price,
-                                "image" => 'product/' . $images[0],
-                                "sku" => $request->sku,
-                                "product_id" => $product->id,
-                                "product_type" => 'simple' . $product->id
-                            ];
-                        }
-                    }
-                    $cart['user_id'] = auth()->id();
-                    // dd($cart);
-                    wishlist::create($cart);
-                    // session()->flush('cart');
-                    return response()->json(['result'=>'notfound', 'result1' => $cart, 'product_id' => 'simple' . $product->id, 'qty' => $request->qty]);
-                }
+                $data = [
+                    'product_id' =>$request->productId,
+                    'user_id' =>auth()->id()
+                ];
+                wishlist::create($data);
+                return response()->json(['result' => 'notfound']);
             } else {
                 return response()->json(['result' => 'found']);
             }
