@@ -125,14 +125,15 @@
                     "qty": qty
                 },
                 success: function(response) {
-                    // console.log(response.result);
+                    console.log(response, 'prateek');
                     if (response.result == 'unauthorized') {
                         window.location.href = "{{ route('login') }}";
                     }
 
                     if (response.result == 'found') {
                         // alert('Product Already Added in Wishlist.');
-                    } else {
+                    } 
+                    if (response.result == 'notfound') {
                         // alert('Product Add In Wishlist.');
                         location.reload();
                     }

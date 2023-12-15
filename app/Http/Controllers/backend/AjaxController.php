@@ -118,7 +118,7 @@ class AjaxController extends Controller
 
     public function add_to_wishlist(Request $request)
     {
-        // dd($request->all());
+        // dd($request->all(), \Auth::check());
 
         if (\Auth::check()) {
 
@@ -217,13 +217,14 @@ class AjaxController extends Controller
                     // dd($cart);
                     wishlist::create($cart);
                     // session()->flush('cart');
-                    return response()->json(['result' => $cart, 'product_id' => 'simple' . $product->id, 'qty' => $request->qty]);
+                    return response()->json(['result'=>'notfound', 'result1' => $cart, 'product_id' => 'simple' . $product->id, 'qty' => $request->qty]);
                 }
             } else {
                 return response()->json(['result' => 'found']);
             }
         } else {
             # code...
+            // dd($request->all());
             return response()->json(['result' => 'unauthorized']);
         }
     }
