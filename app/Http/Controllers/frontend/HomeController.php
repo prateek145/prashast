@@ -135,12 +135,12 @@ class HomeController extends Controller
     {
 
         $rules = [
-        'name' => 'required',
+        // 'name' => 'required',
         'email' => 'required|email',
         // 'phone' => 'required|integer|min:10',
-        'address' => 'required',
-        'country' => 'required',
-        'state' => 'required',
+        // 'address' => 'required',
+        // 'country' => 'required',
+        // 'state' => 'required',
         // 'pincode' => 'required|integer',
 
          ];
