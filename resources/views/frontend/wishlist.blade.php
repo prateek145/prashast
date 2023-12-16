@@ -86,8 +86,9 @@
                 <div class="col-12">
                     <div class="owl-carousel cate">
                         @foreach ($sub_categories as $item)
-                        <div class="item"> <img src="{{route('dynamic.subcategories', $item->slug)}}"
-                            class="img-fluid icon" /> </div>
+                        <a href="{{route('dynamic.subcategories', $item->slug)}}">
+                            <img src="{{asset('public/productsubcategory/'.$item->featured_image)}}" class="img-fluid icon" /> 
+                        </a> 
                             
                         @endforeach
                     </div>

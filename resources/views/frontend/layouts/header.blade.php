@@ -8,7 +8,7 @@
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg">
                     <div class="container-fluid">
-                        <a class="navbar-brand d-lg-none logo-link" href="index.html"><img
+                        <a class="navbar-brand d-lg-none logo-link" href="{{ route('frontend.home') }}"><img
                                 src="{{ asset('public/frontend/images/Regalia-logo-light.png') }}"
                                 class="img-fluid logo  pt-md-5" /></a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
