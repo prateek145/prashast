@@ -175,7 +175,7 @@ class HomeController extends Controller
 
 
             // $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"amount":"1.00","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
-            $chbody = '{"requestType":"Payment","mid":"' . $mid . '","orderId":"' . $order_id . '","websiteName":"' . $WEBSITE . '","txnAmount":{"value":"' . $amount . '","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/Stagging/paytm-done"}}';
+            $chbody = '{"requestType":"Payment","mid":"' . $mid . '","orderId":"' . $order_id . '","websiteName":"' . $WEBSITE . '","txnAmount":{"value":"' . $amount . '","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://prashast.co.in/paytm-done"}}';
 
 
             $Checksumhash = self::generateSignature($chbody, $PAYTM_MERCHANT_KEY);
