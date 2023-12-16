@@ -42,7 +42,7 @@
                                 <a class="btn-link product-link">
                                     <span class="wishlst">
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" onclick="deletewishlist('delete', '{{ $item->sku }}')" class="btn btn-trash"><i class="bi bi-trash"></i></button>
+                                            <button type="button" onclick="deletewishlist('delete', '{{ $item->id }}')" class="btn btn-trash"><i class="bi bi-trash"></i></button>
                                             <button type="button" class="btn btn-book" onclick="addtocart('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')""><i class="bi bi-cart"></i></button>
                                         </div>
                                     </span>

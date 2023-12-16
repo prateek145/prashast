@@ -233,14 +233,14 @@
 
         }
 
-        function deletewishlist(work, sku) {
-            console.log(sku);
+        function deletewishlist(work, id) {
+            // console.log(sku);
             $.ajax({
                 url: "{{ route('remove.wishlist') }}",
                 method: "POST",
                 data: {
                     '_token': "{{ csrf_token() }}",
-                    "sku": sku
+                    "id": id
                 },
                 success: function(response) {
                     // console.log(response);

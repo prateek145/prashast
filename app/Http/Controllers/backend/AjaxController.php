@@ -208,7 +208,9 @@ class AjaxController extends Controller
 
     public function remove_wishlist(Request $request)
     {
-        wishlist::where(['user_id' => auth()->id(), 'sku' => $request->sku])->delete();
+        // dd($request->all());
+        // dd(auth()->id());
+        wishlist::where(['user_id' => auth()->id(), 'product_id' => $request->id])->delete();
         return response()->json(['result' =>'success']);
     }
 
