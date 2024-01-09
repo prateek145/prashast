@@ -4,6 +4,8 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Models\backend\Order;
 
 class PaymentController extends Controller
 {
@@ -51,7 +53,7 @@ class PaymentController extends Controller
 
 
             // $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"amount":"1.00","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
-            $chbody = '{"requestType":"Payment","mid":"' . $mid . '","orderId":"' . $order_id . '","websiteName":"' . $WEBSITE . '","txnAmount":{"value":"' . $amount . '","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://prashast.co.in/paytm-done"}}';
+            $chbody = '{"requestType":"Payment","mid":"' . $mid . '","orderId":"' . $order_id . '","websiteName":"' . $WEBSITE . '","txnAmount":{"value":"' . $amount . '","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"http://127.0.0.1/prashast/paytm-done"}}';
 
 
             $Checksumhash = self::generateSignature($chbody, $PAYTM_MERCHANT_KEY);
