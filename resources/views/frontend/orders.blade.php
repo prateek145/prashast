@@ -1,8 +1,13 @@
 @extends('frontend.layouts.app')
 @section('content')
+    @if ($page_image)
+        <section class="hero1" style="background-image:url({{ asset('public/pageimages/' . $page_image->images) }})">
+        </section>
+    @else
+        <section class="hero-myaccount">
+        </section>
+    @endif
 
-    <section class="hero-myaccount">
-    </section>
     <section class="contact py-5">
         <div class="container">
             <div class="row">
@@ -34,65 +39,65 @@
             <div class="col-lg-9 col-12 pt-5 mx-auto">
 
                 @foreach ($orders as $item)
-                <div class="card border-0 mb-5">
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <h6 class="yellow">ORDER {{$item->order_id}}</h6>
-                        </div>
-                        <div class="col-12 col-lg-6 float-end">
-                            <h6 class="yellow  float-end">TRACK</h6>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-2">order placed<br>
-                            <strong>{{$item->created_at->format('d-m-y')}}</strong>
-                        </div>
-                        <div class="col-lg-2">Ship to V<br>
-                            <strong>Testing</strong>
-                        </div>
-                        <div class="col-lg-2">Bill to V<br>
-                            <strong>Testing</strong>
-                        </div>
-                        <div class="col-lg-2">Total<br>
-                            <strong>Rs. 1.00(For Testing)</strong>
-                        </div>
-                        <div class="col-lg-4">
-                            <button type="button" class="btn float-end" data-bs-toggle="tooltip" data-bs-placement="top"
-                                data-bs-title="Download Invoice">
-                                <strong><i class="bi bi-download"></i></strong>
-                            </button>
-                        </div>
-                    </div>
-                    @php
-                        $order_deatails = json_decode($item->product_details);
-                    @endphp
-
-                    @foreach ($order_deatails as $item1 => $value)
-                    <div class="row mt-5">
-                        <div class="col-12 col-lg-2 align-self-center">
-                            <h6>{{$count++}}</h6>
-                            <img src="{{ asset('public/' . $value->image) }}" class="img-fluid">
-                        </div>
-                        <div class="col-12 col-lg-4 align-self-center">
-                            <h3>{{$value->name}}</h3>
-                            {{-- <p><strong>Secondary product title</strong></p> --}}
-                            <p>Quantity: {{$value->quantity}}</p>
-                            <p>Rs. {{$value->price}}</p>
-
-                            <div>
-                                <p><strong>Payment method 1.</strong></p>
-                                <p>xxxx xxxx xxxx xxxx</p>
+                    <div class="card border-0 mb-5">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <h6 class="yellow">ORDER {{ $item->order_id }}</h6>
+                            </div>
+                            <div class="col-12 col-lg-6 float-end">
+                                <h6 class="yellow  float-end">TRACK</h6>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6 align-self-center">
-                            <a class="btn btn-secondary float-end" href="{{route('dynamic.subcategories', 'shop')}}">Buy Again</a>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-2">order placed<br>
+                                <strong>{{ $item->created_at->format('d-m-y') }}</strong>
+                            </div>
+                            <div class="col-lg-2">Ship to V<br>
+                                <strong>Testing</strong>
+                            </div>
+                            <div class="col-lg-2">Bill to V<br>
+                                <strong>Testing</strong>
+                            </div>
+                            <div class="col-lg-2">Total<br>
+                                <strong>Rs. 1.00(For Testing)</strong>
+                            </div>
+                            <div class="col-lg-4">
+                                <button type="button" class="btn float-end" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" data-bs-title="Download Invoice">
+                                    <strong><i class="bi bi-download"></i></strong>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    @endforeach
+                        @php
+                            $order_deatails = json_decode($item->product_details);
+                        @endphp
 
-                </div>
-                    
+                        @foreach ($order_deatails as $item1 => $value)
+                            <div class="row mt-5">
+                                <div class="col-12 col-lg-2 align-self-center">
+                                    <h6>{{ $count++ }}</h6>
+                                    <img src="{{ asset('public/' . $value->image) }}" class="img-fluid">
+                                </div>
+                                <div class="col-12 col-lg-4 align-self-center">
+                                    <h3>{{ $value->name }}</h3>
+                                    {{-- <p><strong>Secondary product title</strong></p> --}}
+                                    <p>Quantity: {{ $value->quantity }}</p>
+                                    <p>Rs. {{ $value->price }}</p>
+
+                                    <div>
+                                        <p><strong>Payment method 1.</strong></p>
+                                        <p>xxxx xxxx xxxx xxxx</p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 align-self-center">
+                                    <a class="btn btn-secondary float-end"
+                                        href="{{ route('dynamic.subcategories', 'shop') }}">Buy Again</a>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
                 @endforeach
             </div>
         </div>

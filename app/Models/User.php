@@ -24,6 +24,13 @@ class User extends Authenticatable
         'role',
         'phone',
         'password',
+        'address',
+        'address1',
+        'landmark',
+        'city',
+        'state',
+        'status',
+        'pincode'
     ];
 
     /**

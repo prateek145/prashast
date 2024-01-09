@@ -17,18 +17,12 @@ class ProductCategoryController extends Controller
     public function index()
     {
         try {
-            $query = ProductCategories::query();
-            if (isset(request()->search) && !empty(request()->search)) {
-                $search_text = request()->search;
-                $query->where('name', 'LIKE', "%{$search_text}%");
-                // ->orWhere('short_description', 'LIKE', "%{$search_text}%")
-                // ->orWhere('meta_description', 'LIKE', "%{$search_text}%")
-                // ->orWhere('email', 'LIKE', "%{$search_text}%");
-            }
-            $productcategories = $query->orderBy('id')->paginate(10);
-            return view('backend.products-categories.index', ['productcategories' => $productcategories])->with('no', 1);
+
+            $categories = ProductCategories::latest()->get();
+            $count = 1;
+            return view('backend.products-categories.index', compact('categories', 'count'));
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error Occured');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -42,7 +36,7 @@ class ProductCategoryController extends Controller
         try {
             return view('backend.products-categories.create');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error Occured');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -55,7 +49,8 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|max:100'
+            'name' => 'required|max:100|unique:product_categories',
+            'status' => 'required'
 
         ];
 
@@ -85,7 +80,7 @@ class ProductCategoryController extends Controller
             ProductCategories::create($data);
             return redirect()->route('products-categories.index')->with('success', 'Successfully ' . $request->name . ' Created');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error Occured');
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -132,7 +127,7 @@ class ProductCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => 'required|max:100',
+            'name' => 'required|max:100|unique:product_categories,name,' . $id .  "'",
 
         ];
 

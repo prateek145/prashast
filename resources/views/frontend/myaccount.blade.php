@@ -1,7 +1,13 @@
 @extends('frontend.layouts.app')
 @section('content')
+    @if ($page_image)
+    <section class="hero1" style="background-image:url({{asset('public/pageimages/' . $page_image->images)}})">
+    </section>
+    @else
     <section class="hero-myaccount">
     </section>
+        
+    @endif
     <section class="contact py-5">
         <div class="container">
             <div class="row">
@@ -28,76 +34,88 @@
             <div class="row">
 
                 <div class="col-lg-4 mx-auto text-center mt-5">
-                    <form class="needs-validation form" novalidate="">
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <input type="text" class="form-control" id="firstName" placeholder="Name" value="{{auth()->user()->name ?? ""}}"
-                                    required="">
-                            </div>
-                            <div class="col-12">
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com" value="{{auth()->user()->email ?? ""}}">
-                            </div>
-                            <div class="col-12">
-                                <input type="text" class="form-control" id="email" placeholder="+918880277282" {{auth()->user()->phone ?? ""}}>
-                            </div>
+                    {{-- <form class="needs-validation form" novalidate=""> --}}
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <input type="text" class="form-control" id="firstName" placeholder="Name"
+                                value="{{ auth()->user()->name ?? '' }}" required="">
+                        </div>
+                        <div class="col-12">
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com"
+                                value="{{ auth()->user()->email ?? '' }}">
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" id="email" placeholder="+918880277282"
+                                {{ auth()->user()->phone ?? '' }}>
+                        </div>
+                        <form action="{{ route('billing.address') }}" method="post">
+                            @csrf
                             <div class="col-12 mt-5">
                                 <h5>Billing Address</h5>
-                                <textarea class="form-control" rows="5"></textarea>
+                                <textarea class="form-control" readonly rows="5" name="address">{{ auth()->user()->address }}, {{ auth()->user()->address1 }}, {{ auth()->user()->landmark }}, {{ auth()->user()->city }}, {{ auth()->user()->state }} - {{ auth()->user()->pincode }}</textarea>
                             </div>
                             <div class="col-12 mt-5">
                                 <h5>Shipping Address</h5>
                                 <div class="form-check d-inline-block mb-4">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                                        checked>
+                                    <input class="form-check-input" onchange="same_address1()" type="checkbox" name="same_address" value="1"
+                                        id="flexCheckChecked">
                                     <label class="form-check-label" for="flexCheckChecked">
                                         Same as Billing Address
                                     </label>
                                 </div>
-                                <textarea class="form-control" rows="5"></textarea>
+                                <textarea class="form-control @error('billing_address') is-invalid @enderror" rows="5" name="billing_address">{{auth()->user()->billing_address}}</textarea>
+                                @error('billing_address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <button class="btn btn-primary my-4" type="submit">Add</button>
+
                             </div>
-                            <div class="col-12 mt-5">
-                                <h5>Payment Method</h5>
-                                <div class="col-12">
-                                    <input type="text" class="form-control" id="firstName" placeholder="Card Number"
-                                        value="" required="">
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" id="firstName" placeholder="Valid Thru: MM/YY"
+                        </form>
+                        <div class="col-12 mt-5">
+                            <h5>Payment Method</h5>
+                            <div class="col-12">
+                                <input type="text" class="form-control" id="firstName" placeholder="Card Number"
                                     value="" required="">
                             </div>
-                            <div class="col-4">
-                                <input type="text" class="form-control" id="firstName" placeholder="CVV" value=""
-                                    required="">
-                            </div>
-                            <div class="col-12">
-                                <input type="text" class="form-control" id="address2" placeholder="Name on the card">
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" id="firstName" placeholder="Valid Thru: MM/YY"
+                                value="" required="">
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="firstName" placeholder="CVV" value=""
+                                required="">
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" id="address2" placeholder="Name on the card">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary my-4" type="submit">Add</button>
+                    <div class="row g-3">
+                        <div class="col-12 ">
+                            <div class="card w-100 p-2 bg-light">
+                                <h6 class="card-title">Payment Method 1</h6>
+                                <p>XXXX XXXX XXXX XXXX</p>
                             </div>
                         </div>
-                        <button class="btn btn-primary my-4" type="submit">Add</button>
-                        <div class="row g-3">
-                            <div class="col-12 ">
-                                <div class="card w-100 p-2 bg-light">
-                                    <h6 class="card-title">Payment Method 1</h6>
-                                    <p>XXXX XXXX XXXX XXXX</p>
-                                </div>
-                            </div>
-                            <div class="col-12 ">
-                                <div class="card w-100 p-2 bg-light">
-                                    <h6 class="card-title">Payment Method 2</h6>
-                                    <p>XXXX XXXX XXXX XXXX</p>
-                                </div>
+                        <div class="col-12 ">
+                            <div class="card w-100 p-2 bg-light">
+                                <h6 class="card-title">Payment Method 2</h6>
+                                <p>XXXX XXXX XXXX XXXX</p>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    {{-- </form> --}}
                 </div>
 
                 <div class="col-12 col-lg-12 mx-auto text-center">
 
 
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-                            tabindex="0">
+                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
+                            aria-labelledby="home-tab" tabindex="0">
 
                         </div>
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
@@ -409,8 +427,9 @@
             <div class="row">
                 <div class="col-12 text-center mx-auto position-relative">
                     @foreach ($sub_categories as $item)
-                    <a href="{{route('dynamic.subcategories', $item->slug)}}"><img src="{{asset('public/productsubcategory/'.$item->featured_image)}}" class="img-fluid icon m-grid rounded-4" /></a> 
-                        
+                        <a href="{{ route('dynamic.subcategories', $item->slug) }}"><img
+                                src="{{ asset('public/productsubcategory/' . $item->featured_image) }}"
+                                class="img-fluid icon m-grid rounded-4" /></a>
                     @endforeach
 
                 </div>
@@ -418,4 +437,22 @@
 
         </div>
     </section>
+
+    <script>
+        function same_address1(){
+            var checkbox = document.getElementsByName('same_address')[0];
+            if (checkbox.checked === true) {
+                var address = document.getElementsByName('address')[0];
+                var billing_address = document.getElementsByName('billing_address')[0];
+                billing_address.value = address.value
+
+            }
+
+            if (checkbox.checked === false) {
+                var billing_address = document.getElementsByName('billing_address')[0];
+                billing_address.value = "";
+            }
+
+        }
+    </script>
 @endsection

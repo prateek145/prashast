@@ -1,5 +1,4 @@
 @extends('frontend.layouts.app')
-{{-- @include('frontend.layouts.header') --}}
 @section('content')
     <style>
         h2 {
@@ -10,8 +9,13 @@
             border: 4px dashed #f0b53f !important;
         }
     </style>
-    <section class="hero-shop">
-    </section>
+    @if ($page_image)
+        <section class="hero1" style="background-image:url({{ asset('public/pageimages/' . $page_image->images) }})">
+        </section>
+    @else
+        <section class="hero-shop">
+        </section>
+    @endif
     <section class="offers py-5">
         <div class="container">
             <div class="row">
@@ -58,16 +62,14 @@
                     </button>
                     <!-- Collapsible wrapper -->
                     <div class="collapse show" id="collapseExample">
-                        <h2 style="padding: 1rem">Collections</h2>
+                        {{-- <h2 style="padding: 1rem">Collections</h2>
                         <h5 class="tag active" style="padding-left: 1rem">
                             <a href="">All products</a>
                         </h5>
                         <h5 class="tag" style="padding-left: 1rem">
                             <a href="">Accessories</a>
                         </h5>
-                        <h5 class="tag" style="padding-left: 1rem">
-                            <a href="">Utility pouches</a>
-                        </h5>
+
                         <h2 style="padding: 1rem">Home & Lifestyle</h2>
                         <h5 class="tag" style="padding-left: 1rem">
                             <a href="">Home decor</a>
@@ -77,97 +79,31 @@
                         </h5>
                         <h5 class="tag" style="padding-left: 1rem">
                             <a href="">Kitchen and dining</a>
-                        </h5>
-                        <h2 style="padding: 1rem">Filter</h2>
-                        <form>
-                            <select class="form-select form-control">
-                                <option>1000</option>
-                                <option>1001 to 10000</option>
-                                <option>10001 ></option>
-                            </select>
-                        </form>
+                        </h5> --}}
+
                         <h2 style="padding:1rem;">Categories</h2>
                         <div class="accordion" id="accordionPanelsStayOpenExample">
-                            @foreach ($sub_categories as $item)
-                                <a href="{{route('dynamic.subcategories', $item->name)}}">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseOne{{ $item->id }}"
-                                            aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                            {{ $item->name }}
-                                        </button>
-                                    </h2>
-
-                                </a>
-                              
+                            @foreach ($categories as $item)
+                                <h5 class="tag" style="padding-left: 1rem">
+                                    <a href="{{ url('dynamic-subcategory/' . $item->slug . '/category') }}">
+                                        {{ $item->name }}
+                                    </a>
+                                </h5>
                             @endforeach
-                            {{-- <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                Baans
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <ul>
-                                    <li><a href="">Bracelet</a></li>
-                                    <li><a href="">Choker</a></li>
-                                    <li><a href="">Earring</a></li>
-                                    <li><a href="">Necklace</a></li>
-                                </ul>
-                            </div>
                         </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                Soot
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <ul>
-                                    <li><a href="">Bracelet</a></li>
-                                    <li><a href="">Choker</a></li>
-                                    <li><a href="">Earring</a></li>
-                                    <li><a href="">Necklace</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                                Maati
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <ul>
-                                    <li><a href="">Bracelet</a></li>
-                                    <li><a href="">Choker</a></li>
-                                    <li><a href="">Earring</a></li>
-                                    <li><a href="">Necklace</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> --}}
-                        </div>
-                        <h2 style="padding:1rem;">Tags</h2>
-                        <h5 class="tag" style="padding-left:1rem;"><a href="">Bracelet</a></h5>
-                        <h5 class="tag active" style="padding-left:1rem;"><a href="">Choker</a></h5>
-                        <h5 class="tag" style="padding-left:1rem;"><a href="">Earring</a></h5>
-                        <h5 class="tag" style="padding-left:1rem;"><a href="">Necklace</a></h5>
+                        {{-- <h2 style="padding:1rem;">Tags</h2> --}}
+                        {{-- {{dd($tags)}} --}}
+                        {!! $fsidebar->description !!}
 
-                        <!--<h2 style="padding:1rem;">Filter</h2>-->
-                        <!--<form>-->
-                        <!--    <select class="form-select form-control">-->
-                        <!--        <option>-->
-                        <!--            < 1000</option>-->
-                        <!--        <option>1001 to 10000</option>-->
-                        <!--        <option>10001 ></option>-->
-                        <!--    </select>-->
-                        <!--</form>-->
+                        <h2 style="padding: 1rem">Filter</h2>
+                        <form>
+                            <select class="form-select form-control" onchange="filter_price(this.value)">
+                                <option value="" selected>Select</option>
+                                <option value="1000">1000</option>
+                                <option value="1001">1001 to 10000</option>
+                                <option value="10001">10001 ></option>
+                            </select>
+                        </form>
 
                     </div>
                 </div>
@@ -175,12 +111,14 @@
                 <!-- content -->
                 <div class="col-lg-9">
                     <header>
-                        <form class="form searchform d-flex col-12 col-lg-5" action="{{route('searchproduct')}}" method="post">
+                        <form class="form searchform d-flex col-12 col-lg-5" action="{{ route('searchproduct') }}"
+                            method="post">
                             @csrf
-                            <input type="text"
-                                class=" border-0 form-control" onkeyup="searchproducts(this.value)" list="datalistname" placeholder="Search">
-                                <datalist id="datalistname"></datalist>
-                                <button class="btn border-0 bg-light"><i class="bi bi-search"></i></button></form>
+                            <input type="text" class=" border-0 form-control" onkeyup="searchproducts(this.value)"
+                                list="datalistname" placeholder="Search">
+                            <datalist id="datalistname"></datalist>
+                            <button class="btn border-0 bg-light"><i class="bi bi-search"></i></button>
+                        </form>
                     </header>
                     <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                         <p class="d-block py-2 m-0">Showing {{ count($products) }} of {{ count($products) }} results </p>
@@ -240,7 +178,7 @@
                                         @endif
                                         <span class="content">
                                             <h6>{{ $item->name }}</h6>
-                                            <p>₹{{ $item->regular_price }}</p>
+                                            <p>₹{{ $item->sale_price }}</p>
                                         </span>
                                     </a>
                                 </div>
@@ -315,4 +253,23 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function filter_price(value) {
+            if (value !== "") {
+                if (value == 1000) {
+                    window.location.href = "{{ url('dynamic-subcategory/1000/filter') }}"
+                }
+
+                if (value == 1001) {
+                    window.location.href = "{{ url('dynamic-subcategory/1001/filter') }}"
+                }
+
+                if (value == 10001) {
+                    window.location.href = "{{ url('dynamic-subcategory/10001/filter') }}"
+                }
+
+            }
+        }
+    </script>
 @endsection

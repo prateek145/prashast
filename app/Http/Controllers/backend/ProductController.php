@@ -61,16 +61,25 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $rules = [
-            'name' => 'required|max:100'
+        // $rules = [
+        //     'name' => 'required|unique:products',
+        //     'sku' => 'required|unique:products',
+        //     'sale_price' => 'required',
+        //     'featured_image' => 'required',
+        //     'image' => 'required',
+        //     'description' => 'required',
+        //     'product_categories' => 'required',
+        //     'product_subcategories' => 'required',
+        //     // 'tag_selection' => 'required|array',
+        //     'status' => 'required',
 
-        ];
+        // ];
 
-        $custommessages = [
-            'name.required' => 'Name is required'
-        ];
+        // $custommessages = [
+        //     'name.required' => 'Name is required'
+        // ];
 
-        $this->validate($request, $rules, $custommessages);
+        // $this->validate($request, $rules, $custommessages);
 
         $data = $request->all();
 
@@ -104,10 +113,13 @@ class ProductController extends Controller
         unset($data['_token']);
         unset($data['product_categories']);
         unset($data['product_subcategories']);
+        unset($data['tag_selection']);
         $data['slug'] = Str::slug($request->name);
         $data['product_categories'] = json_encode($request->product_categories);
+        $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
         $data['product_subcategories'] = json_encode($request->product_subcategories);
 
+        // dd($data);
         Product::create($data);
         return redirect()->route('products.index')->with('success', 'Successfully ' . $request->name . ' Created');
         try {

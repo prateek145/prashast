@@ -13,10 +13,6 @@
                 <div class="col-lg-5 mb-5 mb-lg-auto">
                     <div id="carouselExampleIndicatorsf" class="carousel slide d-flex">
                         <div class="carousel-indicators">
-                            {{-- <button type="button" data-bs-target="#carouselExampleIndicatorsf" data-bs-slide-to="0"
-                            class="active" aria-current="true" aria-label="Slide 1">
-                            <img src="{{ asset('public/frontend/images/03.png') }}" class="d-block" style="width:100px"
-                                alt=""></button> --}}
 
                             @foreach (json_decode($product->featured_image) as $key => $item)
                                 <button type="button" data-bs-target="#carouselExampleIndicatorsf"
@@ -129,7 +125,7 @@
                                             width="250" class="card-img-top" />
                                         <span class="content">
                                             <h6>{{ $item->name }}</h6>
-                                            <p>₹{{ $item->regular_price }}</p>
+                                            <p>₹{{ $item->sale_price }}</p>
                                         </span>
                                     </a>
                                 </div>

@@ -1,7 +1,13 @@
 @extends('frontend.layouts.app')
 @section('content')
+@if ($page_image)
+<section class="hero1" style="background-image:url({{ asset('public/pageimages/' . $page_image->images) }})">
+</section>
+@else
 <section class="hero-signin">
 </section>
+@endif
+
 <section class="contact py-5">
     <div class="container">
         <div class="row">

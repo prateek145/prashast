@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\PageImages;
 use App\Models\backend\Pages;
 use App\Models\backend\Product;
 use Illuminate\Http\Request;
@@ -188,16 +189,26 @@ class PageController extends Controller
     public function dynamic_page($slug)
     {
         $page = Pages::where('slug', $slug)->first();
-        return view('frontend.dynamicp', compact('page'));
+        if ($slug == 'about-us') {
+            # code...
+            $page_image = PageImages::where('name', 'about-us')->first();
+        }
+
+        if ($slug == 'contact-us') {
+            # code...
+            $page_image = PageImages::where('name', 'contact-us')->first();
+        }
+        return view('frontend.dynamicp', compact('page', 'page_image'));
     }
 
-    public function shop_page(){
+    public function shop_page()
+    {
         $categories = ProductCategories::all();
         $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
         $products = Product::latest()->get();
         $productids = [];
         // dd($products);
-        for ($i=0; $i <count($products) ; $i++) { 
+        for ($i = 0; $i < count($products); $i++) {
             # code...
             $product = Json_decode($products[$i]->product_categories);
             // dd($subcategories->id, $product,  $products[$i]->id);
@@ -214,13 +225,22 @@ class PageController extends Controller
         return view('frontend.shop', compact('categories', 'sub_categories'));
     }
 
-    public function my_account(){
-        $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
-        return view('frontend.myaccount', compact('sub_categories'));
-
+    public function my_account()
+    {
+        if (auth()->user()->role == 'admin') {
+            # code...
+            return redirect()->route('home');
+        } else {
+            # code...
+            $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
+            $page_image = PageImages::where('name', 'my-account')->first();
+            return view('frontend.myaccount', compact('sub_categories', 'page_image'));
+        }
+        
     }
 
-    public function profile(){
-        return view ('frontend.profile');
+    public function profile()
+    {
+        return view('frontend.profile');
     }
 }

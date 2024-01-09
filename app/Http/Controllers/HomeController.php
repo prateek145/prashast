@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\backend\Order;
+use App\Models\backend\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // dd('dashboard');
+        $total_users = User::where('role', '!=', 'admin')->count();
+        $total_products = Product::latest()->count();
+        $total_orders = Order::latest()->count();
+        return view('home', compact('total_users', 'total_products','total_orders'));
     }
 }

@@ -15,13 +15,11 @@ class ProductSubcategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($slug)
+    public function index()
     {
-        $pcat = ProductCategories::where('slug', $slug)->first();
-        // dd($pcat);
-        $productcategories = $pcat->subcategories()->get();
-        $id = $pcat->id;
-        return view('backend.product-subcategories.index', compact('id', 'productcategories'))->with('no', 1);
+        $productcategories = ProductSubcategory::latest()->get();
+        $no = 1;
+        return view('backend.product-subcategories.index', compact('productcategories', 'no'));
         try {
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
@@ -33,10 +31,11 @@ class ProductSubcategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        return view('backend.product-subcategories.create', compact('id'));
         try {
+            
+            return view('backend.product-subcategories.create', compact('id'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
         }
@@ -52,7 +51,11 @@ class ProductSubcategoryController extends Controller
     {
         // dd($request->all());
         $rules = [
-            'name' => 'required|max:100'
+            'name' => 'required|max:100|unique:product_subcategories',
+            'status' => 'required',
+            'featured_image' => 'required',
+            'icon_image' => 'required',
+            'dark_icon' => 'required',
 
         ];
 
@@ -135,7 +138,7 @@ class ProductSubcategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit1($id)
+    public function edit($id)
     {
         try {
             // dd($slug);
@@ -156,7 +159,8 @@ class ProductSubcategoryController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => 'required|max:100',
+            'name' => 'required|max:100|unique:product_subcategories,name,' . $id .  "'",
+            'status' => 'required',
 
         ];
 
@@ -167,59 +171,59 @@ class ProductSubcategoryController extends Controller
 
         $this->validate($request, $rules, $custommessages);
 
-        $data = $request->all();
-        unset($data['_method']);
-        unset($data['_token']);
-        // dd($data);
-        $productcategories = ProductSubcategory::where(['id' => $id])->first();
-
-
-        if ($request->featured_image) {
-            # code...
-            // if ($productcategories->featured_image) {
-            //     # code...
-            //     $destination_path = public_path('productsubcategory/' . $productcategories->featured_image);
-            //     unlink($destination_path);
-            // }
-
-            $image = $request->featured_image;
-            $filename = rand() . $image->getClientoriginalName();
-            // dd($filename);
-            // $image_resize = Image::make($image->getRealPath());
-            // $image_resize->resize(400, 400);
-            $destination_path = public_path('/productsubcategory');
-            $image->move($destination_path, $filename);
-            unset($data['featured_image']);
-            $data['featured_image'] = $filename;
-        }
-
-        if ($request->icon_image) {
-            # code...
-            $image = $request->icon_image;
-            $filename = rand() . $image->getClientoriginalName();
-            // dd($filename);
-            // $image_resize = Image::make($image->getRealPath());
-            // $image_resize->resize(400, 400);
-            $destination_path = public_path('/productsubcategory');
-            $image->move($destination_path, $filename);
-            $data['icon_image'] = $filename;
-        }
-
-        if ($request->dark_icon) {
-            # code...
-            $image = $request->dark_icon;
-            $filename = rand() . $image->getClientoriginalName();
-            // dd($filename);
-            // $image_resize = Image::make($image->getRealPath());
-            // $image_resize->resize(400, 400);
-            $destination_path = public_path('/productsubcategory');
-            $image->move($destination_path, $filename);
-            $data['dark_icon'] = $filename;
-        }
-        $data['slug'] = Str::slug($request->name);
-        $productcategories->update($data);
-        return redirect()->back()->with('success', 'Succesfully ' . $request->name . ' Updated');
         try {
+            $data = $request->all();
+            unset($data['_method']);
+            unset($data['_token']);
+            // dd($data);
+            $productcategories = ProductSubcategory::where(['id' => $id])->first();
+    
+    
+            if ($request->featured_image) {
+                # code...
+                // if ($productcategories->featured_image) {
+                //     # code...
+                //     $destination_path = public_path('productsubcategory/' . $productcategories->featured_image);
+                //     unlink($destination_path);
+                // }
+    
+                $image = $request->featured_image;
+                $filename = rand() . $image->getClientoriginalName();
+                // dd($filename);
+                // $image_resize = Image::make($image->getRealPath());
+                // $image_resize->resize(400, 400);
+                $destination_path = public_path('/productsubcategory');
+                $image->move($destination_path, $filename);
+                unset($data['featured_image']);
+                $data['featured_image'] = $filename;
+            }
+    
+            if ($request->icon_image) {
+                # code...
+                $image = $request->icon_image;
+                $filename = rand() . $image->getClientoriginalName();
+                // dd($filename);
+                // $image_resize = Image::make($image->getRealPath());
+                // $image_resize->resize(400, 400);
+                $destination_path = public_path('/productsubcategory');
+                $image->move($destination_path, $filename);
+                $data['icon_image'] = $filename;
+            }
+    
+            if ($request->dark_icon) {
+                # code...
+                $image = $request->dark_icon;
+                $filename = rand() . $image->getClientoriginalName();
+                // dd($filename);
+                // $image_resize = Image::make($image->getRealPath());
+                // $image_resize->resize(400, 400);
+                $destination_path = public_path('/productsubcategory');
+                $image->move($destination_path, $filename);
+                $data['dark_icon'] = $filename;
+            }
+            $data['slug'] = Str::slug($request->name);
+            $productcategories->update($data);
+            return redirect()->back()->with('success', 'Succesfully ' . $request->name . ' Updated');
             //dd($request->all());
 
         } catch (\Exception $e) {

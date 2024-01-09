@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\backend\AjaxController;
 use App\Http\Controllers\backend\DesinerConroller;
+use App\Http\Controllers\backend\FSideBarController;
+use App\Http\Controllers\backend\NewsLetterController;
 use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\backend\OrderdetailsController;
 use App\Http\Controllers\backend\PageController;
+use App\Http\Controllers\backend\PageImages;
 use App\Http\Controllers\backend\ProductAttrController;
 use App\Http\Controllers\backend\ProductCategoryController;
 use App\Http\Controllers\backend\ProductController;
@@ -13,7 +16,10 @@ use App\Http\Controllers\backend\RazorpayController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\UserOrderController;
 use App\Http\Controllers\backend\SideBarController;
+use App\Http\Controllers\backend\TagController;
+use App\Http\Controllers\frontend\AfterLoginController;
 use App\Http\Controllers\frontend\HomeController;
+use App\Http\Controllers\frontend\PaymentController;
 use App\Models\backend\ProductSubcategory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
@@ -47,7 +53,7 @@ Route::get('my-account', [Pagecontroller::class, 'my_account'])->name('my.accoun
 Route::get('profile', [Pagecontroller::class, 'profile'])->name('profile')->middleware('auth');;
 Route::get('dynamic-category/{slug}', [HomeController::class, 'dynamic_categories'])->name('dynamic.categories');
 Route::get('categories', [HomeController::class, 'categories'])->name('categories');
-Route::get('dynamic-subcategory/{slug}', [HomeController::class, 'dynamic_subcategories'])->name('dynamic.subcategories');
+Route::get('dynamic-subcategory/{slug}/{key}', [HomeController::class, 'dynamic_subcategories'])->name('dynamic.subcategories');
 Route::get('product-detail/{slug}', [HomeController::class, 'product_detail'])->name('product.detail');
 Route::get('cart', [HomeController::class, 'cart'])->name('cart');
 Route::get('wishlist', [HomeController::class, 'wishlist'])->name('wishlist')->middleware('auth');;
@@ -57,7 +63,7 @@ Route::get('become-a-vendor', [HomeController::class, 'become_a_vendor'])->name(
 Route::get('place-a-bulk-order', [HomeController::class, 'place_a_bulk_order'])->name('bulk.order.page');
 Route::get('user-orders', [HomeController::class, 'user_orders'])->name('orders.page')->middleware('auth');
 Route::get('schedule-a-purchase', [HomeController::class, 'schedule_purchase'])->name('schedule.purchase');
-
+Route::resource('newsletter', NewsLetterController::class);
 
 //post save
 Route::post('become-a-vendor-save', [HomeController::class, 'vendor_save'])->name('become.a.vendor');
@@ -90,11 +96,18 @@ Route::resource('products', ProductController::class)->middleware('auth');
 Route::resource('products-categories', ProductCategoryController::class)->middleware('auth');
 Route::resource('orders', OrderController::class)->middleware('auth');
 Route::resource('pages', PageController::class)->middleware('auth');
+Route::resource('pages-images', PageImages::class)->middleware('auth');
+Route::resource('tags', TagController::class)->middleware('auth');
 Route::resource('orderdetails', OrderdetailsController::class)->middleware('auth');
-Route::get('productsub-index/{slug}', [ProductSubcategoryController::class, 'index'])->name('product.sub.cat.index');
-Route::get('productsub-create/{id}', [ProductSubcategoryController::class, 'create'])->name('product.sub.cat.create');
-Route::get('productsub-edit/{slug}', [ProductSubcategoryController::class, 'edit1'])->name('product.sub.cat.edit');
-Route::post('productsub-edit-update', [ProductSubcategoryController::class, 'update1'])->name('product.sub.cat.update');
+Route::resource('sidebar', FSideBarController::class)->middleware('auth');
+
+//for tag ajax
+Route::post('tag_create', [TagController::class, 'tag_create'])->name('tag.create');
+Route::post('tag_search', [TagController::class, 'tag_search'])->name('tag.search');
+// Route::get('productsub-index/{slug}', [ProductSubcategoryController::class, 'index'])->name('product.sub.cat.index');
+// Route::get('productsub-create/{id}', [ProductSubcategoryController::class, 'create'])->name('product.sub.cat.create');
+// Route::get('productsub-edit/{slug}', [ProductSubcategoryController::class, 'edit1'])->name('product.sub.cat.edit');
+// Route::post('productsub-edit-update', [ProductSubcategoryController::class, 'update1'])->name('product.sub.cat.update');
 Route::resource('product-subcategories', ProductSubcategoryController::class)->middleware('auth');
 
 Route::get('product-attribute/{id}', [ProductAttrController::class, 'product_index'])->name('product.attr');
@@ -174,8 +187,8 @@ Route::get('sendmail', function () {
 
 
 //paytm payment routes 
-Route::post('paytm-payment', [HomeController::class, 'paytm_payment'])->name('paytm.payment');
-Route::post('paytm-done', [HomeController::class, 'paytm_done'])->name('paytm.payment.done')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+Route::post('paytm-payment', [PaymentController::class, 'paytm_payment'])->name('paytm.payment');
+Route::post('paytm-done', [PaymentController::class, 'paytm_done'])->name('paytm.payment.done')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
 
 //password change 
@@ -184,4 +197,7 @@ Route::post('password-change', [HomeController::class, 'password_change'])->name
 Route::post('password-change1', [HomeController::class, 'password_change1'])->name('password.change1');
 
 
-//routes for add to cart and wishlist
+Route::group(['middleware' => ['auth']], function () {
+    // backend ROutes frontend login'billing.address'
+    Route::post('billing/address',[AfterLoginController::class, 'billing_address'])->name('billing.address');
+});

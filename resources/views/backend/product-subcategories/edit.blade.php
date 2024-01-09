@@ -1,24 +1,23 @@
 @extends('backend.layouts.app')
 @section('content')
-    @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade in show col-md-12">
-            <strong>Success!</strong> {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <div class="d-flex justify-content-between">
+            <h1>Sub Category</h1>
+            <a href="{{ route('products-categories.index') }}" class="btn btn-danger btn-sm">return back</a>
+
         </div>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                <li class="breadcrumb-item active">Sub Category</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
 
-    @endif
-
-    @if (Session::has('error'))
-        <div class="alert alert-danger alert-dismissible fade in show col-md-12">
-            <strong>Success!</strong> {{ session('error') }}
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
-
-    @endif
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <h4>Update Product Category</h4>
-            <a href="{{ route('products-categories.index') }}" class="btn btn-danger btn-sm">return back</a>
+            <h4>Update Sub Product Category</h4>
         </div>
         <div class="card-body">
             <p></p>
@@ -43,9 +42,9 @@
                         <div class="form-group">
                             <label for="control-label font-weight-bold">status</label>
                             <select name="status" id="status1" class="form-control" required>
-                                <option value="">Status</option>
-                                <option value="0">Inactive</option>
-                                <option value="1">Active</option>
+                                {{-- <option value="">Status</option> --}}
+                                <option value="1" {{$productcategories->status == 1 ? 'selected':''}}>Active</option>
+                                <option value="0" {{$productcategories->status == 0 ? 'selected':''}}>Inactive</option>
                             </select>
 
                         </div>
@@ -56,7 +55,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
                             @if ($productcategories->featured_image != null)
                                 
@@ -75,7 +74,7 @@
                         </div>
                     </div>
     
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
                             @if ($productcategories->icon_image != null)
                                 
@@ -94,7 +93,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
                             @if ($productcategories->dark_icon != null)
                                 
@@ -120,7 +119,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="control-label font-description-bold">Description</label>
-                            <textarea name="description" id="editor">{{ $productcategories->description }}</textarea>
+                            <textarea name="description" id="editor1">{{ $productcategories->description }}</textarea>
                             @error('description')
                                 <label id="description-error" class="error text-danger"
                                     for="description">{{ $message }}</label>
@@ -137,10 +136,5 @@
         </div>
     </div>
     </div>
-
-    <script>
-        var status = "{{ $productcategories->status }}";
-        var stat = document.getElementById('status1');
-        stat.value = status;
-    </script>
+</main>
 @endsection

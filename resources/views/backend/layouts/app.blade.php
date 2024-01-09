@@ -1,72 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bootstrap Dashboard by Bootstrapious.com</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="{{ asset('public/backend/vendor/bootstrap/css/bootstrap.min.css') }}">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="{{ asset('public/backend/vendor/font-awesome/css/font-awesome.min.css') }}">
-    <!-- Fontastic Custom icon font-->
-    <link rel="stylesheet" href="{{ asset('public/backend/css/fontastic.css') }}">
-    <!-- Google fonts - Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <!-- jQuery Circle-->
-    <link rel="stylesheet" href="{{ asset('public/backend/css/grasp_mobile_progress_circle-1.0.0.min.css') }}">
-    <!-- Custom Scrollbar-->
-    <link rel="stylesheet"
-        href="{{ asset('public/backend/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="{{ asset('public/backend/css/style.default.css') }}" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{{ asset('public/backend/css/custom.css') }}">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="{{ asset('public/backend/img/favicon.ico') }}">
-    <!-- Tweaks for older IEs-->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Prashast</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{{ asset('public/frontend/images/Regalia-logo-light.png') }}" rel="icon">
+    <link href="{{ asset('public/backend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('public/backend/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/backend/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/backend/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/backend/assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/backend/assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/backend/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/backend/assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('public/backend/assets/css/style.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
 
 <body>
-    <!-- Side Navbar -->
-    @include('backend.layouts.side-bar')
-    <div class="page">
-        <!-- navbar-->
-        @include('backend.layouts.header')
+    @include('backend.layouts.header')
+    @include('backend.layouts.sidebar')
 
-        <!-- Counts Section -->
-        @yield('content')
+    @include('backend.layouts.c_messages')
+    @yield('content')
 
-        @include('backend.layouts.footer')
-    </div>
-    <!-- JavaScript files-->
-    <script src="{{ asset('public/backend/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('public/backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('public/backend/js/grasp_mobile_progress_circle-1.0.0.min.js') }}"></script>
-    <script src="{{ asset('public/backend/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
-    <script src="{{ asset('public/backend/vendor/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('public/backend/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('public/backend/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}">
-    </script>
-    <script src="{{ asset('public/backend/js/charts-home.js') }}"></script>
-    <!-- Main File-->
-    <script src="{{ asset('public/backend/js/front.js') }}"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    @include('backend.layouts.footer')
 
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <script src="{{ asset('public/backend/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/vendor/quill/quill.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('public/backend/assets/vendor/php-email-form/validate.js') }}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{{ asset('public/backend/assets/js/main.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
+        CKEDITOR.replace('editor1');
     </script>
+
 </body>
 
 </html>

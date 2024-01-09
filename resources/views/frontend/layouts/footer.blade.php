@@ -7,9 +7,9 @@
         </div>
         <div class="row">
             <div class="col-12 col-lg-4 mx-auto">
-                <form class="subscribe">
-                    <input type="email" placeholder="enter your email Id"><input type="submit" value="Subscribe"
-                        name="submit">
+                <form class="subscribe" method="POST" action="{{route('newsletter.store')}}" >
+                    @csrf
+                    <input type="email" placeholder="enter your email Id" name="email"><input type="submit" value="Subscribe">
                 </form>
             </div>
         </div>

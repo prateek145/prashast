@@ -2,8 +2,14 @@
 {{-- @include('frontend.layouts.top-header') --}}
 @section('content')
     {{-- @include('frontend.layouts.slider') --}}
+    @if ($page_image)
+    <section class="hero1" style="background-image:url({{asset('public/pageimages/' . $page_image->images)}})">
+    </section>
+    @else
     <section class="hero">
     </section>
+        
+    @endif
     <section class="about py-5">
         <div class="container">
             <div class="row">
@@ -35,7 +41,7 @@
                                     <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{route('dynamic.subcategories', 'shop')}}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                                 <div class="carousel-item text-center">
                                     <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
@@ -44,7 +50,7 @@
                                     <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{route('dynamic.subcategories', 'shop')}}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -71,7 +77,7 @@
                                     <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{route('dynamic.subcategories', 'shop')}}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                                 <div class="carousel-item text-center">
                                     <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
@@ -80,7 +86,7 @@
                                     <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{route('dynamic.subcategories', 'shop')}}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -108,7 +114,7 @@
                                     <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{route('dynamic.subcategories', 'shop')}}" class="btn btn-secondary" style="cursor:default;">Shop</a>
+                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary" style="cursor:default;">Shop</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -137,7 +143,7 @@
                 <div class="col-12">
                     <div class="owl-carousel cate">
                         @foreach ($sub_categories as $item)
-                        <a href="{{route('dynamic.subcategories', $item->slug)}}">
+                        <a href="{{ url('dynamic-subcategory/' . $item->slug . '/category') }}">
                             <img src="{{asset('public/productsubcategory/'.$item->featured_image)}}" class="img-fluid icon" /> 
                         </a> 
                             
@@ -154,7 +160,7 @@
             <div class="row">
                 <div class="col-12 text-center mx-auto position-relative">
                     @foreach ($sub_categories as $item)
-                    <a href="{{route('dynamic.subcategories', $item->slug)}}"><img src="{{asset('public/productsubcategory/'.$item->featured_image)}}" class="img-fluid icon m-grid rounded-4" /></a> 
+                    <a href="{{ url('dynamic-subcategory/' . $item->slug . '/category') }}"><img src="{{asset('public/productsubcategory/'.$item->featured_image)}}" class="img-fluid icon m-grid rounded-4" /></a> 
                         
                     @endforeach
 

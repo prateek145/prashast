@@ -19,16 +19,10 @@ class UserController extends Controller
 
 
         try {
-            $query = User::query();
-            if (isset(request()->search) && !empty(request()->search)) {
-                $search_text = request()->search;
-                $query->where('name', 'LIKE', "%{$search_text}%")
-                    // ->orWhere('short_description', 'LIKE', "%{$search_text}%")
-                    // ->orWhere('meta_description', 'LIKE', "%{$search_text}%")
-                    ->orWhere('email', 'LIKE', "%{$search_text}%");
-            }
-            $user = $query->orderBy('id')->paginate(10);
-            return view('backend.users.index', ['users' => $user])->with('no', 1);
+
+            $users = User::where('role', '!=', 'admin')->latest()->get();
+            $count = 1;
+            return view('backend.users.index', compact('users', 'count'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
         }
@@ -152,25 +146,8 @@ class UserController extends Controller
         $data = $request->all();
 
 
-        $user = User::where(['id' => $id])->first();
-
-
-        // if ($request->featured_image) {
-        //     # code...
-        //     if ($user->featured_image) {
-        //         # code...
-        //         // unlink(storage_path('app/public/user_profile/'. $user->featured_image));
-        //     }
-
-        //     $image = $request->featured_image;
-        //     $filename = rand() . $image->getClientOriginalName();
-        //     $image_resize = Image::make($image->getRealPath());
-        //     $image_resize->resize(400, 400);
-        //     $image_resize->save(storage_path('app/public/user_profile/' . $filename));
-        //     unset($data['featured_image']);
-        //     $data['featured_image'] = $filename;
-        // }
-
+        $user = User::find($id);
+        // dd($data);
         $user->update($data);
         return redirect()->back()->with('success', 'Succesfully ' . $request->name . ' Updated');
         try {

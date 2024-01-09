@@ -5,7 +5,7 @@ namespace App\Models\backend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\backend\Product;
-
+use App\Models\User;
 
 class ProductSubcategory extends Model
 {
@@ -33,5 +33,9 @@ class ProductSubcategory extends Model
         }
         $find_products = Product::whereIn('id', $productids)->get();
         return $find_products;
+    }
+
+    public function subcategory_created_by(){
+        return $this->hasOne(User::class, 'id', 'created_by');
     }
 }

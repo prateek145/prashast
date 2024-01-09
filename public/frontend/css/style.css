@@ -50,6 +50,14 @@ section.hero {
     height: 100vh;
 }
 
+section.hero1 {
+    /* background: url(../../pageimages/); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
 section.hero-shop {
     background: url(../images/banner-shop.png);
     background-position: center;
