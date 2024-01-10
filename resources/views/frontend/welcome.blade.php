@@ -3,18 +3,17 @@
 @section('content')
     {{-- @include('frontend.layouts.slider') --}}
     @if ($page_image)
-    <section class="hero1" style="background-image:url({{asset('public/pageimages/' . $page_image->images)}})">
-    </section>
+        <section class="hero1" style="background-image:url({{ asset('public/pageimages/' . $page_image->images) }})">
+        </section>
     @else
-    <section class="hero">
-    </section>
-        
+        <section class="hero">
+        </section>
     @endif
     <section class="about py-5">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <img src="{{asset('public/frontend/images/line_separator_01.png')}}" class="my-5">
+                    <img src="{{ asset('public/frontend/images/line_separator_01.png') }}" class="my-5">
                 </div>
             </div>
             <div class="row">
@@ -22,7 +21,7 @@
                     <p class="maintext">Our products are designed and produced indigenously<br>
                         by workers and artisans belonging to an underpriviledged socioeconomic<br>
                         background, living in remote rural or urban slum settings.</p>
-                    <a href="{{route('dynamic.page', 'about-us')}}" class="btn btn-primary shadow">Know More</a>
+                    <a href="{{ route('dynamic.page', 'about-us') }}" class="btn btn-primary shadow">Know More</a>
                 </div>
             </div>
         </div>
@@ -35,22 +34,28 @@
                         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active text-center">
-                                    <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                    <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
                                     <p>TOP SELLER</p>
-                                    <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                        alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ url('dynamic/shop/shop') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                                 <div class="carousel-item text-center">
-                                    <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                    <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
                                     <p>TOP SELLER</p>
-                                    <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                        alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ url('dynamic/shop/shop') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -71,22 +76,28 @@
                         <div id="carouselExampleAutoplayinga" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active text-center">
-                                    <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                    <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
                                     <p>NEW COLLECTION</p>
-                                    <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                        alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ url('dynamic/shop/shop') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                                 <div class="carousel-item text-center">
-                                    <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                    <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
                                     <p>NEW COLLECTION</p>
-                                    <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                        alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ url('dynamic/shop/shop') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -108,13 +119,17 @@
                             data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                    <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
                                     <p>NEW COLLECTION</p>
-                                    <img src="{{asset('public/frontend/images/product.png')}}" class="d-block w-100" alt="...">
+                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                        alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic-subcategory/shop/shop') }}" class="btn btn-secondary" style="cursor:default;">Shop</a>
+                                    <a href="{{ url('dynamic/dynamic-subcategory/shop/shop') }}" class="btn btn-secondary"
+                                        style="cursor:default;">Shop</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -131,22 +146,22 @@
                     </div>
                 </div>
                 <!--<div class="col-lg-4 text-center py-3 order-1 order-lg-3">
-                    <div class="collection" style="background: url('public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
-                </div>-->
+                        <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
+                    </div>-->
             </div>
         </div>
     </section>
-    
+
     <section class="category py-5 d-lg-none d-block">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="owl-carousel cate">
-                        @foreach ($sub_categories as $item)
-                        <a href="{{ url('dynamic-subcategory/' . $item->slug . '/category') }}">
-                            <img src="{{asset('public/productsubcategory/'.$item->featured_image)}}" class="img-fluid icon" /> 
-                        </a> 
-                            
+                        @foreach ($categories as $item)
+                            <a href="{{ url('dynamic/category/' . $item->slug . '') }}">
+                                <img src="{{ asset('public/productsubcategory/' . $item->featured_image) }}"
+                                    class="img-fluid icon" />
+                            </a>
                         @endforeach
                     </div>
                 </div>
@@ -159,9 +174,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mx-auto position-relative">
-                    @foreach ($sub_categories as $item)
-                    <a href="{{ url('dynamic-subcategory/' . $item->slug . '/category') }}"><img src="{{asset('public/productsubcategory/'.$item->featured_image)}}" class="img-fluid icon m-grid rounded-4" /></a> 
-                        
+                    @foreach ($categories as $item)
+                        <a href="{{ url('dynamic/category/' . $item->slug . '') }}"><img
+                                src="{{ asset('public/productsubcategory/' . $item->featured_image) }}"
+                                class="img-fluid icon m-grid rounded-4" /></a>
                     @endforeach
 
                 </div>
@@ -173,35 +189,76 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern"
-                        data-bs-ride="carousel">
-                        <div class="carousel-inner py-lg-5 my-lg-5">
-                            <div class="carousel-item active py-5 my-lg-5">
-                                <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
-                                <h4>Kala</h4>
-                                <h6>MADHUBANI PAINTING</h6>
-                                <h5>TOP SELLER</h5>
+                    @if (isset($page_image) && isset($page_image->specific_image))
+                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern1"
+                            data-bs-ride="carousel"
+                            style="background-image:url({{ asset('public/pageimages/' . $page_image->specific_image) }})">
+                            <div class="carousel-inner py-lg-5 my-lg-5">
+                                <div class="carousel-item active py-5 my-lg-5">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <h4>Kala</h4>
+                                    <h6>MADHUBANI PAINTING</h6>
+                                    <h5>TOP SELLER</h5>
+                                </div>
+                                <div class="carousel-item py-5 my-lg-5">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <h4>Kala</h4>
+                                    <h6>MADHUBANI PAINTING</h6>
+                                    <h5>TOP SELLER</h5>
+                                </div>
                             </div>
-                            <div class="carousel-item py-5 my-lg-5">
-                                <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
-                                <h4>Kala</h4>
-                                <h6>MADHUBANI PAINTING</h6>
-                                <h5>TOP SELLER</h5>
-                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button class="carousel-control-prev" type="button"
-                            data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button"
-                            data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    @else
+                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern"
+                            data-bs-ride="carousel">
+                            <div class="carousel-inner py-lg-5 my-lg-5">
+                                <div class="carousel-item active py-5 my-lg-5">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <h4>Kala</h4>
+                                    <h6>MADHUBANI PAINTING</h6>
+                                    <h5>TOP SELLER</h5>
+                                </div>
+                                <div class="carousel-item py-5 my-lg-5">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <h4>Kala</h4>
+                                    <h6>MADHUBANI PAINTING</h6>
+                                    <h5>TOP SELLER</h5>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -210,7 +267,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <img src="{{asset('public/frontend/images/line_separator_01.png')}}" class="my-5">
+                    <img src="{{ asset('public/frontend/images/line_separator_01.png') }}" class="my-5">
                 </div>
             </div>
             <div class="row">
@@ -277,6 +334,5 @@
             var lower = document.getElementsByClassName('switchactive1' + id)[0];
 
         }
-
     </script>
 @endsection

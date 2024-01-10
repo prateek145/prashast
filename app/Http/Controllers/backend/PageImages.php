@@ -67,6 +67,18 @@ class PageImages extends Controller
                 $image->move($destination_path, $filename);
                 $data['images'] = $filename;
             }
+
+            if ($request->specific_image) {
+                # code...
+                unset($data['specific_image']);
+                $image = $request->specific_image;
+                $filename = rand() . $image->getClientoriginalName();
+                // dd($filename);
+                $destination_path = public_path('/pageimages');
+                $image->move($destination_path, $filename);
+                $data['specific_image'] = $filename;
+            }
+
             BackendPageImages::create($data);
             return redirect()->back()->with('success', 'Successfully created.');
 
@@ -112,10 +124,11 @@ class PageImages extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $rules = [
             'name' => 'required|max:100',
             'status' => 'required',
-            'images' => 'required'
+            // 'images' => 'required'
         ];
 
         $custommessages = [
@@ -135,6 +148,18 @@ class PageImages extends Controller
             $image->move($destination_path, $filename);
             $data['images'] = $filename;
         }
+
+        if ($request->specific_image) {
+            # code...
+            unset($data['specific_image']);
+            $image = $request->specific_image;
+            $filename = rand() . $image->getClientoriginalName();
+            // dd($filename);
+            $destination_path = public_path('/pageimages');
+            $image->move($destination_path, $filename);
+            $data['specific_image'] = $filename;
+        }
+        
         $pageImage = BackendPageImages::find($id);
         $pageImage->update($data);
         $pageImage->save();

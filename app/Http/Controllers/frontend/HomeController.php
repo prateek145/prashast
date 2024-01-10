@@ -28,12 +28,11 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $categories = ProductCategories::where('status', 1)->get()->take(4);
+        $categories = ProductSubcategory::where('status', 1)->latest()->take(5)->get();
         $products = Product::where(['status' => 1, 'show_in_featuredproduct' => 1])->get();
-        $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
         $page_image = BackendPageImages::where('name', 'home')->first();
-        // dd($sub_categories);
-        return view('frontend.welcome', compact('categories', 'products', 'sub_categories', 'page_image'));
+        // dd($categories);
+        return view('frontend.welcome', compact('categories', 'products', 'page_image'));
     }
 
     public function contact_us()
@@ -51,7 +50,7 @@ class HomeController extends Controller
         return view('frontend.dynamic_cat', compact('cat', 'products', 'subcategories'));
     }
 
-    public function dynamic_subcategories($slug, $key)
+    public function dynamic_subcategories($key,$slug)
     {
         // dd($key, $slug);
         if ($slug == 'shop' && $key == 'shop') {
@@ -84,6 +83,7 @@ class HomeController extends Controller
             $subcategory = ProductSubcategory::where('slug', $slug)->first();
             $products1 = Product::where('status', 1)->get();
             $productids = [];
+           
             for ($i = 0; $i < count($products1); $i++) {
                 # code...
                 $product = Json_decode($products1[$i]->product_subcategories);
@@ -92,6 +92,7 @@ class HomeController extends Controller
                     array_push($productids, $products1[$i]->id);
                 }
             }
+            // dd($key, $slug, $subcategory, $products1);
             $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
             $products = Product::whereIn('id', $productids)->get();
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
@@ -99,6 +100,7 @@ class HomeController extends Controller
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
 
+            // dd($products);
             return view('frontend.dynamic_subcat', compact('page_image','products','fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
         }
 
@@ -167,30 +169,23 @@ class HomeController extends Controller
     {
         $session = session()->get('cart');
         $product = Product::where('slug', $slug)->first();
-        if ($product->desiner_id != 0) {
-            # code...
-            $desiner = Desiner::find($product->desiner_id);
-            $desiner_name = $desiner->name;
-        } else {
-            $desiner_name = 'Not Registered';
-        }
 
         if ($product->product_type == 'simple_product') {
             # code...
-            $latestproduct = Product::orderBy('id', 'ASC')->where('status', 1)->get()->take(3);
+            $latestproduct = Product::orderBy('id', 'ASC')->where('status', 1)->get()->take(4);
             // dd($product);
-            return view('frontend.product-detail1', compact('product', 'latestproduct', 'desiner_name'));
+            return view('frontend.product-detail1', compact('product', 'latestproduct'));
         }
 
-        if ($product->product_type == 'variable_product') {
-            # code...
-            $attr = $product->attributes()->get();
-            $variance = $product->variance()->get();
-            $latestproduct = Product::orderBy('id', 'DESC')->where('status', 1)->get()->take(3);
-            // dd($latestproduct);
-            // dd($product, $attr, $variance, $latestproduct);
-            return view('frontend.product-detail1', compact('product', 'attr', 'variance', 'latestproduct', 'desiner_name'));
-        }
+        // if ($product->product_type == 'variable_product') {
+        //     # code...
+        //     $attr = $product->attributes()->get();
+        //     $variance = $product->variance()->get();
+        //     $latestproduct = Product::orderBy('id', 'DESC')->where('status', 1)->get()->take(3);
+        //     // dd($latestproduct);
+        //     // dd($product, $attr, $variance, $latestproduct);
+        //     return view('frontend.product-detail1', compact('product', 'attr', 'variance', 'latestproduct', 'desiner_name'));
+        // }
     }
 
     public function get_product_attr(Request $request)
@@ -215,7 +210,7 @@ class HomeController extends Controller
 
         $products_id = wishlist::where(['user_id' => auth()->id()])->pluck('product_id');
         $products = Product::whereIn('id', $products_id)->get();
-        $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
+        $sub_categories = ProductSubcategory::latest()->take(5)->get();
         $page_image = BackendPageImages::where('name', 'wishlist')->first();
         // dd($products);
         return view('frontend.wishlist', compact('products', 'sub_categories', 'page_image'));
@@ -320,42 +315,42 @@ class HomeController extends Controller
         return redirect()->back()->with('success', 'Your message was sent successfully! We will be in touch as soon as We can !');
     }
 
-    public function categories()
-    {
-        $categories = ProductCategories::all();
-        // dd($categories);
-        return view('frontend.categories', compact('categories'));
-    }
+    // public function categories()
+    // {
+    //     $categories = ProductCategories::all();
+    //     // dd($categories);
+    //     return view('frontend.categories', compact('categories'));
+    // }
 
-    public function password_change(Request $request)
-    {
-        // dd($request->all());
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            # code...
-            return response()->json(['user' => 'found']);
-        } else {
-            # code...
-            return response()->json(['user' => 'notfound']);
-        }
-    }
+    // public function password_change(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $user = User::where('email', $request->email)->first();
+    //     if ($user) {
+    //         # code...
+    //         return response()->json(['user' => 'found']);
+    //     } else {
+    //         # code...
+    //         return response()->json(['user' => 'notfound']);
+    //     }
+    // }
 
-    public function password_change1(Request $request)
-    {
-        // dd($request->all());
+    // public function password_change1(Request $request)
+    // {
+    //     // dd($request->all());
 
-        if ($request->password != '') {
-            # code...
-            $user = User::where('email', $request->email)->first();
-            $password = Hash::make($request->password);
-            $user->password = $password;
-            $user->save();
-            return response()->json(['result' => 'done']);
-        } else {
-            # code...
-            return response()->json(['result' => 'empty']);
-        }
-    }
+    //     if ($request->password != '') {
+    //         # code...
+    //         $user = User::where('email', $request->email)->first();
+    //         $password = Hash::make($request->password);
+    //         $user->password = $password;
+    //         $user->save();
+    //         return response()->json(['result' => 'done']);
+    //     } else {
+    //         # code...
+    //         return response()->json(['result' => 'empty']);
+    //     }
+    // }
 
 
 

@@ -21,20 +21,38 @@
             <div class="row">
                 <div class="col-12">
                     <div id="carouselExampleAutoplayingoffer" class="carousel slide my-5" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
-                                    alt="...">
+                        @if (isset($page_image) && isset($page_image->specific_image))
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="{{ asset('public/pageimages/' . $page_image->specific_image) }}"
+                                        class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('public/pageimages/' . $page_image->specific_image) }}"
+                                        class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('public/pageimages/' . $page_image->specific_image) }}"
+                                        class="d-block w-100" alt="...">
+                                </div>
                             </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
-                                    alt="...">
+                        @else
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
+                                        alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
+                                        alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
+                                        alt="...">
+                                </div>
                             </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
-                                    alt="...">
-                            </div>
-                        </div>
+                        @endif
+
                         <button class="carousel-control-prev" type="button"
                             data-bs-target="#carouselExampleAutoplayingoffer" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -85,7 +103,7 @@
                         <div class="accordion" id="accordionPanelsStayOpenExample">
                             @foreach ($categories as $item)
                                 <h5 class="tag" style="padding-left: 1rem">
-                                    <a href="{{ url('dynamic-subcategory/' . $item->slug . '/category') }}">
+                                    <a href="{{ url('dynamic/category/' . $item->slug . '') }}">
                                         {{ $item->name }}
                                     </a>
                                 </h5>
@@ -258,15 +276,15 @@
         function filter_price(value) {
             if (value !== "") {
                 if (value == 1000) {
-                    window.location.href = "{{ url('dynamic-subcategory/1000/filter') }}"
+                    window.location.href = "{{ url('dynamic/filter/1000') }}"
                 }
 
                 if (value == 1001) {
-                    window.location.href = "{{ url('dynamic-subcategory/1001/filter') }}"
+                    window.location.href = "{{ url('dynamic/filter/1001') }}"
                 }
 
                 if (value == 10001) {
-                    window.location.href = "{{ url('dynamic-subcategory/10001/filter') }}"
+                    window.location.href = "{{ url('dynamic/filter/10001') }}"
                 }
 
             }

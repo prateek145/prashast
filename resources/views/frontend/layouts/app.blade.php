@@ -53,7 +53,7 @@
                         </div>
 
                         <input type="submit" class="btn btn-primary mb-4" value="Sign-in" />
-                        <a class="d-block text-white" href="#">Forgot Password?</a>
+                        <a class="d-block text-white" href="{{ route('password.request') }}">Forgot Password?</a>
                     </form>
                 </div>
             </div>

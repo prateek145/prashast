@@ -232,7 +232,7 @@ class PageController extends Controller
             return redirect()->route('home');
         } else {
             # code...
-            $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
+            $sub_categories = ProductSubcategory::latest()->take(5)->get();
             $page_image = PageImages::where('name', 'my-account')->first();
             return view('frontend.myaccount', compact('sub_categories', 'page_image'));
         }

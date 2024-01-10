@@ -4,7 +4,7 @@
     <div class="pagetitle">
         <div class="d-flex justify-content-between">
             <h1>Category</h1>
-            <a href="{{route('products-categories.create')}}"> <button class="btn btn-primary">Add Category</button> </a>
+            <a href="{{route('product-subcategories.create')}}"> <button class="btn btn-primary">Add Category</button> </a>
         </div>
         <nav>
             <ol class="breadcrumb">

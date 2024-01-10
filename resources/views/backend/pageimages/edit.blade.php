@@ -52,6 +52,17 @@
                                 <label for="">Images</label>
                                 <input type="file" name="images" class="form-control @error('images') is-invalid @enderror">
                             </div>
+
+                            <div class="col-md-12">
+                                @if ($pageImage->specific_image)
+                                <div class="col-md-12">
+                                    <img src="{{asset('public/pageimages/'. $pageImage->specific_image)}}" alt="">
+                                </div>
+                                    
+                                @endif
+                                <label for="">Specific Images</label>
+                                <input type="file" name="specific_image" class="form-control @error('specific_image') is-invalid @enderror">
+                            </div>
                             {{-- <input type="hidden" name="role" value="user"> --}}
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Submit</button>

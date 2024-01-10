@@ -43,7 +43,12 @@
 
                             <div class="col-md-12">
                                 <label for="">Images</label>
-                                <input type="file" name="images" class="form-control @error('images') is-invalid @enderror">
+                                <input type="file" name="images" class="form-control @error('images') is-invalid @enderror" required>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="">Specific Images</label>
+                                <input type="file" name="specific_image" class="form-control @error('specific_image') is-invalid @enderror" required>
                             </div>
                             {{-- <input type="hidden" name="role" value="user"> --}}
                             <div class="text-center">

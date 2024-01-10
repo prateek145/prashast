@@ -3,21 +3,21 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <div class="d-flex justify-content-between">
-            <h1>Sub Category</h1>
-            <a href="{{ route('products-categories.index') }}" class="btn btn-danger btn-sm">return back</a>
+            <h1> Category</h1>
+            <a href="{{ route('product-subcategories.index') }}" class="btn btn-danger btn-sm">return back</a>
 
         </div>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active">Sub Category</li>
+                <li class="breadcrumb-item active"> Category</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <h4>Update Sub Product Category</h4>
+            <h4>Update  Product Category</h4>
         </div>
         <div class="card-body">
             <p></p>

@@ -35,7 +35,7 @@ class ProductSubcategoryController extends Controller
     {
         try {
             
-            return view('backend.product-subcategories.create', compact('id'));
+            return view('backend.product-subcategories.create');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
         }
@@ -109,7 +109,7 @@ class ProductSubcategoryController extends Controller
         ProductSubcategory::create($data);
 
         $pcategory = ProductCategories::find($request->parent_id);
-        return redirect()->route('product.sub.cat.index', $pcategory->slug)->with('success', 'Successfully ' . $request->name . ' Created');
+        return redirect()->route('product-subcategories.index')->with('success', 'Successfully ' . $request->name . ' Created');
         try {
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');

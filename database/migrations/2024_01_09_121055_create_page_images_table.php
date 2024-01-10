@@ -18,6 +18,7 @@ class CreatePageImagesTable extends Migration
             $table->string('name')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->longText('images')->nullable();
+            $table->longText('specific_image')->nullable();
             $table->timestamps();
         });
     }

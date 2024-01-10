@@ -157,7 +157,7 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="control-label font-weight-bold">Product Subcategory</label>
+                                            <label for="control-label font-weight-bold">Product Category</label>
                                             <select name="product_subcategories[]" id="" class="form-control"
                                                 required multiple>
                                                 {{-- <option value="">Select SubCategories</option> --}}

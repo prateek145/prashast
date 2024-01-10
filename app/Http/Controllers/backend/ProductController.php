@@ -7,6 +7,7 @@ use App\Models\backend\Desiner;
 use App\Models\backend\Product;
 use App\Models\backend\ProductCategories;
 use App\Models\backend\ProductSubcategory;
+use App\Models\backend\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -115,7 +116,7 @@ class ProductController extends Controller
         unset($data['product_subcategories']);
         unset($data['tag_selection']);
         $data['slug'] = Str::slug($request->name);
-        $data['product_categories'] = json_encode($request->product_categories);
+        // $data['product_categories'] = json_encode($request->product_categories);
         $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
         $data['product_subcategories'] = json_encode($request->product_subcategories);
 
@@ -155,11 +156,11 @@ class ProductController extends Controller
         try {
             //dd($id);
             $product = Product::where('id', $id)->first();
-            $productcategories = ProductCategories::all();
             $productsubcategories = ProductSubcategory::all();
-            $desiners = Desiner::all();
             // dd($product);
-            return view('backend.products.edit', compact('product', 'productcategories', 'desiners', 'productsubcategories'));
+            $tags = Tags::whereIn('id', json_decode($product->tag_selection))->get();
+            // dd($tags);
+            return view('backend.products.edit', compact('product','tags','productsubcategories'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -228,11 +229,11 @@ class ProductController extends Controller
             }
 
             unset($data['_token']);
-            unset($data['product_categories']);
             unset($data['product_subcategories']);
+            unset($data['tag_selection']);
             $data['slug'] = Str::slug($request->name);
-            $data['product_categories'] = json_encode($request->product_categories);
             $data['product_subcategories'] = json_encode($request->product_subcategories);
+            $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
 
             $product->update($data);
             return redirect()->back()->with('success', 'Succesfully ' . $request->name . ' Updated');

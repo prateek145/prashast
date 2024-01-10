@@ -248,6 +248,13 @@ section.about {
     border-radius: 10px;
 }
 
+.bg-pattern1 {
+    /* background: url(../images/bg-black.png); */
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+}
+
 
 #carouselExampleAutoplayingb .carousel-control-next,
 #carouselExampleAutoplayingb .carousel-control-prev {

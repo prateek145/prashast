@@ -53,7 +53,7 @@ Route::get('my-account', [Pagecontroller::class, 'my_account'])->name('my.accoun
 Route::get('profile', [Pagecontroller::class, 'profile'])->name('profile')->middleware('auth');;
 Route::get('dynamic-category/{slug}', [HomeController::class, 'dynamic_categories'])->name('dynamic.categories');
 Route::get('categories', [HomeController::class, 'categories'])->name('categories');
-Route::get('dynamic-subcategory/{slug}/{key}', [HomeController::class, 'dynamic_subcategories'])->name('dynamic.subcategories');
+Route::get('dynamic/{key}/{slug}', [HomeController::class, 'dynamic_subcategories'])->name('dynamic.subcategories');
 Route::get('product-detail/{slug}', [HomeController::class, 'product_detail'])->name('product.detail');
 Route::get('cart', [HomeController::class, 'cart'])->name('cart');
 Route::get('wishlist', [HomeController::class, 'wishlist'])->name('wishlist')->middleware('auth');;
@@ -133,18 +133,10 @@ Route::post('product-subcategory', [AjaxController::class, 'product_subcategory'
 Route::post('get-product-attr', [AjaxController::class, 'get_product_attr'])->name('get.product.attr');
 
 
-//Razor payments
-Route::post('razor-payment', [RazorpayController::class, 'razor_payment'])->name('razor.payment');
-Route::get('product', [RazorpayController::class, 'razorpayProduct'])->name('razorpay.payment');
-Route::get('paysuccess', [RazorpayController::class, 'razorPaySuccess']);
-Route::get('razor-thank-you', [RazorpayController::class, 'RazorThankYou'])->name('razorpay.thank.you');
-
 //userorders 
 Route::get('userorders', [UserOrderController::class, 'index'])->name('userorders');
 Route::get('userorders-details/{id}', [UserOrderController::class, 'order_details'])->name('userorders.details');
 
-//desiners
-Route::get('dynamic-desiners/{slug}', [DesinerConroller::class, 'dynamic_desiners'])->name('dynamic.desiners');
 
 //for contact, vendor, bulkproduct backend index
 
@@ -157,19 +149,15 @@ Route::get('vendor-destroy/{id}', [SideBarController::class, 'vendor_destroy'])-
 Route::get('bulkorder-destroy/{id}', [SideBarController::class, 'bulkorder_destroy'])->name('bulkorder.destroy');
 
 
-//razorpay----------------------------------------------------------
-
-Route::post('payment-done', [HomeController::class, 'payment_done'])->name('payment.done');
-
 //mail testing
 
-Route::get('download-bill/{id}', function($id){
+Route::get('download-bill/{id}', function ($id) {
     // dd($id);
-    $order = Order::where('order_id',$id)->first();
+    $order = Order::where('order_id', $id)->first();
     // $user = User::where($order->user_id)->first();
     $order_details = Json_decode($order->product_details);
     // dd($order);
-    return view('mail.testing',compact('order', 'order_details' ));
+    return view('mail.testing', compact('order', 'order_details'));
 });
 
 Route::get('sendmail', function () {
@@ -178,11 +166,22 @@ Route::get('sendmail', function () {
     $message = "testing";
     $user = 'testing';
 
-    Mail::send('mail.testing', ['body' => $data1], function ($message) use ($user) {
-        $message->sender('admin@eprashast.co.in');
+    // dd($user);
+    $mail = Mail::send('mail.testing1', ['body' => $data1], function ($message) use ($user) {
+        $message->sender('projectmanagement@omegawebdemo.com.au');
         $message->subject('Donation');
         $message->to('prateekk898@gmail.com');
     });
+    if (count(Mail::failures()) > 0) {
+
+        echo "There was one or more failures. They were: <br />";
+
+        foreach (Mail::failures() as $email_address) {
+            echo " - $email_address <br />";
+        }
+    } else {
+        echo "No errors, all sent successfully!";
+    }
 });
 
 
@@ -199,5 +198,5 @@ Route::post('password-change1', [HomeController::class, 'password_change1'])->na
 
 Route::group(['middleware' => ['auth']], function () {
     // backend ROutes frontend login'billing.address'
-    Route::post('billing/address',[AfterLoginController::class, 'billing_address'])->name('billing.address');
+    Route::post('billing/address', [AfterLoginController::class, 'billing_address'])->name('billing.address');
 });

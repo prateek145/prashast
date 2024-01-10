@@ -3,13 +3,13 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <div class="d-flex justify-content-between">
-            <h1>SubCategory</h1>
-            <a href="{{route('products-categories.create')}}"> <button class="btn btn-primary">Add SubCategory</button> </a>
+            <h1>Category</h1>
+            <a href="{{route('product-subcategories.create')}}"> <button class="btn btn-primary">Add Category</button> </a>
         </div>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active">SubCategory</li>
+                <li class="breadcrumb-item active">Category</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -19,7 +19,7 @@
             <div class="col-lg-12">
                 <div class="card info-card sales-card">
                     <div class="card-body">
-                        <h5 class="card-title">Manage SubCategory</h5>
+                        <h5 class="card-title">Manage Category</h5>
                         <table class="table datatable">
                             <thead>
                                 <tr>

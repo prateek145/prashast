@@ -4,7 +4,7 @@
     <div class="pagetitle">
         <div class="d-flex justify-content-between">
             <h1>Sub Category</h1>
-            <a href="{{route('product.sub.cat.index', $id)}}"> <button class="btn btn-primary">Index Sub-Category</button> </a>
+            {{-- <a href="{{route('product.sub.cat.index', $id)}}"> <button class="btn btn-primary">Index Sub-Category</button> </a> --}}
         </div>
         <nav>
             <ol class="breadcrumb">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <input type="hidden" value="{{ $id }}" name="parent_id">
+                    {{-- <input type="hidden" value="{{ $id }}" name="parent_id"> --}}
 
                     <input type="hidden" name="created_by" value="{{ auth()->id() }}">
 

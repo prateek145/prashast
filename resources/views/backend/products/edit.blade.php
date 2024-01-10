@@ -1,5 +1,52 @@
 @extends('backend.layouts.app')
 @section('content')
+    <style>
+        .tags-input {
+            display: inline-block;
+            position: relative;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            box-shadow: 2px 2px 5px #00000033;
+            width: 100%;
+        }
+
+        .tags-input ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tags-input li {
+            display: inline-block;
+            background-color: #f2f2f2;
+            color: #333;
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .tags-input input[type="text"] {
+            border: none;
+            outline: none;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .tags-input input[type="text"]:focus {
+            outline: none;
+        }
+
+        .tags-input .delete-button {
+            background-color: transparent;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    </style>
+
     <main id="main" class="main">
         <div class="pagetitle">
             <h1>Product</h1>
@@ -136,12 +183,13 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="control-label font-weight-bold">Product Category</label>
-                                            <select name="product_categories[]" id="" class="form-control"
+                                            <select name="product_subcategories[]" id="" class="form-control"
                                                 required multiple>
                                                 {{-- <option value="">Select Categories</option> --}}
 
-                                                @foreach ($productcategories as $item)
-                                                    <option value="{{ $item->id }}" {{in_array($item->id, json_decode($product->product_categories)) == true ? 'selected' : ''}}>
+                                                @foreach ($productsubcategories as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        {{ in_array($item->id, json_decode($product->product_subcategories)) == true ? 'selected' : '' }}>
                                                         {{ $item->name }}
                                                     </option>
                                                 @endforeach
@@ -152,17 +200,24 @@
 
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="control-label font-weight-bold">Product Subcategory</label>
-                                            <select name="product_subcategories[]" id="" class="form-control"
-                                                required multiple>
+                                            <label for="control-label font-weight-bold">Tags</label><br>
+                                            <div class="tags-input">
+                                                <ul id="tags">
+                                                    @foreach ($tags as $item)
+                                                    <li value="{{$item->id}}">{{$item->name}} <button class="delete-button">X</button></li>
+                                                    @endforeach
+                                                </ul>
+                                                <input type="text" id="input-tag" onkeyup="find_tag(this.value)"
+                                                    list="datalistname" placeholder="Enter tag name" />
 
-                                                {{-- <option value="">Select SubCategories</option> --}}
-                                                @foreach ($productsubcategories as $item12)
-                                                    <option value="{{ $item12->id }}" {{in_array($item12->id, json_decode($product->product_subcategories)) == true ? 'selected' : ''}}>{{ $item12->name }}
-                                                    </option>
+                                                <datalist id="datalistname"></datalist>
+                                            </div>
+
+                                            <select name="tag_selection[]" class="d-none" id="" multiple>
+                                                @foreach ($tags as $item)
+                                                    <option value="{{$item->id}}" selected>{{$item->name}}</option>
                                                 @endforeach
                                             </select>
-
                                         </div>
                                     </div>
 
@@ -236,79 +291,115 @@
     </main><!-- End #main -->
 
     <script>
-        function category(id) {
-            $.ajax({
-                url: "{{ route('product.subcategory') }}",
-                method: "POST",
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    "category_id": id
-                },
-                success: function(response) {
+        // Get the tags and input elements from the DOM 
+        const tags = document.getElementById('tags');
+        const input = document.getElementById('input-tag');
+        var tag_array = [];
+        // Add an event listener for keydown on the input element 
+        input.addEventListener('keydown', function(event) {
 
-                    console.log(response.result);
-                    if (response.result == "Create sub category first.") {
-                        var subcat = document.getElementsByName('product_subcategories')[0];
-                        subcat.innerHTML = "";
-                        var option = document.createElement('option');
-                        option.innerText = "Please create sub category";
-                        subcat.appendChild(option);
-                    } else {
-                        var subcat = document.getElementsByName('product_subcategories')[0];
-                        subcat.innerHTML = "";
-                        for (let index = 0; index < response.result.length; index++) {
+            // Check if the key pressed is 'Enter' 
+            if (event.key === 'Enter') {
+
+                // Prevent the default action of the keypress 
+                // event (submitting the form) 
+                event.preventDefault();
+
+                // Create a new list item element for the tag 
+                const tag = document.createElement('li');
+
+                // Get the trimmed value of the input element 
+                const tagContent = input.value.trim();
+
+                // If the trimmed value is not an empty string 
+                if (tagContent !== '') {
+                    $.ajax({
+                        url: "{{ route('tag.create') }}",
+                        method: "POST",
+                        data: {
+                            '_token': "{{ csrf_token() }}",
+                            "name": tagContent,
+                        },
+                        success: function(response) {
+                            // console.log(response);
+                            var input = document.getElementById('input-tag');
+                            tag_array.push(response.data.id);
+
+                            // Set the text content of the tag to  
+                            // the trimmed value 
+                            tag.innerText = tagContent;
+                            tag.value = response.data.id;
+
+                            // Add a delete button to the tag 
+                            tag.innerHTML += '<button class="delete-button">X</button>';
+
+                            // Append the tag to the tags list 
+                            tags.appendChild(tag);
+
+                            // Clear the input element's value 
+                            input.value = '';
+
+                            var tag_selection = document.getElementsByName('tag_selection[]')[0];
+                            // console.log(tag_selection);
                             var option = document.createElement('option');
-                            option.value = response.result[index]['id'];
-                            option.innerText = response.result[index]['name'];
-                            subcat.appendChild(option);
+                            option.value = response.data.id;
+                            option.selected = true;
+                            option.innerText = response.data.name;
+                            tag_selection.appendChild(option);
                         }
+                    });
+                }
+            }
+        });
+
+        // Add an event listener for click on the tags list 
+        tags.addEventListener('click', function(event) {
+
+            // If the clicked element has the class 'delete-button' 
+            if (event.target.classList.contains('delete-button')) {
+                // console.log();
+                tag_array.pop(event.target.parentNode.value);
+                // Remove the parent element (the tag) 
+                event.target.parentNode.remove();
+                var tag_selection = document.getElementsByName('tag_selection[]')[0];
+                for (let index = 0; index < tag_selection.length; index++) {
+                    console.log();
+                    if (tag_selection[index].value == event.target.parentNode.value) {
+                        tag_selection[index].remove();
                     }
 
                 }
+                // console.log(tag_selection);
+            }
+
+        });
+
+        // console.log(array123);
+
+        function find_tag(value) {
+            // console.log(value);
+
+            $.ajax({
+                url: "{{ route('tag.search') }}",
+                method: "POST",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    "key": value,
+                },
+                success: function(response) {
+                    // console.log(response);
+                    if (response.status == 200) {
+                        var listname = document.getElementById('datalistname');
+                        listname.innerHTML = '';
+                        for (let index = 0; index < response.data.length; index++) {
+                            const option = document.createElement('option');
+                            option.setAttribute('id', response.data[index].id);
+                            option.innerHTML = response.data[index].name;
+                            listname.appendChild(option);
+                        }
+                    }
+                }
             });
-        }
-
-        var ptype = "{{ $product->product_type }}";
-        document.getElementById('product_type').value = ptype;
-
-        var status = "{{ $product->status }}";
-        document.getElementById('status').value = status;
-
-        var show_in_featuredproduct = "{{ $product->show_in_featuredproduct }}";
-        console.log(show_in_featuredproduct);
-        document.getElementsByName('show_in_featuredproduct')[0].value = show_in_featuredproduct;
-
-        var pcategories = "{{ $product->product_categories }}";
-        document.getElementById('product_categories').value = pcategories;
-
-        var psubcategories = "{{ $product->product_subcategories }}";
-        document.getElementById('psubcategories').value = psubcategories;
-
-
-        var desiner = "{{ $product->desiner_id }}";
-        document.getElementById('desiner_select').value = desiner;
-
-        if (ptype == 'variable_product') {
-            var sku = document.getElementsByName('sku')[0];
-            sku.style.display = 'none';
-            sku.required = false;
-
-            var regular_price = document.getElementsByName('regular_price')[0];
-            regular_price.style.display = 'none';
-            regular_price.required = false;
-
-            var sale_price = document.getElementsByName('sale_price')[0];
-            sale_price.style.display = 'none';
-            sale_price.required = false;
-
-            document.getElementsByName('weight')[0].style.display = 'none';
-            document.getElementsByName('height')[0].style.display = 'none';
-            document.getElementsByName('width')[0].style.display = 'none';
-            document.getElementsByName('length')[0].style.display = 'none';
-            document.getElementById('description').style.display = 'none';
-
-            // console.log(des);
-            // document.getElementsByName('featured_image')[0].style.display = 'none';
         }
     </script>
 
