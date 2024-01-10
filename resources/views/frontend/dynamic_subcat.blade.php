@@ -111,7 +111,10 @@
                         </div>
                         {{-- <h2 style="padding:1rem;">Tags</h2> --}}
                         {{-- {{dd($tags)}} --}}
+                        @if ($fsidebar)
                         {!! $fsidebar->description !!}
+                            
+                        @endif
 
                         <h2 style="padding: 1rem">Filter</h2>
                         <form>
