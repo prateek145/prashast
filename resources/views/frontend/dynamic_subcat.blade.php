@@ -103,7 +103,7 @@
                         <div class="accordion" id="accordionPanelsStayOpenExample">
                             @foreach ($categories as $item)
                                 <h5 class="tag" style="padding-left: 1rem">
-                                    <a href="{{ url('dynamic/category/' . $item->slug . '') }}">
+                                    <a href="{{ route('dynamic.categories', $item->slug) }}">
                                         {{ $item->name }}
                                     </a>
                                 </h5>
@@ -279,15 +279,15 @@
         function filter_price(value) {
             if (value !== "") {
                 if (value == 1000) {
-                    window.location.href = "{{ url('dynamic/filter/1000') }}"
+                    window.location.href = "{{ url('filter/1000') }}"
                 }
 
                 if (value == 1001) {
-                    window.location.href = "{{ url('dynamic/filter/1001') }}"
+                    window.location.href = "{{ url('filter/1001') }}"
                 }
 
                 if (value == 10001) {
-                    window.location.href = "{{ url('dynamic/filter/10001') }}"
+                    window.location.href = "{{ url('filter/10001') }}"
                 }
 
             }

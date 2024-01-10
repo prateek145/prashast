@@ -11,7 +11,9 @@
     @endif
 
     <div style="width:60%; margin:auto; margin-top:5%; margin-bottom:5%;">
+        {{-- {{dd($page_image)}} --}}
+        @if ($page)
         {!! $page->content !!}
-
+        @endif
     </div>
 @endsection

@@ -21,7 +21,7 @@
                     <p class="maintext">Our products are designed and produced indigenously<br>
                         by workers and artisans belonging to an underpriviledged socioeconomic<br>
                         background, living in remote rural or urban slum settings.</p>
-                    <a href="{{ route('dynamic.page', 'about-us') }}" class="btn btn-primary shadow">Know More</a>
+                    <a href="{{ route('frontend.about') }}" class="btn btn-primary shadow">Know More</a>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                                         alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic/shop/shop') }}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                                 <div class="carousel-item text-center">
                                     <img src="{{ asset('public/frontend/images/icon-top.png') }}"
@@ -55,7 +55,7 @@
                                         alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic/shop/shop') }}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -85,7 +85,7 @@
                                         alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic/shop/shop') }}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                                 <div class="carousel-item text-center">
                                     <img src="{{ asset('public/frontend/images/icon-top.png') }}"
@@ -97,7 +97,7 @@
                                         alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic/shop/shop') }}" class="btn btn-secondary">Shop</a>
+                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -128,7 +128,7 @@
                                         alt="...">
                                     <h6>Handmade Tortoise
                                         Trinket Tray</h6>
-                                    <a href="{{ url('dynamic/dynamic-subcategory/shop/shop') }}" class="btn btn-secondary"
+                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary"
                                         style="cursor:default;">Shop</a>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                 <div class="col-12">
                     <div class="owl-carousel cate">
                         @foreach ($categories as $item)
-                            <a href="{{ url('dynamic/category/' . $item->slug . '') }}">
+                            <a href="{{ route('dynamic.categories', $item->slug) }}">
                                 <img src="{{ asset('public/productsubcategory/' . $item->featured_image) }}"
                                     class="img-fluid icon" />
                             </a>
@@ -175,7 +175,7 @@
             <div class="row">
                 <div class="col-12 text-center mx-auto position-relative">
                     @foreach ($categories as $item)
-                        <a href="{{ url('dynamic/category/' . $item->slug . '') }}"><img
+                        <a href="{{ route('dynamic.categories', $item->slug) }}"><img
                                 src="{{ asset('public/productsubcategory/' . $item->featured_image) }}"
                                 class="img-fluid icon m-grid rounded-4" /></a>
                     @endforeach

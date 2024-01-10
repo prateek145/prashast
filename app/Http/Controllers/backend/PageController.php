@@ -189,9 +189,31 @@ class PageController extends Controller
     public function dynamic_page($slug)
     {
         $page = Pages::where('slug', $slug)->first();
-        if ($slug == 'about-us') {
+
+        if ($slug == 'register') {
             # code...
-            $page_image = PageImages::where('name', 'about-us')->first();
+            $page_image = PageImages::where('name', 'register')->first();
+        }
+
+        if ($slug == 'my-account') {
+            # code...
+           
+            if (auth()->user()->role == 'admin') {
+                # code...
+                // dd(auth()->user()->role);
+                return redirect()->route('home');
+            } else {
+                # code...
+                $sub_categories = ProductSubcategory::latest()->take(5)->get();
+                $page_image = PageImages::where('name', 'my-account')->first();
+                // dd($page_image);
+                return view('frontend.myaccount', compact('sub_categories', 'page_image'));
+            }
+        }
+
+        if ($slug == 'signin') {
+            # code...
+            $page_image = PageImages::where('name', 'signin')->first();
         }
 
         if ($slug == 'contact-us') {
@@ -237,6 +259,14 @@ class PageController extends Controller
             return view('frontend.myaccount', compact('sub_categories', 'page_image'));
         }
         
+    }
+
+    public function about_us(){
+        $page_image = PageImages::where('name', 'about-us')->first();
+        $page = Pages::where('slug', 'about-us')->first();
+
+        // dd($page);
+        return view('frontend.dynamicp', compact('page', 'page_image'));
     }
 
     public function profile()

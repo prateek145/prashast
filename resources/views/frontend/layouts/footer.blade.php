@@ -26,7 +26,7 @@
                         <a style="color: #6e6e6e;" href="{{ route('frontend.home') }}">Home</a>
                     </li>
                     <li>
-                        <a style="color: #6e6e6e;" href="{{ route('dynamic.page', 'about-prashast') }}">
+                        <a style="color: #6e6e6e;" href="{{ route('frontend.about') }}">
                             About us
                         </a>
                     </li>

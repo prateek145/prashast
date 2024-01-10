@@ -41,39 +41,12 @@ class HomeController extends Controller
         return view('frontend.contactus', compact('sub_categories'));
     }
 
-    public function dynamic_categories($slug)
-    {
-        $cat = ProductCategories::where('slug', $slug)->first();
-        $products = $cat->products()->get();
-        $subcategories = $cat->subcategories()->get();
-        // dd($cat, $products, $subcategories);
-        return view('frontend.dynamic_cat', compact('cat', 'products', 'subcategories'));
-    }
-
-    public function dynamic_subcategories($key,$slug)
-    {
-        // dd($key, $slug);
-        if ($slug == 'shop' && $key == 'shop') {
-            # code...
-
-            $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
-            $products = Product::latest()->get();
-
-            $categories = ProductSubcategory::where('status', 1)->latest()->get();
-            $tags = Tags::where('status', 1)->latest()->get();
-            $fsidebar = FsideBar::latest()->first();
-            $page_image = BackendPageImages::where('name', 'shop')->first();
-
-            return view('frontend.dynamic_subcat', compact('products','page_image','fsidebar', 'sub_categories', 'categories', 'tags'));
-        }
-
-        // dd($key);
-        if ($key == 'category') {
+    public function dynamic_categories($slug){
             # code...
             $subcategory = ProductSubcategory::where('slug', $slug)->first();
             $products1 = Product::where('status', 1)->get();
             $productids = [];
-           
+
             for ($i = 0; $i < count($products1); $i++) {
                 # code...
                 $product = Json_decode($products1[$i]->product_subcategories);
@@ -91,12 +64,11 @@ class HomeController extends Controller
             $page_image = BackendPageImages::where('name', 'shop')->first();
 
             // dd($products);
-            return view('frontend.dynamic_subcat', compact('page_image','products','fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
-        }
+            return view('frontend.dynamic_subcat', compact('page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
+        
+    }
 
-        if ($key == 'tags') {
-            # code...
-            // dd($key);
+    public function dynamic_tags($slug){
             $subcategory = Tags::where('name', $slug)->first();
             $products1 = Product::where('status', 1)->get();
             // dd($products1);
@@ -117,42 +89,51 @@ class HomeController extends Controller
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
 
-            return view('frontend.dynamic_subcat', compact('page_image','products','fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
-        }
+            return view('frontend.dynamic_subcat', compact('page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
+        
+    }
 
-        if ($key == 'filter') {
+    public function dynamic_filter($slug){
+        if ($slug == 1000) {
             # code...
-            if ($slug == 1000) {
-                # code...
-                $products = Product::where('status', 1)->where('sale_price', '<', 1000)->get();
-                $categories = ProductSubcategory::where('status', 1)->latest()->get();
-                $fsidebar = FsideBar::latest()->first();
-                $page_image = BackendPageImages::where('name', 'shop')->first();
-    
-                return view('frontend.dynamic_subcat', compact('page_image','products','fsidebar', 'categories'));
-            }
+            $products = Product::where('status', 1)->where('sale_price', '<', 1000)->get();
+            $categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $fsidebar = FsideBar::latest()->first();
+            $page_image = BackendPageImages::where('name', 'shop')->first();
 
-            if ($slug == 1001) {
-                # code...
-                $products = Product::where('status', 1)->where('sale_price', '>', 999)->where('sale_price', '<', 10000)->get();
-                $categories = ProductSubcategory::where('status', 1)->latest()->get();
-                $fsidebar = FsideBar::latest()->first();
-                $page_image = BackendPageImages::where('name', 'shop')->first();
-    
-                return view('frontend.dynamic_subcat', compact('page_image','products','fsidebar', 'categories'));
-            }
-
-            if ($slug == 10001) {
-                # code...
-                $products = Product::where('status', 1)->where('sale_price', '>', 10000)->get();
-                $categories = ProductSubcategory::where('status', 1)->latest()->get();
-                $fsidebar = FsideBar::latest()->first();
-                $page_image = BackendPageImages::where('name', 'shop')->first();
-    
-                return view('frontend.dynamic_subcat', compact('page_image','products','fsidebar', 'categories'));
-            }
-
+            return view('frontend.dynamic_subcat', compact('page_image', 'products', 'fsidebar', 'categories'));
         }
+
+        if ($slug == 1001) {
+            # code...
+            $products = Product::where('status', 1)->where('sale_price', '>', 999)->where('sale_price', '<', 10000)->get();
+            $categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $fsidebar = FsideBar::latest()->first();
+            $page_image = BackendPageImages::where('name', 'shop')->first();
+
+            return view('frontend.dynamic_subcat', compact('page_image', 'products', 'fsidebar', 'categories'));
+        }
+
+        if ($slug == 10001) {
+            # code...
+            $products = Product::where('status', 1)->where('sale_price', '>', 10000)->get();
+            $categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $fsidebar = FsideBar::latest()->first();
+            $page_image = BackendPageImages::where('name', 'shop')->first();
+
+            return view('frontend.dynamic_subcat', compact('page_image', 'products', 'fsidebar', 'categories'));
+        }
+    }
+
+    public function shop_page()
+    {
+        $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
+        $products = Product::latest()->get();
+        $categories = ProductSubcategory::where('status', 1)->latest()->get();
+        $tags = Tags::where('status', 1)->latest()->get();
+        $fsidebar = FsideBar::latest()->first();
+        $page_image = BackendPageImages::where('name', 'shop')->first();
+        return view('frontend.dynamic_subcat', compact('products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
     }
 
     public function product_detail($slug)

@@ -23,10 +23,10 @@
                                         href="{{ route('frontend.home') }}">Home</a>
                                 </li>
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link" href="{{ route('dynamic.page', 'about-us') }}">About Us</a>
+                                    <a class="nav-link" href="{{ route('frontend.about') }}">About Us</a>
                                 </li>
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link" href="{{ url('dynamic/shop/shop') }}">Shop</a>
+                                    <a class="nav-link" href="{{ route('shop.page') }}">Shop</a>
                                 </li>
                                 <li class="nav-item mx-4">
                                     <a class="nav-link" href="{{ route('frontend.contact') }}">Contact Us</a>
