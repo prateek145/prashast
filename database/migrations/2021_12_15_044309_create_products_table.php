@@ -32,6 +32,7 @@ class CreateProductsTable extends Migration
             $table->longText('featured_image', 191)->nullable();
             $table->string('image', 191)->nullable();
             $table->longText('description')->nullable();
+            $table->longText('tag_selection')->nullable();
             $table->string('meta_title', 191)->nullable();
             $table->string('cannonical_link', 191)->nullable();
             $table->string('slug', 191)->nullable();

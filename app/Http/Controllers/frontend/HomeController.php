@@ -55,19 +55,9 @@ class HomeController extends Controller
         // dd($key, $slug);
         if ($slug == 'shop' && $key == 'shop') {
             # code...
-            $categroy = ProductCategories::find(1);
-            $products1 = Product::where('status', 1)->get();
-            $productids = [];
-            for ($i = 0; $i < count($products1); $i++) {
-                # code...
-                $product = Json_decode($products1[$i]->product_subcategories);
-                if (in_array($categroy->id, $product)) {
-                    # code...
-                    array_push($productids, $products1[$i]->id);
-                }
-            }
-            $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
-            $products = Product::whereIn('id', $productids)->get();
+
+            $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $products = Product::latest()->get();
 
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $tags = Tags::where('status', 1)->latest()->get();
