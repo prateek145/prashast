@@ -96,7 +96,7 @@ class HomeController extends Controller
     public function dynamic_filter($slug){
         if ($slug == 1000) {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '<', 1000)->get();
+            $products = Product::where('status', 1)->where('sale_price', '<=', 1000)->get();
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
@@ -106,7 +106,7 @@ class HomeController extends Controller
 
         if ($slug == 1001) {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '>', 999)->where('sale_price', '<', 10000)->get();
+            $products = Product::where('status', 1)->where('sale_price', '>', 1000)->where('sale_price', '<', 10000)->get();
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
