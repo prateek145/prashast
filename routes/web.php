@@ -47,7 +47,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [HomeController::class, 'home'])->name('frontend.home');
 
 Route::get('contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact');
-Route::get('dynamic-page/{slug}', [Pagecontroller::class, 'dynamic_page'])->name('dynamic.page');
+Route::get('page/{slug}', [Pagecontroller::class, 'dynamic_page'])->name('dynamic.page');
 Route::get('shop-page', [Pagecontroller::class, 'shop_page'])->name('shop.page');
 Route::get('my-account', [Pagecontroller::class, 'my_account'])->name('my.account')->middleware('auth');
 Route::get('profile', [Pagecontroller::class, 'profile'])->name('profile')->middleware('auth');;
