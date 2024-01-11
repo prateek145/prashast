@@ -33,30 +33,38 @@
                     <div class=" topsell">
                         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="carousel-item active text-center">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <p>TOP SELLER</p>
-                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
-                                        alt="...">
-                                    <h6>Handmade Tortoise
-                                        Trinket Tray</h6>
-                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
-                                </div>
-                                <div class="carousel-item text-center">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <p>TOP SELLER</p>
-                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
-                                        alt="...">
-                                    <h6>Handmade Tortoise
-                                        Trinket Tray</h6>
-                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
-                                </div>
+                                @foreach ($top_products as $key => $item)
+                                    {{-- {{dd($item->product_subcategory($item->product_subcategories)->icon_image)}} --}}
+                                    <div class="carousel-item text-center {{ $key == 0 ? 'active' : '' }}">
+                                        @if ($item->product_subcategory($item->product_subcategories)->icon_image)
+                                            <img src="{{ asset('public/productsubcategory/' . $item->product_subcategory($item->product_subcategories)->icon_image) }}"
+                                                class="img-fluid d-block mx-auto">
+                                        @else
+                                            <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                                class="img-fluid d-block mx-auto">
+                                        @endif
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <p>TOP SELLER</p>
+                                        <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                            alt="...">
+                                        <h6>{{ $item->name }}</h6>
+                                        <a href="{{ route('product.detail', $item->slug) }}"
+                                            class="btn btn-secondary">Shop</a>
+                                    </div>
+                                    {{-- <div class="carousel-item text-center">
+                                        <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <p>TOP SELLER</p>
+                                        <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                            alt="...">
+                                        <h6>Handmade Tortoise
+                                            Trinket Tray</h6>
+                                        <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
+                                    </div> --}}
+                                @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
                                 data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -75,30 +83,25 @@
                     <div class=" newcol">
                         <div id="carouselExampleAutoplayinga" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="carousel-item active text-center">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <p>NEW COLLECTION</p>
-                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
-                                        alt="...">
-                                    <h6>Handmade Tortoise
-                                        Trinket Tray</h6>
-                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
-                                </div>
-                                <div class="carousel-item text-center">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <p>NEW COLLECTION</p>
-                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
-                                        alt="...">
-                                    <h6>Handmade Tortoise
-                                        Trinket Tray</h6>
-                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
-                                </div>
+                                @foreach ($new_products as $key => $item)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} text-center">
+                                        @if ($item->product_subcategory($item->product_subcategories)->icon_image)
+                                            <img src="{{ asset('public/productsubcategory/' . $item->product_subcategory($item->product_subcategories)->icon_image) }}"
+                                                class="img-fluid d-block mx-auto">
+                                        @else
+                                            <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                                class="img-fluid d-block mx-auto">
+                                        @endif
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <p>NEW COLLECTION</p>
+                                        <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                            alt="...">
+                                        <h6>{{ $item->name }}</h6>
+                                        <a href="{{ route('product.detail', $item->slug) }}"
+                                            class="btn btn-secondary">Shop</a>
+                                    </div>
+                                @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
                                 data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev">
@@ -146,8 +149,8 @@
                     </div>
                 </div>
                 <!--<div class="col-lg-4 text-center py-3 order-1 order-lg-3">
-                        <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
-                    </div>-->
+                                            <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
+                                        </div>-->
             </div>
         </div>
     </section>
@@ -189,29 +192,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    @if (isset($page_image) && isset($page_image->specific_image))
+                    @if (isset($footer_image))
                         <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern1"
                             data-bs-ride="carousel"
-                            style="background-image:url({{ asset('public/pageimages/' . $page_image->specific_image) }})">
+                            style="background-image:url({{ asset('public/pageimages/' . $footer_image->image) }})">
                             <div class="carousel-inner py-lg-5 my-lg-5">
-                                <div class="carousel-item active py-5 my-lg-5">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <h4>Kala</h4>
-                                    <h6>MADHUBANI PAINTING</h6>
-                                    <h5>TOP SELLER</h5>
-                                </div>
-                                <div class="carousel-item py-5 my-lg-5">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <h4>Kala</h4>
-                                    <h6>MADHUBANI PAINTING</h6>
-                                    <h5>TOP SELLER</h5>
-                                </div>
+                                @foreach ($categories as $key => $item)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
+                                        <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <h4>{{ $item->name }}</h4>
+                                        {{-- {{dd($item->top_seller)}} --}}
+                                        @if (!isset($item->top_seller_name->name))
+                                            <h6>{{ 'Select Top Seller' }}</h6>
+                                        @else
+                                            <a href="{{ route('product.detail', $item->top_seller_name->slug) }}">
+                                                <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
+                                            </a>
+                                        @endif
+                                        <h5>TOP SELLER</h5>
+                                    </div>
+                                @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
                                 data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">

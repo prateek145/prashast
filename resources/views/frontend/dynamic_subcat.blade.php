@@ -23,18 +23,12 @@
                     <div id="carouselExampleAutoplayingoffer" class="carousel slide my-5" data-bs-ride="carousel">
                         @if (isset($page_image) && isset($page_image->specific_image))
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{ asset('public/pageimages/' . $page_image->specific_image) }}"
-                                        class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('public/pageimages/' . $page_image->specific_image) }}"
-                                        class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('public/pageimages/' . $page_image->specific_image) }}"
-                                        class="d-block w-100" alt="...">
-                                </div>
+                                @foreach (json_decode($page_image->specific_image) as $key => $item)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                        <img src="{{ asset('public/pageimages/' . $item) }}" class="d-block w-100"
+                                            alt="...">
+                                    </div>
+                                @endforeach
                             </div>
                         @else
                             <div class="carousel-inner">
@@ -112,17 +106,16 @@
                         {{-- <h2 style="padding:1rem;">Tags</h2> --}}
                         {{-- {{dd($tags)}} --}}
                         @if ($fsidebar)
-                        {!! $fsidebar->description !!}
-                            
+                            {!! $fsidebar->description !!}
                         @endif
 
                         <h2 style="padding: 1rem">Filter</h2>
                         <form>
                             <select class="form-select form-control" onchange="filter_price(this.value)">
                                 <option value="" selected>Select</option>
-                                <option value="1000">1000</option>
-                                <option value="1001">1001 to 10000</option>
-                                <option value="10001">10001 ></option>
+                                <option value="{{ $min_price }}">{{ $min_price }} < </option>
+                                <option value="{{ $medium_price }}">{{ $medium_price }} to {{ $max_price }}</option>
+                                <option value="{{ $max_price }}">{{ $max_price }} ></option>
                             </select>
                         </form>
 
@@ -237,57 +230,98 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern"
-                        data-bs-ride="carousel">
-                        <div class="carousel-inner py-lg-5 my-lg-5">
-                            <div class="carousel-item active py-lg-5 my-lg-5">
-                                <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                    class="img-fluid d-block mx-auto">
-                                <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                    class="img-fluid d-block mx-auto">
-                                <h4>Kala</h4>
-                                <h6>MADHUBANI PAINTING</h6>
-                                <h5>TOP SELLER</h5>
+                    @if (isset($footer_image))
+                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern1"
+                            data-bs-ride="carousel"
+                            style="background-image:url({{ asset('public/pageimages/' . $footer_image->image) }})">
+                            <div class="carousel-inner py-lg-5 my-lg-5">
+                                @foreach ($sub_categories as $key => $item)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
+                                        <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <h4>{{ $item->name }}</h4>
+                                        {{-- {{dd($item->top_seller)}} --}}
+                                        @if (!isset($item->top_seller_name->name))
+                                            <h6>{{ 'Select Top Seller' }}</h6>
+                                        @else
+                                            <a href="{{ route('product.detail', $item->top_seller_name->slug) }}">
+                                                <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
+                                            </a>
+                                        @endif
+                                        <h5>TOP SELLER</h5>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div class="carousel-item py-lg-5 my-lg-5">
-                                <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                    class="img-fluid d-block mx-auto">
-                                <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                    class="img-fluid d-block mx-auto">
-                                <h4>Kala</h4>
-                                <h6>MADHUBANI PAINTING</h6>
-                                <h5>TOP SELLER</h5>
-                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button class="carousel-control-prev" type="button"
-                            data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button"
-                            data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    @else
+                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern"
+                            data-bs-ride="carousel">
+                            <div class="carousel-inner py-lg-5 my-lg-5">
+                                <div class="carousel-item active py-5 my-lg-5">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <h4>Kala</h4>
+                                    <h6>MADHUBANI PAINTING</h6>
+                                    <h5>TOP SELLER</h5>
+                                </div>
+                                <div class="carousel-item py-5 my-lg-5">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <h4>Kala</h4>
+                                    <h6>MADHUBANI PAINTING</h6>
+                                    <h5>TOP SELLER</h5>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     </section>
 
     <script>
+        var min_price = "{{ $min_price }}";
+        var medium_price = "{{ $medium_price }}";
+        var max_price = "{{ $max_price }}";
+
         function filter_price(value) {
             if (value !== "") {
-                if (value == 1000) {
-                    window.location.href = "{{ url('filter/1000') }}"
+                if (value == "{{ $min_price }}") {
+                    window.location.href = "{{ url('filter/greater') }}" + "/" + min_price;
                 }
 
-                if (value == 1001) {
-                    window.location.href = "{{ url('filter/1001') }}"
+                if (value == "{{ $medium_price }}") {
+                    window.location.href = "{{ url('filter/equal') }}" + "/" + medium_price;
                 }
 
-                if (value == 10001) {
-                    window.location.href = "{{ url('filter/10001') }}"
+                if (value == "{{ $max_price }}") {
+                    window.location.href = "{{ url('filter/greaterthen') }}" + "/" + max_price;
                 }
 
             }

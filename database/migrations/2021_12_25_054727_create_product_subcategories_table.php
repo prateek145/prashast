@@ -24,6 +24,7 @@ class CreateProductSubcategoriesTable extends Migration
             $table->string('icon_image')->nullable();
             $table->string('dark_icon')->nullable();
             $table->string('icon')->nullable();
+            $table->tinyInteger('top_seller')->nullable();
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();

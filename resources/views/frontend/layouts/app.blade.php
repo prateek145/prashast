@@ -211,10 +211,10 @@
 
             }
 
-            if (qtyuppr == 'latestproduct') {
-                var qty = 1;
+            // if (qtyuppr == 'latestproduct') {
+            //     var qty = 1;
 
-            }
+            // }
 
             $.ajax({
                 url: "{{ route('add.to.cart') }}",
@@ -280,6 +280,10 @@
             });
 
 
+        }
+
+        function form_submit(){
+            document.getElementById('buy_now').submit();
         }
     </script>
 

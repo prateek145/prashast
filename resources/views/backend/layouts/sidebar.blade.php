@@ -85,6 +85,14 @@
               </li><!-- End Dashboard Nav -->
 
               <li class="nav-item">
+                <a class="nav-link {{ request()->segment(1) == 'footer-image' ? '' : 'collapsed' }}"
+                    href="{{ route('footer.image') }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>Footer Images</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+              <li class="nav-item">
                   <a class="nav-link {{ request()->segment(1) == 'contactform' ? '' : 'collapsed' }}"
                       href="{{ route('contactform.index') }}">
                       <i class="bi bi-journal-text"></i>

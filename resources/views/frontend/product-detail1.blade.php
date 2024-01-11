@@ -21,25 +21,25 @@
                                         class="d-block" style="width:100px" alt=""></button>
                             @endforeach
 
-              
+
                         </div>
                         <div class="carousel-inner">
                             {{-- <div class="carousel-item active">
                                 <img src="{{ asset('public/frontend/images/03.png') }}" class="d-block" alt="">
                             </div> --}}
-                            
+
                             @foreach (json_decode($product->featured_image) as $key => $item)
-                            {{-- {{dd($key)}} --}}
-                                <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
+                                {{-- {{dd($key)}} --}}
+                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                     <img src="{{ asset('public/product/' . $item) }}" class="d-block" alt="">
                                 </div>
                             @endforeach
-         
+
 
                         </div>
                     </div>
 
- 
+
 
 
 
@@ -70,18 +70,24 @@
 
                     <h1>{{ $product->name }}</h1>
                     <p>{!! $product->description !!}</h3>
+                    <form action="{{ route('buy.now') }}" method="POST" id="buy_now">
+                        @csrf
                         <span class="qntbox float-start">
                             Quantity <input type="number" name="qty" min="1" value="1" id="input_quantity"
                                 class="form-control" />
+
                         </span>
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
 
                         <span class="d-flex w-100 justify-content-end">
                             <a class="btn btn-primary float-end  mx-4 shadow"
                                 onclick="addtocart('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Add to
-                                Cart</a> &nbsp; <a href="#" class="btn btn-secondary float-end shadow text-dark"
-                                onclick="addtowishlist('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Buy
+                                Cart</a> &nbsp; <a href="#" onclick="form_submit()"
+                                class="btn btn-secondary float-end shadow text-dark">Buy
                                 Now</a>
                         </span>
+
+                    </form>
 
                 </div>
             </div>
@@ -141,35 +147,76 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div id="carouselExampleAutoplayingb" class="my-5 py-5 carousel slide bg-pattern"
-                        data-bs-ride="carousel">
-                        <div class="carousel-inner py-5 my-5">
-                            <div class="carousel-item active">
-                                <img src="" class="icon" />
-                                <hr class="divider">
-                                <h4>Category Name</h4>
-                                <h6>Madubani Painting</h6>
-                                <h5>MOST VIEWED</h5>
+                    @if (isset($footer_image))
+                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern1"
+                            data-bs-ride="carousel"
+                            style="background-image:url({{ asset('public/pageimages/' . $footer_image->image) }})">
+                            <div class="carousel-inner py-lg-5 my-lg-5">
+                                @foreach ($sub_categories as $key => $item)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
+                                        <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <h4>{{ $item->name }}</h4>
+                                        {{-- {{dd($item->top_seller)}} --}}
+                                        @if (!isset($item->top_seller_name->name))
+                                            <h6>{{ 'Select Top Seller' }}</h6>
+                                        @else
+                                            <a href="{{ route('product.detail', $item->top_seller_name->slug) }}">
+                                                <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
+                                            </a>
+                                        @endif
+                                        <h5>TOP SELLER</h5>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div class="carousel-item">
-                                <img src="" class="icon" />
-                                <hr class="divider">
-                                <h4>Category Name</h4>
-                                <h6>Madubani Painting</h6>
-                                <h5>MOST VIEWED</h5>
-                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button class="carousel-control-prev" type="button"
-                            data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button"
-                            data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    @else
+                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern"
+                            data-bs-ride="carousel">
+                            <div class="carousel-inner py-lg-5 my-lg-5">
+                                <div class="carousel-item active py-5 my-lg-5">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <h4>Kala</h4>
+                                    <h6>MADHUBANI PAINTING</h6>
+                                    <h5>TOP SELLER</h5>
+                                </div>
+                                <div class="carousel-item py-5 my-lg-5">
+                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                        class="img-fluid d-block mx-auto">
+                                    <h4>Kala</h4>
+                                    <h6>MADHUBANI PAINTING</h6>
+                                    <h5>TOP SELLER</h5>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplayingb" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

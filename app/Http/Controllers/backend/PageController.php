@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\FooterImages;
 use App\Models\backend\PageImages;
 use App\Models\backend\Pages;
 use App\Models\backend\Product;
@@ -186,66 +187,6 @@ class PageController extends Controller
         }
     }
 
-    public function dynamic_page($slug)
-    {
-        $page = Pages::where('slug', $slug)->first();
-
-        if ($slug == 'register') {
-            # code...
-            $page_image = PageImages::where('name', 'register')->first();
-        }
-
-        if ($slug == 'my-account') {
-            # code...
-           
-            if (auth()->user()->role == 'admin') {
-                # code...
-                // dd(auth()->user()->role);
-                return redirect()->route('home');
-            } else {
-                # code...
-                $sub_categories = ProductSubcategory::latest()->take(5)->get();
-                $page_image = PageImages::where('name', 'my-account')->first();
-                // dd($page_image);
-                return view('frontend.myaccount', compact('sub_categories', 'page_image'));
-            }
-        }
-
-        if ($slug == 'signin') {
-            # code...
-            $page_image = PageImages::where('name', 'signin')->first();
-        }
-
-        if ($slug == 'contact-us') {
-            # code...
-            $page_image = PageImages::where('name', 'contact-us')->first();
-        }
-        return view('frontend.dynamicp', compact('page', 'page_image'));
-    }
-
-    public function shop_page()
-    {
-        $categories = ProductCategories::all();
-        $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
-        $products = Product::latest()->get();
-        $productids = [];
-        // dd($products);
-        for ($i = 0; $i < count($products); $i++) {
-            # code...
-            $product = Json_decode($products[$i]->product_categories);
-            // dd($subcategories->id, $product,  $products[$i]->id);
-            if (in_array(4, $product)) {
-                # code...
-                array_push($productids, $products[$i]->id);
-            }
-        }
-        // dd($productids);
-
-        // $find_products = Product::whereIn('id', $productids)->paginate(6);
-        // $product
-        // dd($find_products);
-        return view('frontend.shop', compact('categories', 'sub_categories'));
-    }
 
     public function my_account()
     {
@@ -264,9 +205,9 @@ class PageController extends Controller
     public function about_us(){
         $page_image = PageImages::where('name', 'about-us')->first();
         $page = Pages::where('slug', 'about-us')->first();
-
+        $footer_image = FooterImages::latest()->first();
         // dd($page);
-        return view('frontend.dynamicp', compact('page', 'page_image'));
+        return view('frontend.dynamicp', compact('page', 'page_image', 'footer_image'));
     }
 
     public function profile()

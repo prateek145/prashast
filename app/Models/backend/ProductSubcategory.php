@@ -32,10 +32,15 @@ class ProductSubcategory extends Model
             }
         }
         $find_products = Product::whereIn('id', $productids)->get();
+        // dd($find_products);
         return $find_products;
     }
 
     public function subcategory_created_by(){
         return $this->hasOne(User::class, 'id', 'created_by');
+    }
+
+    public function top_seller_name(){
+        return $this->hasOne(Product::class, 'id', 'top_seller');
     }
 }

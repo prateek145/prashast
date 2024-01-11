@@ -12,31 +12,48 @@
                         <span class="text-primary">Your cart</span>
                         {{-- <span class="badge bg-primary rounded-pill">2</span> --}}
                     </h4>
-                    @if (session()->get('cart'))
-                    <ul class="list-group mb-3">
-                        @php
-                            $totalprice = 0;
-                        @endphp
-                        @foreach ($products as $key => $value)
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div>
-                                    <h6 class="my-0">{{ $value['name'] }}</h6>
-                                </div>
-                                <span class="text-muted">{{ $value['quantity'] }}</span>
-
-                                <span class="text-muted">{{ $value['price'] }}</span>
-                            </li>
+                    @if (session()->get('cart') && isset($cart))
+                        <ul class="list-group mb-3">
                             @php
-                                $totalprice += ($value['price'] * $value['quantity']);
+                                $totalprice = 0;
                             @endphp
-                        @endforeach
+                            @foreach ($products as $key => $value)
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
+                                        <h6 class="my-0">{{ $value['name'] }}</h6>
+                                    </div>
+                                    <span class="text-muted">{{ $value['quantity'] }}</span>
 
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Total (INR)</span>
-                            <strong>{{ $totalprice }}</strong>
-                        </li>
-                    </ul>
-                        
+                                    <span class="text-muted">{{ $value['price'] }}</span>
+                                </li>
+                                @php
+                                    $totalprice += $value['price'] * $value['quantity'];
+                                @endphp
+                            @endforeach
+
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total (INR)</span>
+                                <strong>{{ $totalprice }}</strong>
+                            </li>
+                        </ul>
+                    @endif
+
+                    @if (isset($product))
+                        <ul class="list-group mb-3">
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
+                                        <h6 class="my-0">{{ $product->name}}</h6>
+                                    </div>
+                                    <span class="text-muted">{{ $qty }}</span>
+
+                                    <span class="text-muted">{{$product->sale_price }}</span>
+                                </li>
+
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total (INR)</span>
+                                <strong>{{ $product->sale_price * $qty }}</strong>
+                            </li>
+                        </ul>
                     @endif
 
                 </div>
@@ -47,7 +64,8 @@
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="firstName" class="form-label">Full name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="firstName" value="testing">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" id="firstName" value="testing">
                                 <div class="invalid-feedback">
                                     Valid first name is required.
                                 </div>
@@ -72,9 +90,9 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <label for="email" class="form-label">Email <span
-                                        class="text-muted"></span></label>
-                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                <label for="email" class="form-label">Email <span class="text-muted"></span></label>
+                                <input type="email" name="email"
+                                    class="form-control @error('email') is-invalid @enderror" id="email"
                                     placeholder="you@example.com" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.

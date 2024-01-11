@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\FooterImages;
 use App\Models\backend\PageImages as BackendPageImages;
+use App\Models\backend\ProductSubcategory;
 use Illuminate\Http\Request;
 
 class PageImages extends Controller
@@ -67,16 +69,21 @@ class PageImages extends Controller
                 $image->move($destination_path, $filename);
                 $data['images'] = $filename;
             }
-
-            if ($request->specific_image) {
+                    
+            if ($request->specific_image && $request->name == 'shop') {
                 # code...
                 unset($data['specific_image']);
-                $image = $request->specific_image;
-                $filename = rand() . $image->getClientoriginalName();
-                // dd($filename);
-                $destination_path = public_path('/pageimages');
-                $image->move($destination_path, $filename);
-                $data['specific_image'] = $filename;
+                $image_arr = [];
+                for ($i = 0; $i < count($request->specific_image); $i++) {
+                    # code...
+                    $image = $request->specific_image[$i];
+                    $filename = rand() . $image->getClientoriginalName();
+                    // dd($filename);
+                    $destination_path = public_path('/pageimages');
+                    $image->move($destination_path, $filename);
+                    $image_arr[] = $filename;
+                }
+                $data['specific_image'] = json_encode($image_arr);
             }
 
             BackendPageImages::create($data);
@@ -143,21 +150,24 @@ class PageImages extends Controller
             unset($data['images']);
             $image = $request->images;
             $filename = rand() . $image->getClientoriginalName();
-            // dd($filename);
             $destination_path = public_path('/pageimages');
             $image->move($destination_path, $filename);
             $data['images'] = $filename;
         }
 
-        if ($request->specific_image) {
+        if ($request->specific_image && $request->name == 'shop') {
             # code...
             unset($data['specific_image']);
-            $image = $request->specific_image;
-            $filename = rand() . $image->getClientoriginalName();
-            // dd($filename);
-            $destination_path = public_path('/pageimages');
-            $image->move($destination_path, $filename);
-            $data['specific_image'] = $filename;
+            $image_arr = [];
+            for ($i = 0; $i < count($request->specific_image); $i++) {
+                # code...
+                $image = $request->specific_image[$i];
+                $filename = rand() . $image->getClientoriginalName();
+                $destination_path = public_path('/pageimages');
+                $image->move($destination_path, $filename);
+                $image_arr[] = $filename;
+            }
+            $data['specific_image'] = json_encode($image_arr);
         }
         
         $pageImage = BackendPageImages::find($id);
@@ -180,5 +190,55 @@ class PageImages extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function footer_image(){
+        $footer_image = FooterImages::latest()->first();
+        
+        return view('backend/footerimage.create', compact('footer_image'));
+    }
+
+    public function footer_image_save(Request $request){
+        $rules = [
+            'images' => 'required',
+        ];
+
+        $custommessages = [
+        ];
+
+        $this->validate($request, $rules, $custommessages);
+        
+        $footer_image = FooterImages::latest()->first();
+        $data = $request->all();
+        if ($footer_image) {
+            # code...
+            unset($data['images']);
+            unset($data['_token']);
+            $image = $request->images;
+            $filename = rand() . $image->getClientoriginalName();
+            $destination_path = public_path('/pageimages');
+            $image->move($destination_path, $filename);
+            $data['image'] = $filename;
+            $footer_image->update($data);
+            return redirect()->back()->with('success', 'Success Updated Footer Image');
+
+        } else {
+            # code...
+            unset($data['images']);
+            unset($data['_token']);
+            $image = $request->images;
+            $filename = rand() . $image->getClientoriginalName();
+            $destination_path = public_path('/pageimages');
+            $image->move($destination_path, $filename);
+            $data['image'] = $filename;
+            FooterImages::create($data);
+            return redirect()->back()->with('success', 'Success Created Footer Image');
+
+        }
+        try {
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error Occured');
+        }
     }
 }
