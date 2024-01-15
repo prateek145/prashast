@@ -62,68 +62,68 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        // $rules = [
-        //     'name' => 'required|unique:products',
-        //     'sku' => 'required|unique:products',
-        //     'sale_price' => 'required',
-        //     'featured_image' => 'required',
-        //     'image' => 'required',
-        //     'description' => 'required',
-        //     'product_categories' => 'required',
-        //     'product_subcategories' => 'required',
-        //     // 'tag_selection' => 'required|array',
-        //     'status' => 'required',
-
-        // ];
-
-        // $custommessages = [
-        //     'name.required' => 'Name is required'
-        // ];
-
-        // $this->validate($request, $rules, $custommessages);
-
-        $data = $request->all();
-
-        if ($request->featured_image) {
-            # code...
-            unset($data['featured_image']);
-            $image_arr = [];
-            for ($i = 0; $i < count($request->featured_image); $i++) {
+        try {
+            $rules = [
+                'name' => 'required|unique:products',
+                'sku' => 'required|unique:products',
+                'sale_price' => 'required',
+                'featured_image' => 'required',
+                'image' => 'required',
+                'description' => 'required',
+                'product_categories' => 'required',
+                'product_subcategories' => 'required',
+                'tag_selection' => 'required|array',
+                'status' => 'required',
+    
+            ];
+    
+            $custommessages = [
+                'name.required' => 'Name is required'
+            ];
+    
+            $this->validate($request, $rules, $custommessages);
+    
+            $data = $request->all();
+    
+            if ($request->featured_image) {
                 # code...
-                $image = $request->featured_image[$i];
+                unset($data['featured_image']);
+                $image_arr = [];
+                for ($i = 0; $i < count($request->featured_image); $i++) {
+                    # code...
+                    $image = $request->featured_image[$i];
+                    $filename = rand() . $image->getClientoriginalName();
+                    // dd($filename);
+                    $destination_path = public_path('/product');
+                    $image->move($destination_path, $filename);
+                    $image_arr[] = $filename;
+                }
+                $data['featured_image'] = json_encode($image_arr);
+            }
+    
+            if ($request->image) {
+                # code...
+                unset($data['image']);
+                $image = $request->image;
                 $filename = rand() . $image->getClientoriginalName();
                 // dd($filename);
                 $destination_path = public_path('/product');
                 $image->move($destination_path, $filename);
-                $image_arr[] = $filename;
+                $data['image'] = $filename;
             }
-            $data['featured_image'] = json_encode($image_arr);
-        }
-
-        if ($request->image) {
-            # code...
-            unset($data['image']);
-            $image = $request->image;
-            $filename = rand() . $image->getClientoriginalName();
-            // dd($filename);
-            $destination_path = public_path('/product');
-            $image->move($destination_path, $filename);
-            $data['image'] = $filename;
-        }
-
-        unset($data['_token']);
-        unset($data['product_categories']);
-        unset($data['product_subcategories']);
-        unset($data['tag_selection']);
-        $data['slug'] = Str::slug($request->name);
-        // $data['product_categories'] = json_encode($request->product_categories);
-        $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
-        $data['product_subcategories'] = json_encode($request->product_subcategories);
-
-        // dd($data);
-        Product::create($data);
-        return redirect()->route('products.index')->with('success', 'Successfully ' . $request->name . ' Created');
-        try {
+    
+            unset($data['_token']);
+            unset($data['product_categories']);
+            unset($data['product_subcategories']);
+            unset($data['tag_selection']);
+            $data['slug'] = Str::slug($request->name);
+            // $data['product_categories'] = json_encode($request->product_categories);
+            $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
+            $data['product_subcategories'] = json_encode($request->product_subcategories);
+    
+            // dd($data);
+            Product::create($data);
+            return redirect()->route('products.index')->with('success', 'Successfully ' . $request->name . ' Created');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
         }
