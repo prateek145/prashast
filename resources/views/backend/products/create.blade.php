@@ -179,6 +179,11 @@
 
                                                 <datalist id="datalistname"></datalist>
                                             </div>
+                                       
+                                            @error('tag_selection')
+                                                <label id="tag_selection-error" class="error text-danger"
+                                                    for="tag_selection">{{ $message }}</label>
+                                            @enderror
 
                                             <select name="tag_selection[]" id="" class="d-none" multiple>
 

@@ -62,26 +62,26 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        $rules = [
+            'name' => 'required|unique:products',
+            'sku' => 'required|unique:products',
+            'sale_price' => 'required',
+            'featured_image' => 'required',
+            'image' => 'required',
+            'description' => 'required',
+            // 'product_categories' => 'required',
+            'product_subcategories' => 'required',
+            'tag_selection' => 'required|array',
+            'status' => 'required',
+
+        ];
+
+        $custommessages = [
+            'name.required' => 'Name is required'
+        ];
+
+        $this->validate($request, $rules, $custommessages);
         try {
-            $rules = [
-                'name' => 'required|unique:products',
-                'sku' => 'required|unique:products',
-                'sale_price' => 'required',
-                'featured_image' => 'required',
-                'image' => 'required',
-                'description' => 'required',
-                'product_categories' => 'required',
-                'product_subcategories' => 'required',
-                'tag_selection' => 'required|array',
-                'status' => 'required',
-    
-            ];
-    
-            $custommessages = [
-                'name.required' => 'Name is required'
-            ];
-    
-            $this->validate($request, $rules, $custommessages);
     
             $data = $request->all();
     
@@ -125,7 +125,7 @@ class ProductController extends Controller
             Product::create($data);
             return redirect()->route('products.index')->with('success', 'Successfully ' . $request->name . ' Created');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error Occured');
+            return redirect()->back()->with('error', 'Error Occured')->withInput();
         }
     }
 
@@ -176,7 +176,16 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => 'required|max:100'
+            'name' => 'required|unique:products,name,' . $id .  "'",
+            'sku' => 'required|unique:products,name,' . $id .  "'",
+            'sale_price' => 'required',
+            // 'featured_image' => 'required',
+            // 'image' => 'required',
+            'description' => 'required',
+            // 'product_categories' => 'required',
+            'product_subcategories' => 'required',
+            'tag_selection' => 'required|array',
+            'status' => 'required',
 
         ];
 
