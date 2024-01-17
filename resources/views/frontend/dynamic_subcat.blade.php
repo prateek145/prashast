@@ -150,7 +150,7 @@
                             {{-- {{dd($item->product_subcategory($item->product_subcategories))}} --}}
                             <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
                                 <div
-                                    class="card w-100 my-2 shadow-2-strong line {{ strtolower($item->product_subcategory($item->product_subcategories)->name) == 'kala' ? 'zevar' : strtolower($item->product_subcategory($item->product_subcategories)->name) }}">
+                                    class="card w-100 my-2 shadow-2-strong line {{ strtolower($item->product_subcategory($item->product_subcategories)->name) }}">
                                     <a class="btn-link product-link" href="{{ route('product.detail', $item->slug) }}">
                                         @php
                                             $pro = \App\Models\wishlist::where(['product_id' => $item->id, 'user_id' => auth()->id()])->first();
@@ -210,10 +210,10 @@
                             </li>
                             {{-- {{pagination()->links}} --}}
                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            {{-- <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
                             <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li> --}}
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">»</span>
