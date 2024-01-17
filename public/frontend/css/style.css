@@ -521,6 +521,13 @@ div.topsell:hover {
     border-radius: 10px;
 }
 
+.kala {
+    background: url(../images/06.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}
+
 img.product {
     width: 85%;
     margin: 0 auto;
