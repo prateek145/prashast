@@ -70,8 +70,7 @@
 
                     <h1>{{ $product->name }}</h1>
                     <p>{!! $product->description !!}</h3>
-                    <form action="{{ route('buy.now') }}" method="POST" id="buy_now">
-                        @csrf
+
                         <span class="qntbox float-start">
                             Quantity <input type="number" name="qty" min="1" value="1" id="input_quantity"
                                 class="form-control" />
@@ -82,12 +81,10 @@
                         <span class="d-flex w-100 justify-content-end">
                             <a class="btn btn-primary float-end  mx-4 shadow"
                                 onclick="addtocart('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Add to
-                                Cart</a> &nbsp; <a href="#" onclick="form_submit()"
+                                Cart</a> &nbsp; <a href="#" onclick="form_submit({{ $product->id }})"
                                 class="btn btn-secondary float-end shadow text-dark">Buy
                                 Now</a>
                         </span>
-
-                    </form>
 
                 </div>
             </div>

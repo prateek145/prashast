@@ -1,1 +1,1 @@
-prateek
+{{$data1 ?? ''}}

@@ -64,8 +64,8 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{asset('public/frontend/owl/jquery.min.js')}}"></script>
-    <script src="{{asset('public/frontend/owl/owl.carousel.min.js')}}"></script>
+    <script src="{{ asset('public/frontend/owl/jquery.min.js') }}"></script>
+    <script src="{{ asset('public/frontend/owl/owl.carousel.min.js') }}"></script>
     <script type="text/javascript">
         // console.log('prateek');
         $('.cate').owlCarousel({
@@ -133,7 +133,7 @@
 
                     if (response.result == 'found') {
                         // alert('Product Already Added in Wishlist.');
-                    } 
+                    }
                     if (response.result == 'notfound') {
                         // alert('Product Add In Wishlist.');
                         location.reload();
@@ -282,9 +282,12 @@
 
         }
 
-        function form_submit(){
-            document.getElementById('buy_now').submit();
+        function form_submit(product_id) {
+            var qty = document.getElementById('input_quantity').value;
+            var product_id = product_id;
+            window.location.href = "{{ url('buy/now') }}"  + '/' + product_id  + '/' + qty;
         }
+
     </script>
 
 

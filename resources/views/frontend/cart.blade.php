@@ -12,7 +12,7 @@
                         <span class="text-primary">Your cart</span>
                         {{-- <span class="badge bg-primary rounded-pill">2</span> --}}
                     </h4>
-                    @if (session()->get('cart') && isset($cart))
+                    @if ($cart == true)
                         <ul class="list-group mb-3">
                             @php
                                 $totalprice = 0;
@@ -22,12 +22,12 @@
                                     <div>
                                         <h6 class="my-0">{{ $value['name'] }}</h6>
                                     </div>
-                                    <span class="text-muted">{{ $value['quantity'] }}</span>
+                                    <span class="text-muted">{{ $value['qty'] }}</span>
 
                                     <span class="text-muted">{{ $value['price'] }}</span>
                                 </li>
                                 @php
-                                    $totalprice += $value['price'] * $value['quantity'];
+                                    $totalprice += $value['price'] * $value['qty'];
                                 @endphp
                             @endforeach
 
@@ -38,16 +38,16 @@
                         </ul>
                     @endif
 
-                    @if (isset($product))
+                    @if ($cart == false)
                         <ul class="list-group mb-3">
-                                <li class="list-group-item d-flex justify-content-between lh-sm">
-                                    <div>
-                                        <h6 class="my-0">{{ $product->name}}</h6>
-                                    </div>
-                                    <span class="text-muted">{{ $qty }}</span>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">{{ $product->name }}</h6>
+                                </div>
+                                <span class="text-muted">{{ $qty }}</span>
 
-                                    <span class="text-muted">{{$product->sale_price }}</span>
-                                </li>
+                                <span class="text-muted">{{ $product->sale_price }}</span>
+                            </li>
 
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (INR)</span>
@@ -65,43 +65,35 @@
                             <div class="col-sm-12">
                                 <label for="firstName" class="form-label">Full name</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" id="firstName" value="testing">
+                                    name="name" id="firstName" value="{{ old('name') ?? '' }}" placeholder="Name">
                                 <div class="invalid-feedback">
-                                    Valid first name is required.
-                                </div>
-                            </div>
-                            {{-- <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Last name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" value=""
-                                    required="">
-                                <div class="invalid-feedback">
-                                    Valid last name is required.
-                                </div>
-                            </div> --}}
-                            <div class="col-12">
-                                <label for="username" class="form-label">Username</label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text">@</span>
-                                    <input type="text" name="username" class="form-control" id="username"
-                                        value="username" placeholder="Username" required>
-                                    <div class="invalid-feedback">
-                                        Your username is required.
-                                    </div>
+                                    Valid name is required.
                                 </div>
                             </div>
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span class="text-muted"></span></label>
                                 <input type="email" name="email"
                                     class="form-control @error('email') is-invalid @enderror" id="email"
-                                    placeholder="you@example.com" required>
+                                    placeholder="you@example.com" value="{{ old('email') ?? '' }}" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <label for="phone" class="form-label">Phone <span class="text-muted"></span></label>
+                                <input type="text" name="phone"
+                                    class="form-control @error('phone') is-invalid @enderror" id="phone"
+                                    placeholder="888888888" value="{{ old('phone') ?? '' }}" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid phone address for shipping updates.
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <label for="address" class="form-label">Address</label>
-                                <input type="text" name="address" class="form-control" id="address"
-                                    value="1234 Main St" placeholder="1234 Main St" required="">
+                                <input type="text" name="address"
+                                    class="form-control @error('address') is-invalid @enderror" id="address"
+                                    value="{{ old('address') ?? '' }}" placeholder="1234 Main St" required="">
                                 <div class="invalid-feedback">
                                     Please enter your shipping address.
                                 </div>
@@ -109,13 +101,15 @@
                             <div class="col-12">
                                 <label for="address2" class="form-label">Address 2 <span
                                         class="text-muted">(Optional)</span></label>
-                                <input type="text" name="address2" class="form-control" id="address2"
-                                    value="Apartment or suite" placeholder="Apartment or suite">
+                                <input type="text" name="address2"
+                                    class="form-control @error('address2') is-invalid @enderror" id="address2"
+                                    value="{{ old('address1') ?? '' }}" placeholder="Apartment or suite">
                             </div>
                             <div class="col-md-5">
                                 <label for="country" class="form-label">Country</label>
-                                <select class="form-select" name="country" id="country" required="">
-                                    <option value="us" selected>United States</option>
+                                <select class="form-select @error('country') is-invalid @enderror" name="country"
+                                    id="country" required="">
+                                    <option value="india">India</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select a valid country.
@@ -123,19 +117,58 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="state" class="form-label">State</label>
-                                <select class="form-select" name="state" id="state" required="">
-                                    <option value="california" selected>California</option>
+                                <select class="form-select @error('state') is-invalid @enderror" name="state"
+                                    id="state" required="">
+                                    <option value="">Select</option>
+
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                    <option value="Daman and Diu">Daman and Diu</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Lakshadweep">Lakshadweep</option>
+                                    <option value="Puducherry">Puducherry</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please provide a valid state.
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label for="zip" class="form-label">Zip</label>
-                                <input type="text" name="zip" class="form-control" id="zip" value="110059"
-                                    placeholder="" required="">
+                                <label for="zip" class="form-label">Pincode</label>
+                                <input type="text" name="pincode"
+                                    class="form-control @error('pincode') is-invalid @enderror" id="pincode"
+                                    placeholder="Pincode">
                                 <div class="invalid-feedback">
-                                    Zip code required.
+                                    Pincode code required.
                                 </div>
                             </div>
                         </div>
@@ -143,19 +176,28 @@
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="same-address" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
-                                aria-controls="collapseExample">
+                                aria-controls="collapseExample" name="shipping_address_button" {{old('shipping_address_button') == 'on' ? 'checked' : ''}}>
                             <label class="form-check-label" for="same-address">Shipping address is the different as my
                                 billing address</label>
                         </div>
-                        <input type="hidden" value="{{ json_encode(session()->get('cart')) }}" name="productdetail">
+                        @if ($cart == true)
+                            <input type="hidden" value="{{ json_encode(session()->get('cart')) }}"
+                                name="productdetail">
+                        @endif
+
+                        @if ($cart == false)
+                            <input type="hidden" value="{{ json_encode($productdetails) }}" name="productdetail">
+                        @endif
                         <!--shipping-->
-                        <div class="collapse" id="collapseExample">
+                        <div class="collapse {{old('shipping_address_button') == 'on' ? 'show' : ''}}" id="collapseExample">
                             <h4 class="mb-3">Shipping address</h4>
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <label for="firstName" class="form-label">Full name</label>
-                                    <input type="text" class="form-control" name="shipping_name" id="firstName"
-                                        placeholder="" value="" required="">
+                                    <input type="text"
+                                        class="form-control @error('shipping_name') is-invalid @enderror"
+                                        name="shipping_name" id="firstName" placeholder="" value="{{ old('shipping_name') ?? '' }}"
+                                        required="">
                                     <div class="invalid-feedback">
                                         Valid first name is required.
                                     </div>
@@ -170,8 +212,10 @@
                                 </div> --}}
                                 <div class="col-12">
                                     <label for="address" class="form-label">Address</label>
-                                    <input type="text" class="form-control" name="shipping_address" id="address"
-                                        placeholder="1234 Main St" required="">
+                                    <input type="text"
+                                        class="form-control @error('shipping_address') is-invalid @enderror"
+                                        name="shipping_address" id="address" placeholder="1234 Main St"
+                                        value="{{ old('shipping_address') ?? '' }}">
                                     <div class="invalid-feedback">
                                         Please enter your shipping address.
                                     </div>
@@ -179,14 +223,15 @@
                                 <div class="col-12">
                                     <label for="address2" class="form-label">Address 2 <span
                                             class="text-muted">(Optional)</span></label>
-                                    <input type="text" class="form-control" name="shipping_name2" id="address2"
-                                        placeholder="Apartment or suite">
+                                    <input type="text"
+                                        class="form-control @error('shipping_address2') is-invalid @enderror"
+                                        name="shipping_address2" id="address2" placeholder="Apartment or suite" value="{{ old('shipping_address2') ?? '' }}">
                                 </div>
                                 <div class="col-md-5">
-                                    <label for="country" class="form-label">Country</label>
-                                    <select class="form-select" id="country" name="country" required="">
-                                        <option value="">Choose...</option>
-                                        <option>United States</option>
+                                    <label for="country"
+                                        class="form-label @error('shipping_country') is-invalid @enderror">Country</label>
+                                    <select class="form-select" id="country" name="shipping_country">
+                                        <option value="india">India</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Please select a valid country.
@@ -194,20 +239,57 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="state" class="form-label">State</label>
-                                    <select class="form-select" id="state" name="state" required="">
-                                        <option value="">Choose...</option>
-                                        <option>California</option>
+                                    <select class="form-select @error('shipping_state') is-invalid @enderror"
+                                        id="state" name="shipping_state" >
+                                        <option value="">Select</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                        <option value="Assam">Assam</option>
+                                        <option value="Bihar">Bihar</option>
+                                        <option value="Chandigarh">Chandigarh</option>
+                                        <option value="Chhattisgarh">Chhattisgarh</option>
+                                        <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                        <option value="Daman and Diu">Daman and Diu</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Lakshadweep">Lakshadweep</option>
+                                        <option value="Puducherry">Puducherry</option>
+                                        <option value="Goa">Goa</option>
+                                        <option value="Gujarat">Gujarat</option>
+                                        <option value="Haryana">Haryana</option>
+                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                        <option value="Jharkhand">Jharkhand</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Manipur">Manipur</option>
+                                        <option value="Meghalaya">Meghalaya</option>
+                                        <option value="Mizoram">Mizoram</option>
+                                        <option value="Nagaland">Nagaland</option>
+                                        <option value="Odisha">Odisha</option>
+                                        <option value="Punjab">Punjab</option>
+                                        <option value="Rajasthan">Rajasthan</option>
+                                        <option value="Sikkim">Sikkim</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        <option value="Telangana">Telangana</option>
+                                        <option value="Tripura">Tripura</option>
+                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                        <option value="Uttarakhand">Uttarakhand</option>
+                                        <option value="West Bengal">West Bengal</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Please provide a valid state.
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="zip" class="form-label">Zip</label>
-                                    <input type="text" class="form-control" name="zip" id="zip"
-                                        placeholder="" required="">
+                                    <label for="pincode" class="form-label">Pincode</label>
+                                    <input type="text"
+                                        class="form-control @error('shipping_pincode') is-invalid @enderror"
+                                        name="shipping_pincode" id="pincode" placeholder="" value="{{ old('shipping_pincode') ?? '' }}">
                                     <div class="invalid-feedback">
-                                        Zip code required.
+                                        pincode code required.
                                     </div>
                                 </div>
                             </div>
@@ -221,365 +303,4 @@
         </div>
     </section>
 
-    <script>
-        // function products_details(e) {
-        //     // e.preventDefault();
-        //     var products = [];
-        //     var sku = document.getElementsByClassName('skuproceed');
-        //     var price = document.getElementsByClassName('priceproceed');
-        //     var quantity = document.getElementsByClassName('setquantityproceed');
-        //     console.log(sku[0].innerText);
-
-
-        //     for (let index = 0; index < sku.length; index++) {
-        //         var arr = {
-        //             'sku': sku[index].innerText,
-        //             'price': price[index].innerText,
-        //             'quantity': quantity[index].value
-        //         }
-        //         products.push(arr);
-        //     }
-        //     console.log(products);
-        //     document.getElementById('productdetail').value = JSON.stringify(products);
-        // }
-
-        var all_total = document.getElementsByClassName('total_price_print');
-
-        var total_price = 0;
-        for (let index = 0; index < all_total.length; index++) {
-            var newstring = all_total[index].innerText.replace('₹', '');
-            var getnum = parseInt(newstring);
-            total_price += getnum;
-
-        }
-
-        document.getElementById('grand_total').innerText = '₹ ' + total_price;
-        document.getElementById('subtotal').value = total_price;
-
-
-        var pname = document.getElementsByClassName('pnameproceed');
-        var psku = document.getElementsByClassName('skuproceed');
-        var pqty = document.getElementsByClassName('setquantityproceed');
-        var pprice = document.getElementsByClassName('priceproceed');
-        console.log('prateek');
-        var productdetails = [];
-        for (let index = 0; index < pname.length; index++) {
-            productdetails[index] = {
-                'name': pname[index].innerText,
-                'sku': psku[index].innerText,
-                'pqty': pqty[index].value,
-                'pprice': pprice[index].innerText
-            };
-        }
-
-
-
-        var array = JSON.stringify(productdetails);
-        document.getElementById('productdetail').value = array;
-        console.log(productdetails);
-
-
-        function add(work, sku) {
-            $.ajax({
-                url: "{{ route('add.qty.cart') }}",
-                method: "POST",
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    "sku": sku,
-                },
-                success: function(response) {
-                    var skuf = document.getElementsByClassName('skucheck');
-                    for (let index = 0; index < skuf.length; index++) {
-                        if (skuf[index].innerText == sku) {
-                            var value1 = document.getElementsByClassName('setquantity')[index].value;
-                            value1++;
-                            document.getElementsByClassName('setquantity')[index].value = value1;
-                            // break;
-                            if (document.getElementsByClassName('total_price')[index] != undefined) {
-                                var price = document.getElementsByClassName('total_price')[index].value;
-                            }
-
-                            if (document.getElementsByClassName('total_price_print')[index] != undefined) {
-                                var total_price = document.getElementsByClassName('total_price_print')[index];
-                            }
-                            total_price.innerText = '₹' + price * value1;
-                        }
-
-                    }
-                    var all_total = document.getElementsByClassName('total_price_print');
-
-                    var total_price = 0;
-                    console.log(typeof(total_price));
-                    for (let index = 0; index < all_total.length; index++) {
-                        var newstring = all_total[index].innerText.replace('₹', '');
-                        var getnum = parseInt(newstring);
-                        total_price += getnum;
-
-                    }
-
-                    document.getElementById('grand_total').innerText = '₹ ' + total_price;
-                    document.getElementById('subtotal').value = total_price;
-
-                    var pname = document.getElementsByClassName('pnameproceed');
-                    var psku = document.getElementsByClassName('skuproceed');
-                    var pqty = document.getElementsByClassName('setquantityproceed');
-                    var pprice = document.getElementsByClassName('priceproceed');
-                    console.log('prateek');
-                    var productdetails = [];
-                    for (let index = 0; index < pname.length; index++) {
-                        productdetails[index] = {
-                            'name': pname[index].innerText,
-                            'sku': psku[index].innerText,
-                            'pqty': pqty[index].value,
-                            'pprice': pprice[index].innerText
-                        };
-                    }
-
-
-                    var array = JSON.stringify(productdetails);
-                    document.getElementById('productdetail').value = array;
-
-                }
-            });
-            //    console.log($cart_items);
-        }
-
-        function remove(work, sku) {
-            $.ajax({
-                url: "{{ route('remove.qty.cart') }}",
-                method: "POST",
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    "sku": sku
-                },
-                success: function(response) {
-                    console.log(response);
-                    var skuf = document.getElementsByClassName('skucheck');
-                    for (let index = 0; index < skuf.length; index++) {
-                        if (skuf[index].innerText == sku) {
-                            var value1 = document.getElementsByClassName('setquantity')[index].value;
-                            value1--;
-                            if (value1 == 0) {
-                                //    console.log(ele);
-                            } else {
-                                document.getElementsByClassName('setquantity')[index].value = value1;
-
-                                if (document.getElementsByClassName('total_price')[index] != undefined) {
-                                    var price = document.getElementsByClassName('total_price')[index].value;
-                                }
-
-                                if (document.getElementsByClassName('total_price_print')[index] != undefined) {
-                                    var total_price = document.getElementsByClassName('total_price_print')[
-                                        index];
-                                }
-
-                                total_price.innerText = '₹' + price * value1;
-
-                            }
-                            // break;
-                        }
-
-                    }
-                    var all_total = document.getElementsByClassName('total_price_print');
-
-                    var total_price = 0;
-                    console.log(typeof(total_price));
-                    for (let index = 0; index < all_total.length; index++) {
-                        var newstring = all_total[index].innerText.replace('₹', '');
-                        var getnum = parseInt(newstring);
-                        total_price += getnum;
-
-                    }
-
-                    document.getElementById('grand_total').innerText = '₹ ' + total_price;
-                    document.getElementById('subtotal').value = total_price;
-
-                    var pname = document.getElementsByClassName('pnameproceed');
-                    var psku = document.getElementsByClassName('skuproceed');
-                    var pqty = document.getElementsByClassName('setquantityproceed');
-                    var pprice = document.getElementsByClassName('priceproceed');
-                    console.log('prateek');
-                    var productdetails = [];
-                    for (let index = 0; index < pname.length; index++) {
-                        productdetails[index] = {
-                            'name': pname[index].innerText,
-                            'sku': psku[index].innerText,
-                            'pqty': pqty[index].value,
-                            'pprice': pprice[index].innerText
-                        };
-                    }
-                    var array = JSON.stringify(productdetails);
-                    document.getElementById('productdetail').value = array;
-
-                }
-            });
-        }
-
-        function delete1(work, sku) {
-            $.ajax({
-                url: "{{ route('remove.cart') }}",
-                method: "POST",
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    "sku": sku
-                },
-                success: function(response) {
-                    console.log(response);
-                    var skuf = document.getElementsByClassName('skucheck');
-                    for (let index = 0; index < skuf.length; index++) {
-                        if (skuf[index].innerText == sku) {
-                            document.getElementsByClassName('parentclass')[index].remove();
-                            break;
-                        }
-
-                    }
-
-                    //functionality for cart count
-                    var sessioncount = document.getElementsByClassName('sessioncount')[0];
-                    var session_count = parseInt(sessioncount.innerText);
-                    var value = session_count - 1;
-                    // console.log(typeof(value), value);
-                    sessioncount.innerText = value;
-
-                    //function for grand total 
-                    var all_total = document.getElementsByClassName('total_price_print');
-
-                    var total_price = 0;
-                    console.log(typeof(total_price));
-                    for (let index = 0; index < all_total.length; index++) {
-                        var newstring = all_total[index].innerText.replace('₹', '');
-                        var getnum = parseInt(newstring);
-                        total_price += getnum;
-
-                    }
-
-                    document.getElementById('grand_total').innerText = '₹ ' + total_price;
-                    document.getElementById('subtotal').value = total_price;
-
-                    var pname = document.getElementsByClassName('pnameproceed');
-                    var psku = document.getElementsByClassName('skuproceed');
-                    var pqty = document.getElementsByClassName('setquantityproceed');
-                    var pprice = document.getElementsByClassName('priceproceed');
-                    console.log('prateek');
-                    var productdetails = [];
-                    for (let index = 0; index < pname.length; index++) {
-                        productdetails[index] = {
-                            'name': pname[index].innerText,
-                            'sku': psku[index].innerText,
-                            'pqty': pqty[index].value,
-                            'pprice': pprice[index].innerText
-                        };
-                    }
-                    var array = JSON.stringify(productdetails);
-                    document.getElementById('productdetail').value = array;
-
-                }
-            });
-        }
-
-        function deletewishlist(work, sku) {
-            $.ajax({
-                url: "{{ route('remove.wishlist') }}",
-                method: "POST",
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    "sku": sku
-                },
-                success: function(response) {
-                    // console.log(response);
-                    var skuf = document.getElementsByClassName('skucheck');
-                    for (let index = 0; index < skuf.length; index++) {
-                        if (skuf[index].innerText == sku) {
-                            document.getElementsByClassName('parentclass')[index].remove();
-                            break;
-                        }
-
-                    }
-
-                    //functionality for cart count
-                    var sessioncount = document.getElementsByClassName('wsessioncount')[0];
-                    var session_count = parseInt(sessioncount.innerText);
-                    var value = session_count - 1;
-                    sessioncount.innerText = value;
-
-
-                }
-            });
-        }
-    </script>
-
-
-    <script>
-        function razorpay(e) {
-            e.preventDefault();
-            var amt = document.getElementById('subtotal').value;
-            var tamt = amt * 100;
-            var pname = document.getElementsByClassName('pnameproceed');
-            var psku = document.getElementsByClassName('skuproceed');
-            var pqty = document.getElementsByClassName('setquantityproceed');
-            var pprice = document.getElementsByClassName('priceproceed');
-
-            var productdetails = [];
-            for (let index = 0; index < pname.length; index++) {
-                productdetails[index] = {
-                    'name': pname[index].innerText,
-                    'sku': psku[index].innerText,
-                    'pqty': pqty[index].value,
-                    'pprice': pprice[index].innerText
-                };
-
-            }
-
-            var name = document.getElementsByName('name')[0].value;
-            var phone = document.getElementsByName('phone')[0].value;
-            var email = document.getElementsByName('email')[0].value;
-            var address = document.getElementsByName('address')[0].value;
-            var country = document.getElementsByName('country')[0].value;
-            var state = document.getElementsByName('state')[0].value;
-            var pincode = document.getElementsByName('pincode')[0].value;
-            var userid = document.getElementsByName('user_id')[0].value;
-
-            if (name == '' || phone == '' || email == '' || address == '' || country == '' || state == '' || pincode ==
-                '') {
-                alert('Please enter form fields');
-                return false;
-
-            }
-
-
-            // $.ajax({
-            //                 url: "{{ route('paytm.payment') }}",
-            //                 method: "POST",
-            //                 data: {
-            //                     '_token': "{{ csrf_token() }}",
-            //                     "amount": tamt / 100,
-            //                     "name": name,
-            //                     'phone': phone,
-            //                     'email': email,
-            //                     'address': address,
-            //                     'country': country,
-            //                     'state': state,
-            //                     'pincode': pincode,
-            //                     'product_details': productdetails,
-            //                     'user_id': userid
-            //                 },
-            //                 success: function(response1) {
-            //                     if (response1.token) {
-            //                         // console.log(response1);
-            //                         window.location.href = '/user-orders';
-
-            //                     }else{
-            //                         alert('Paytm currently not working. Please try after some time');
-            //                     }
-            //                 }
-            // });
-
-        }
-
-        function closepopup() {
-            // console.log('working');
-            document.getElementById('myModal').style.display = 'none';
-            window.location.href = "{{ url('/') }}";
-        }
-    </script>
 @endsection

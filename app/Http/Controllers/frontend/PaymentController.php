@@ -13,24 +13,29 @@ class PaymentController extends Controller
     {
 
         $rules = [
-            // 'name' => 'required',
+            'name' => 'required',
             'email' => 'required|email',
-            // 'phone' => 'required|integer|min:10',
-            // 'address' => 'required',
-            // 'country' => 'required',
-            // 'state' => 'required',
-            // 'pincode' => 'required|integer',
+            'phone' => 'required|integer|min:10',
+            'address' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'pincode' => 'required|integer',
+            'shipping_name' => 'required_if:shipping_address_button, == ,on',
+            'shipping_address' => 'required_if:shipping_address_button, == ,on',
+            'shipping_country' => 'required_if:shipping_address_button, == ,on',
+            'shipping_state' => 'required_if:shipping_address_button, == ,on',
+            'shipping_pincode' => 'required_if:shipping_address_button, == ,on',
 
         ];
 
         $custommessages = [
             'name.required' => 'Name is required *',
             'phone.required' => 'Phone is required *',
-            //  'phone.integer' => 'Phone should be number *',
+             'phone.integer' => 'Phone should be number *',
             'email.required' => 'Email is required *',
             'address.required' => 'Address is required *',
             'country.required' => 'Country is required *',
-            'state.required' => 'State is required *',
+            'state.required' => 'State is required *'
             //  'pincode.required' => 'Pincode is required *',
             //  'pincode.integer' => 'Phone should be number *',
 
@@ -53,7 +58,7 @@ class PaymentController extends Controller
 
 
             // $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"amount":"1.00","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
-            $chbody = '{"requestType":"Payment","mid":"' . $mid . '","orderId":"' . $order_id . '","websiteName":"' . $WEBSITE . '","txnAmount":{"value":"' . $amount . '","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://prashast.co.in/paytm-done"}}';
+            $chbody = '{"requestType":"Payment","mid":"' . $mid . '","orderId":"' . $order_id . '","websiteName":"' . $WEBSITE . '","txnAmount":{"value":"' . $amount . '","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"http://127.0.0.1/prashast/paytm-done"}}';
 
 
             $Checksumhash = self::generateSignature($chbody, $PAYTM_MERCHANT_KEY);
@@ -121,7 +126,7 @@ class PaymentController extends Controller
             return view('frontend/paytm', ['token' => 'done', 'txn_token' => $txn_token, 'userdetails' => $userdetails, 'order_id' => $order_id, 'amount' => $amount]);
         } catch (\Throwable $th) {
             //throw $th;
-            return redirect()->back($th->getMessage());
+            return redirect()->back()->with('error', 'Payment Failure')->withInput();
         }
     }
 
@@ -142,20 +147,34 @@ class PaymentController extends Controller
                 unset($data['productdetail']);
                 unset($data['subtotal']);
 
-                $data['amount'] = $amount;
-                $data['product_details'] = $pdetails;
-                $data['transaction_details'] = $transaction_detials;
-                $data['order_id'] = $order_id;
-                $data['user_id'] = auth()->id();
-                $orders1 = Order::create($data);
+                $order = [];
+
+                $order['name'] = $data['name'];
+                $order['email'] = $data['email'];
+                $order['phone'] = $data['phone'];
+                $order['billing_address'] = $data['address'] . ', ' . $data['address2'] . ', ' . $data['country'] . ', ' . $data['state'] . ', ' . $data['pincode'];
+                $order['shipping_address_button'] = $data['shipping_address_button'] ?? "";
+                $order['shipping_name'] = $data['shipping_name'] ?? "";
+                if (isset($data['shipping_address_button'])) {
+                    # code...
+                    $order['shipping_address'] = $data['shipping_address'] . ', ' . $data['shipping_address2'] . ', ' . $data['shipping_country'] . ', ' . $data['shipping_state'] . ', ' . $data['shipping_pincode'];
+                }
+
+                $order['product_details'] = $pdetails;
+                $order['amount'] = $amount;
+                $order['transaction_details'] = $transaction_detials;
+                $order['order_id'] = $order_id;
+                $order['user_id'] = auth()->id();
+                $orders1 = Order::create($order);
+                // dd($orders1);
                 Mail::send('mail.customer', ['order' => $orders1], function ($message) use ($data) {
-                    $message->sender(env('MAILFROM'), 'Donatofy');
+                    $message->sender(env('MAILFROM'), 'prashast');
                     $message->subject('Purchase');
                     $message->to($data['email']);
                 });
 
-                Mail::send('mail.admin', ['cdetails' => $data, 'order' => $orders1], function ($message) {
-                    $message->sender(env('MAILFROM'), 'Donatofy');
+                Mail::send('mail.admin', ['order' => $orders1], function ($message) {
+                    $message->sender(env('MAILFROM'), 'prashast');
                     $message->subject('Purchase');
                     $message->to(env('ADMINMAIL'));
                 });
@@ -167,27 +186,39 @@ class PaymentController extends Controller
             } else {
                 # code...
                 $transaction_detials = json_encode($request->all());
-                // dd($transaction_detials);
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
                 $pdetails = $data['productdetail'];
                 $amount = $request->TXNAMOUNT;
                 unset($data['productdetail']);
                 unset($data['subtotal']);
-                $data['product_details'] = $pdetails;
-                $data['amount'] = $amount;
-                $data['transaction_details'] = $transaction_detials;
-                $data['order_id'] = $order_id;
+
+                $order = [];
+
+                $order['name'] = $data['name'];
+                $order['email'] = $data['email'];
+                $order['phone'] = $data['phone'];
+                $order['billing_address'] = $data['address'] . ', ' . $data['address2'] . ', ' . $data['country'] . ', ' . $data['state'] . ', ' . $data['pincode'];
+                $order['shipping_address_button'] = $data['shipping_address_button'];
+                $order['shipping_name'] = $data['shipping_name'];
+                $order['shipping_address'] = $data['shipping_address'] . ', ' . $data['shipping_address2'] . ', ' . $data['shipping_country'] . ', ' . $data['shipping_state'] . ', ' . $data['shipping_pincode'];
+
+                $order['product_details'] = $pdetails;
+                $order['amount'] = $amount;
+                $order['transaction_details'] = $transaction_detials;
+                $order['order_id'] = $order_id;
                 // dd($data);
-                $orders1 = Order::create($data);
+                $orders1 = Order::create($order);
+                // dd($orders1);
+
                 Mail::send('mail.customer', ['order' => $orders1], function ($message) use ($data) {
-                    $message->sender(env('MAILFROM'), 'Donatofy');
+                    $message->sender(env('MAILFROM'), 'Prashast');
                     $message->subject('Purchase');
                     $message->to($data['email']);
                 });
 
-                Mail::send('mail.admin', ['cdetails' => $data, 'pdetails' => json_decode($pdetails, true)], function ($message) {
-                    $message->sender(env('MAILFROM'), 'Donatofy');
+                Mail::send('mail.admin', ['order' => $orders1], function ($message) {
+                    $message->sender(env('MAILFROM'), 'Prashast');
                     $message->subject('Purchase');
                     $message->to(env('ADMINMAIL'));
                 });
@@ -195,7 +226,7 @@ class PaymentController extends Controller
                 // dd('guest');
                 session()->flush('cart');
                 session()->flush('userdetails');
-                return redirect('frontend.home')->with('success', 'Payment done Please Check Your Email');
+                return redirect()->route('frontend.home')->with('success', 'Payment done Please Check Your Email');
             }
         } else {
             return redirect()->back()->with('error', 'Payment Failed.');

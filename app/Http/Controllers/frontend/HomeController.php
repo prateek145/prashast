@@ -210,12 +210,24 @@ class HomeController extends Controller
         }
     }
 
-    public function buy_now(Request $request)
+    public function buy_now($id, $qty)
     {
-        // dd($request->all());
-        $product = Product::find($request->product_id);
-        $qty = $request->qty;
-        return view('frontend.cart', compact('product', 'qty'));
+        // dd($id, $qty);
+        $product = Product::find($id);
+        $qty = $qty;
+        $cart = false;
+        $productdetails = [];
+        $array = [
+            'id' => $product->id,
+            'name' => $product->name,
+            'sku' => $product->sku,
+            'qty' => $qty,
+            'price' => $product->sale_price,
+            'image' => 'product/' . $product->image
+        ];
+        array_push($productdetails, $array);
+
+        return view('frontend.cart', compact('product', 'qty', 'cart', 'productdetails'));
     }
 
     public function wishlist()
@@ -305,12 +317,12 @@ class HomeController extends Controller
 
     public function user_orders()
     {
-        $sub_categories = ProductSubcategory::where('parent_id', 4)->get();
+        $sub_categories = ProductSubcategory::where('status', 1)->get();
         $orders = Order::where('user_id', auth()->id())->latest()->get();
         $count = 1;
         $page_image = BackendPageImages::where('name', 'user-orders')->first();
         // $product_details = json_decode($orders['product_details']);
-        // dd($orders);
+        // dd($orders, auth()->id());
         return view('frontend/orders', compact('orders', 'sub_categories', 'count', 'page_image'));
     }
 

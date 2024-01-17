@@ -39,93 +39,64 @@ class AjaxController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        // dd($request->all());
         $product = Product::find($request->productId);
-        $variance = ProductVariance::where(['product_id' => $request->productId, 'sku' => $request->sku])->first();
-        // dd($variance, $product);
-        $cart = session()->get('cart', []);
-
+        $cart = session()->get('cart');
         // dd($cart);
-        $images = json_decode($product->featured_image);
-        if ($variance != null) {
+        if ($cart) {
             # code...
-            if (isset($cart['variable' . $variance->id])) {
-                $cart['variable' . $variance->id]['quantity']++;
-            } else {
-                if ($variance->sale_price != null) {
+            $found = false;
+            foreach ($cart as $key => $value) {
+                # code...
+                // dd('prateek', in_array($cart[$key]['id'], $request->productId));
+                if ($cart[$key]['id'] == $request->productId) {
                     # code...
-                    $cart['variable' . $variance->id] = [
-                        "id" => $product->id,
-                        "name" => $product->name,
-                        "quantity" => $request->qty,
-                        "price" => $variance->sale_price,
-                        "image" => 'product/' . $images[0],
-                        "sku" => $request->sku
-                    ];
-                } else {
-                    $cart['variable' . $variance->id] = [
-                        "id" => $product->id,
-                        "name" => $product->name,
-                        "quantity" => $request->qty,
-                        "price" => $variance->sale_price,
-                        "image" => 'product/' . $images[0],
-                        "sku" => $request->sku
-                    ];
+                    $cart[$key]['quantity']++;
+                    $found = true;
                 }
             }
+            if ($found == false) {
+                # code...
+                array_push($cart, [
+                    "id" => $product->id,
+                    "name" => $product->name,
+                    "qty" => $request->qty,
+                    "price" => $product->sale_price,
+                    "image" => 'product/' . $product->image,
+                    "sku" => $request->sku
+                ]);
+            }
 
-            // dd($cart);
-            // session()->flush('cart');
-            // dd($cart);
-
-            session()->put('cart', $cart);
-            return response()->json(['result' => $cart, 'var_id' => 'variable' . $variance->id, 'qty' => $request->qty]);
         } else {
-            if (isset($cart['simple' . $product->id])) {
-                // dd($request->sku);
-                $cart['simple' . $product->id]['quantity']++;
-                // dd($cart);
-            } else {
-                // dd($request->sku);
-                $images = json_decode($product->featured_image);
-                if ($product->sale_price != null) {
-                    # code...
-                    $cart['simple' . $product->id] = [
-                        "id" => $product->id,
-                        "name" => $product->name,
-                        "quantity" => $request->qty,
-                        "price" => $product->sale_price,
-                        "image" => 'product/' . $images[0],
-                        "sku" => $request->sku
-                    ];
-                } else {
-                    $cart['simple' . $product->id] = [
-                        "id" => $product->id,
-                        "name" => $product->name,
-                        "quantity" => $request->qty,
-                        "price" => $product->regular_price,
-                        "image" => 'product/' . $images[0],
-                        "sku" => $request->sku
-                    ];
-                }
-            }
-            session()->put('cart', $cart);
-            // session()->flush('cart');
-            return response()->json(['result' => $cart, 'product_id' => 'simple' . $product->id, 'qty' => $request->qty]);
+            # code...
+            // dd('prateek');
+            $cart = [];
+            array_push($cart, [
+                "id" => $product->id,
+                "name" => $product->name,
+                "qty" => $request->qty,
+                "price" => $product->sale_price,
+                "image" => 'product/' . $product->image,
+                "sku" => $request->sku
+            ]);
         }
+
+        session()->put('cart', $cart);
+        // session()->flush('cart');
+        // dd(session()->get('cart'));
+        return response()->json(['result' => $cart]);
     }
 
 
     public function add_to_wishlist(Request $request)
     {
         if (\Auth::check()) {
-            $wishlist = wishlist::where(['product_id'=> $request->productId, 'user_id'=>auth()->id()])->first();
+            $wishlist = wishlist::where(['product_id' => $request->productId, 'user_id' => auth()->id()])->first();
             // dd($wishlist);
             if (is_null($wishlist)) {
                 # code...
                 $data = [
-                    'product_id' =>$request->productId,
-                    'user_id' =>auth()->id()
+                    'product_id' => $request->productId,
+                    'user_id' => auth()->id()
                 ];
                 wishlist::create($data);
                 return response()->json(['result' => 'notfound']);
@@ -144,11 +115,11 @@ class AjaxController extends Controller
         // dd($request->all());
         $cart = session()->get('cart');
         foreach ($cart as $id => $deatils) {
-            if ($deatils['sku'] == $request->sku) {
+            if ($deatils['id'] == $request->id) {
                 # code...
-                $val = $deatils['quantity'];
+                $val = $deatils['qty'];
                 $val++;
-                $deatils['quantity'] = $val;
+                $deatils['qty'] = $val;
             }
             $cart[$id] = $deatils;
         }
@@ -165,7 +136,7 @@ class AjaxController extends Controller
             # code...
             $cart = session()->get('cart');
             foreach ($cart as $id => $deatils) {
-                if ($deatils['sku'] == $request->sku) {
+                if ($deatils['id'] == $request->id) {
                     # code...
                     unset($cart[$id]);
                 }
@@ -175,17 +146,17 @@ class AjaxController extends Controller
         } else {
             # code...
             foreach ($cart as $id => $deatils) {
-                if ($deatils['sku'] == $request->sku) {
+                if ($deatils['id'] == $request->id) {
                     # code...
-                    $val = $deatils['quantity'];
+                    $val = $deatils['qty'];
                     $val--;
-                    $deatils['quantity'] = $val;
+                    $deatils['qty'] = $val;
                 }
                 $cart[$id] = $deatils;
             }
             session()->put('cart', $cart);
         }
-        
+
         return redirect()->back()->with('showcart', 'true');
 
         // return response()->json(['result' => 'success']);
@@ -195,7 +166,7 @@ class AjaxController extends Controller
     {
         $cart = session()->get('cart');
         foreach ($cart as $id => $deatils) {
-            if ($deatils['sku'] == $request->sku) {
+            if ($deatils['id'] == $request->id) {
                 # code...
                 unset($cart[$id]);
             }
@@ -211,7 +182,7 @@ class AjaxController extends Controller
         // dd($request->all());
         // dd(auth()->id());
         wishlist::where(['user_id' => auth()->id(), 'product_id' => $request->id])->delete();
-        return response()->json(['result' =>'success']);
+        return response()->json(['result' => 'success']);
     }
 
     public function product_subcategory(Request $request)

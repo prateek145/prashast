@@ -1,53 +1,33 @@
 @extends('backend.layouts.app')
 @section('content')
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Orders</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                    <li class="breadcrumb-item active">Orders</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <section class="section dashboard">
+            <div class="row">
 
-    @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade in show col-md-12">
-            <strong>Success!</strong> {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
-    @endif
-
-    @if (Session::has('error'))
-        <div class="alert alert-danger alert-dismissible fade in show col-md-12">
-            <strong>Success!</strong> {{ session('error') }}
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
-    @endif
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between">
-                <h4>Orders</h4>
-                {{-- <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">Add New User</a> --}}
-            </div>
-
-            <div class="">
-
-                <!-- Single Widget -->
-                <section class="single-widget widget-search">
-                    <form action="{{ route('orders.index') }}" method="GET" class="float-right col-md-3 mt-3">
-                        <input type="text" name="search" placeholder="Search Keyword Use Enter" class="form-control">
-                    </form>
-                </section>
-                <!--// Single Widget -->
-            </div>
-
-            @if ($orders != [])
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Manage Orders</h5>
+                        <table class="table datatable">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    {{-- <th>Token</th> --}}
                                     <th>Order Id</th>
                                     <th>Name</th>
                                     <th>Phone</th>
                                     <th>Email</th>
-                                    <th>Address</th>
-                                    <th>Country</th>
-                                    <th>State</th>
-                                    <th>Pincode</th>
+                                    <th>Billing Address</th>
+                                    <th>Shipping to</th>
+                                    <th>Shipping Name</th>
+                                    <th>Shipping Address</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -60,10 +40,11 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->address }}</td>
-                                        <td>{{ $item->country }}</td>
-                                        <td>{{ $item->state }}</td>
-                                        <td>{{ $item->pincode }}</td>
+                                        <td>{{ $item->billing_address ?? "" }}</td>
+                                        <td>{{ $item->shipping_address_button ?? "off" }}</td>
+                                        <td>{{ $item->shipping_name ?? "" }}</td>
+                                        <td>{{ $item->shipping_address ?? "" }}</td>
+                                        {{-- <td>{{ $item->pincode }}</td> --}}
                                         <td>
                                             <div style="display:flex;">
                                                 <a href="{{ route('orders.edit', $item->id) }}" title="show"
@@ -71,20 +52,20 @@
                                                     <button class="btn btn-success btn-sm">Order Details</button>
                                                 </a>
                                             </div>
-
+                            
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                    {{$orders->links()}}
                 </div>
-            @else
-                <h4>User Does not have any Order. </h4>
-            @endif
-
-        </div>
-    </div>
+            </div>
+            </div>
+        </section>
+    </main>
 
 @endsection
+
+
+

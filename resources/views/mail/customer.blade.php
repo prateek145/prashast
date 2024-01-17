@@ -1,24 +1,25 @@
 <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
 </style>
 
 
 <div style="background: #000">
-    <a href="{{ route('frontend.home') }}" >
+    <a href="{{ route('frontend.home') }}">
         <img src="https://eprashast.co.in/prashast/images/Regalia-logo-light.png" alt="Regalia">
     </a>
 </div>
@@ -34,32 +35,31 @@ tr:nth-child(even) {
     @endphp
 
     <div>
-        Order Id : {{ $order['order_id'] ?? ""}}<br>
-        Total Amount : {{ $order['amount'] ?? ""}}<br>
-        {{-- Bill Download link : {{url('download-bill', $order->order_id)}}  --}}
+        Order Id : {{ $order['order_id'] ?? '' }}<br>
+        Total Amount : {{ $order['amount'] ?? '' }}<br>
+        Bill Download link : {{ url('download-bill', $order->order_id) }}
     </div>
 
-    <div >
+    <div>
         <h3>Order Details</h3>
-        <table >
+        <table>
             <tr>
-              <th style="border:1px solid black">Product Name</th>
-              <th style="border:1px solid black">Product Sku</th>
-              <th style="border:1px solid black">Quantity</th>
-              <th style="border:1px solid black">Price</th>
-              <th style="border:1px solid black">Sub Total</th>
+                <th style="border:1px solid black">Product Name</th>
+                <th style="border:1px solid black">Product Sku</th>
+                <th style="border:1px solid black">Quantity</th>
+                <th style="border:1px solid black">Price</th>
+                <th style="border:1px solid black">Sub Total</th>
             </tr>
-    
+
             Customer Mail After Payment
             @foreach ($productdetails as $item)
-            <tr>
-              <td style="border:1px solid black">{{$item->name ?? ""}}</td>
-              <td style="border:1px solid black">{{$item->sku ?? ""}}</td>
-              <td style="border:1px solid black">{{$item->quantity ?? ""}}</td>
-              <td style="border:1px solid black">₹ {{$item->price ?? ""}}</td>
-              <td style="border:1px solid black">₹ {{$item->quantity * $item->price ?? ""}}</td>
-            </tr>
-                
+                <tr>
+                    <td style="border:1px solid black">{{ $item->name ?? '' }}</td>
+                    <td style="border:1px solid black">{{ $item->sku ?? '' }}</td>
+                    <td style="border:1px solid black">{{ $item->qty ?? '' }}</td>
+                    <td style="border:1px solid black">₹ {{ $item->price ?? '' }}</td>
+                    <td style="border:1px solid black">₹ {{ $item->qty * $item->price ?? '' }}</td>
+                </tr>
             @endforeach
         </table><br>
 
@@ -67,10 +67,13 @@ tr:nth-child(even) {
 
     <div>
         This product(s) will shipped to following Address.
-        <h3>{{ $order['name']  ?? ""}}</h3>
-        {{ $order['address']  ?? ""}}<br>
-        {{ $order['state']  ?? ""}} - {{ $order['pincode']  ?? ""}} <br>
-        {{ $order['country']  ?? ""}}<br>
+        @if ($order['shipping_address_button'] == 'on')
+            <h3>{{ $order['shipping_name'] ?? '' }}</h3>
+            {{ $order['shipping_address'] ?? '' }}<br>
+        @else
+            <h3>{{ $order['name'] ?? '' }}</h3>
+            {{ $order['billing_address'] ?? '' }}<br>
+        @endif
 
     </div>
 </div>
@@ -101,7 +104,7 @@ tr:nth-child(even) {
                         </a>
                         <p>Prashast innovation Private Limited
                             C-98, Sector 10, Noida, Uttar Pradesh - 201301</p>
-                        <p>+91-77018 60046</p>
+                        <p>+91 9625 663737</p>
                     </div>
 
                 </div>
@@ -111,7 +114,7 @@ tr:nth-child(even) {
     <div class="row m0 copyRight">
         <div class="container">
             <div class="row">
-                <div class="fleft">&copy; 2022 ePrashast All Rights Reserved.
+                <div class="fleft">&copy; 2023 Prashast All Rights Reserved.
                 </div>
             </div>
         </div>

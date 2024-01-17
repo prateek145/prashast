@@ -77,12 +77,10 @@ class OrderController extends Controller
     public function edit($id)
     {
         try {
-            //dd($id);
-            $order = Order::find($id);
-            $orderdetails = json_decode($order->product_details);
-            // dd($orderdetails);
-            $no = 1;
-            return view('backend.orders.adminorderdetails', compact('orderdetails', 'no'));
+            $order = Order::where('id', $id)->first();
+            // dd($order);
+            $order_details = Json_decode($order->product_details);
+            return view('backend.orders.show', compact('order_details','order'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

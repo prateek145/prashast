@@ -109,12 +109,13 @@
                         <tr>
                             <td>{{ $value['name'] }}</td>
                             <td>{{ $value['price'] }}</td>
-                            <td><input type="number" value="{{ $value['quantity'] }}" min=1 class="form-control" />
+                            <td><input type="number" value="{{ $value['qty'] }}" min=1 class="form-control" />
                                 <div class="input-group-btn-vertical d-flex">
                                     <form action="{{ route('remove.qty.cart') }}" method="post">
                                         @csrf
                                         <input type="hidden" value="{{$value['sku']}}" name="sku">
-                                        <input type="hidden" value="{{ $value['quantity'] }}" name="quantity">
+                                        <input type="hidden" value="{{$value['id']}}" name="id">
+                                        <input type="hidden" value="{{ $value['qty'] }}" name="quantity">
                                         <button class="btn btn-default" type="submit"><i class="bi bi-dash-square-fill"></i></button>
 
                                     </form>
@@ -122,6 +123,7 @@
                                     <form action="{{ route('add.qty.cart') }}" method="post">
                                         @csrf
                                         <input type="hidden" value="{{$value['sku']}}" name="sku">
+                                        <input type="hidden" value="{{$value['id']}}" name="id">
                                         <button class="btn btn-default" type="submit"><i class="bi bi-plus-square-fill"></i></button>
 
                                     </form>
@@ -129,18 +131,19 @@
                                 </div>
 
                             </td>
-                            <td>{{ $value['price'] * $value['quantity'] }}</td>
+                            <td>{{ $value['price'] * $value['qty'] }}</td>
                             <td>
                                 <form action="{{route('remove.cart')}}" method="post">
                                 @csrf
                                 <input type="hidden" value="{{ $value['sku'] }}" name="sku">
+                                <input type="hidden" value="{{$value['id']}}" name="id">
                                 <button class="btn bg-light" >X</button>
 
                                 </form>
                             </td>
                         </tr>
                         @php
-                            $final_total += $value['price'] * $value['quantity'];
+                            $final_total += $value['price'] * $value['qty'];
                         @endphp
                     @endforeach
                 @endif
@@ -154,7 +157,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col"><a href="{{ route('shop.page') }}" class="btn btn-block bg-light">Update Cart</a>
+                {{-- <div class="col"><a href="{{ route('shop.page') }}" class="btn btn-block bg-light">Update Cart</a> --}}
                 </div>
                 <div class="col"><a href="{{ route('cart') }}" class="btn btn-block bg-dark text-white">CheckOut</a>
                 </div>
@@ -172,6 +175,7 @@
             data: {
                 '_token': "{{ csrf_token() }}",
                 "sku": sku,
+                "id": id,
             },
             success: function(response) {
                 if (response.result === 'success') {
@@ -188,7 +192,9 @@
             method: "POST",
             data: {
                 '_token': "{{ csrf_token() }}",
-                "sku": sku
+                "sku": sku,
+                "id": id,
+
             },
             success: function(response) {
                 if (response.result === 'success') {
@@ -204,7 +210,9 @@
             method: "POST",
             data: {
                 '_token': "{{ csrf_token() }}",
-                "sku": sku
+                "sku": sku,
+                "id": id,
+
             },
             success: function(response) {
                 if (response.result === 'success') {

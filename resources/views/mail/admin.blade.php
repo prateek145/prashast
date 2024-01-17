@@ -20,18 +20,19 @@
 
     Customer Details !!. <br>
 
-    Customer Name : {{ $cdetails['name'] ?? '' }}<br>
-    Customer Phone : {{ $cdetails['phone'] ?? '' }}<br>
-    Customer Email : {{ $cdetails['email'] ?? '' }}<br>
-    Customer Address :{{ $cdetails['address'] ?? '' }}<br>
-    Customer Country : {{ $cdetails['country'] ?? '' }}<br>
-    Customer State : {{ $cdetails['state'] ?? '' }}<br>
-    Customer Pincode : {{ $cdetails['pincode'] ?? '' }}<br>
-    Order Id :{{ $cdetails['order_id'] ?? '' }}<br>
-    Amount : {{ $cdetails['amount'] ?? '' }}<br><br><br>
+    Customer Name : {{ $order['name'] ?? '' }}<br>
+    Customer Phone : {{ $order['phone'] ?? '' }}<br>
+    Customer Email : {{ $order['email'] ?? '' }}<br>
+    Customer Billing Address :{{ $order['billing_address'] ?? '' }}<br>
+    Customer Shipping :{{ $order['shipping_address_button'] ?? 'off' }}<br>
+    Customer Shipping Name :{{ $order['shipping_name'] ?? '' }}<br>
+    Customer Shipping Address : {{ $order['shipping_address'] ?? '' }}<br>
+    Order Id :{{ $order['order_id'] ?? '' }}<br>
+    Amount : {{ $order['amount'] ?? '' }}<br><br><br>
 
     @php
         $productdetails = json_decode($order['product_details']);
+
     @endphp
 
     <h3>Order Details</h3>
@@ -57,9 +58,9 @@
                 <tr>
                     <td style="border:1px solid black">{{ $item->name ?? '' }}</td>
                     <td style="border:1px solid black">{{ $item->sku ?? '' }}</td>
-                    <td style="border:1px solid black">{{ $item->quantity ?? '' }}</td>
+                    <td style="border:1px solid black">{{ $item->qty ?? '' }}</td>
                     <td style="border:1px solid black">₹ {{ $item->price ?? '' }}</td>
-                    <td style="border:1px solid black">₹ {{ $item->quantity * $item->price ?? '' }}</td>
+                    <td style="border:1px solid black">₹ {{ $item->qty * $item->price ?? '' }}</td>
                 </tr>
             @endforeach
         </table><br>
@@ -71,18 +72,6 @@
     <div class="row m0 topFooter">
         <div class="container line2">
             <div class="row">
-                {{-- <div class="col-sm-3 widget">
-                        <div class="row m0">
-                            <h4>About Prashast</h4>
-                            <p>We provide the best Quality of products to you.We are always here to help our lovely
-                                customers.</p>
-                            <ul class="list-inline">
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div> --}}
 
                 <div class="col-sm-4 widget">
                     <div class="row m0">
@@ -92,7 +81,7 @@
                         </a>
                         <p>Prashast innovation Private Limited
                             C-98, Sector 10, Noida, Uttar Pradesh - 201301</p>
-                        <p>+91-77018 60046</p>
+                        <p>+91 9625 663737</p>
                     </div>
 
                 </div>
@@ -102,7 +91,7 @@
     <div class="row m0 copyRight">
         <div class="container">
             <div class="row">
-                <div class="fleft">&copy; 2021 <a href="index2.html">Prashast</a> All Rights Reserved.
+                <div class="fleft">&copy; 2023 <a href="index2.html">Prashast</a> All Rights Reserved.
                 </div>
             </div>
         </div>

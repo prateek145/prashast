@@ -23,6 +23,7 @@ use App\Http\Controllers\frontend\PaymentController;
 use App\Models\backend\ProductSubcategory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
+
 use App\Models\backend\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,7 @@ Route::get('categories', [HomeController::class, 'categories'])->name('categorie
 // Route::get('dynamic/{key}/{slug}', [HomeController::class, 'dynamic_subcategories'])->name('dynamic.subcategories');
 Route::get('product/{slug}', [HomeController::class, 'product_detail'])->name('product.detail');
 Route::get('cart', [HomeController::class, 'cart'])->name('cart');
-Route::post('buy/now', [HomeController::class, 'buy_now'])->name('buy.now');
+Route::get('buy/now/{id}/{qty}', [HomeController::class, 'buy_now'])->name('buy.now');
 Route::get('wishlist', [HomeController::class, 'wishlist'])->name('wishlist')->middleware('auth');;
 Route::get('product-page', [HomeController::class, 'productpage'])->name('productpage');
 Route::post('searchproduct', [HomeController::class, 'searchproduct'])->name('searchproduct');
@@ -163,9 +164,9 @@ Route::get('download-bill/{id}', function ($id) {
     $order = Order::where('order_id', $id)->first();
     // $user = User::where($order->user_id)->first();
     $order_details = Json_decode($order->product_details);
-    // dd($order);
+    // dd($order, $order_details);
     return view('mail.testing', compact('order', 'order_details'));
-});
+})->name('download.bill');
 
 Route::get('sendmail', function () {
 
@@ -175,20 +176,13 @@ Route::get('sendmail', function () {
 
     // dd($user);
     $mail = Mail::send('mail.testing1', ['body' => $data1], function ($message) use ($user) {
-        $message->sender('projectmanagement@omegawebdemo.com.au');
-        $message->subject('Donation');
+        $message->sender(env('MAILFROM'));
+        $message->subject('Prashast');
         $message->to('prateekk898@gmail.com');
     });
-    if (count(Mail::failures()) > 0) {
+    // $mail = send_mail($data1, $message, 'prateekk898@gmail.com', 'mail.testing1');
+    // dd($mail);
 
-        echo "There was one or more failures. They were: <br />";
-
-        foreach (Mail::failures() as $email_address) {
-            echo " - $email_address <br />";
-        }
-    } else {
-        echo "No errors, all sent successfully!";
-    }
 });
 
 
