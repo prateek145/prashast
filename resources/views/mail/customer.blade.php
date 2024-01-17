@@ -20,7 +20,7 @@
 
 <div style="background: #000">
     <a href="{{ route('frontend.home') }}">
-        <img src="https://eprashast.co.in/prashast/images/Regalia-logo-light.png" alt="Regalia">
+        <img src="https://prashast.co.in/public/frontend/images/Regalia-logo-light.png" alt="Regalia">
     </a>
 </div>
 

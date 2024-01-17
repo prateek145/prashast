@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-3 logo">
                     <a href="{{ route('frontend.home') }}" class="logo_a">
-                        <img src="{{ asset('prashast/images/Regalia-logo-2.png') }}" alt="Regalia">
+                        <img src="https://prashast.co.in/public/frontend/images/Regalia-logo-light.png" alt="Regalia">
 
                     </a>
                 </div>
