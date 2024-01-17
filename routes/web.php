@@ -175,7 +175,7 @@ Route::get('sendmail', function () {
     $user = 'testing';
 
     $mail = Mail::send('mail.testing1', ['body' => $data1], function ($message) use ($user) {
-        $message->sender(env('MAILFROM'));
+        $message->sender('projectmanagement@omegawebdemo.com.au');
         $message->subject('Prashast');
         $message->to('prateekk898@gmail.com');
     });
