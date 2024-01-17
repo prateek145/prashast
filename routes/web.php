@@ -174,14 +174,11 @@ Route::get('sendmail', function () {
     $message = "testing";
     $user = 'testing';
 
-    // dd($user);
     $mail = Mail::send('mail.testing1', ['body' => $data1], function ($message) use ($user) {
         $message->sender(env('MAILFROM'));
         $message->subject('Prashast');
         $message->to('prateekk898@gmail.com');
     });
-    // $mail = send_mail($data1, $message, 'prateekk898@gmail.com', 'mail.testing1');
-    // dd($mail);
 
 });
 
