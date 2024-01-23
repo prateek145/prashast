@@ -18,7 +18,7 @@
 </style>
 
 
-<div style="background: #000">
+<div style="background: #fff">
     <a href="{{ route('frontend.home') }}">
         <img src="https://prashast.co.in/public/frontend/images/Regalia-logo-light.png" alt="Regalia">
     </a>
@@ -68,9 +68,12 @@
     <div>
         This product(s) will shipped to following Address.
         @if ($order['shipping_address_button'] == 'on')
+            <h3>Shipping Address</h3>
             <h3>{{ $order['shipping_name'] ?? '' }}</h3>
             {{ $order['shipping_address'] ?? '' }}<br>
         @else
+            <h3>Billing Address</h3>
+
             <h3>{{ $order['name'] ?? '' }}</h3>
             {{ $order['billing_address'] ?? '' }}<br>
         @endif

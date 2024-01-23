@@ -16,7 +16,7 @@ class TagController extends Controller
     public function index()
     {
         try {
-            $tags = Tags::where('status', 1)->latest()->get();
+            $tags = Tags::latest()->get();
             $count = 1;
             return view('backend.tags.index', compact('tags', 'count'));
         } catch (\Exception $e) {
