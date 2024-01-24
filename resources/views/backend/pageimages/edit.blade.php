@@ -59,9 +59,9 @@
                                         class="form-control @error('images') is-invalid @enderror">
                                 </div>
 
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     @if ($pageImage->specific_image)
-                                        {{-- {{dd(json_decode($pageImage->specific_image))}} --}}
+                                 
                                         @foreach (json_decode($pageImage->specific_image) as $item1)
                                             <div class="col-md-3 mt-3">
                                                 <img src="{{ asset('public/pageimages/' . $item1) }}" alt="">
@@ -71,7 +71,7 @@
                                     <label for="">Specific Images</label>
                                     <input type="file" name="specific_image"
                                         class="form-control @error('specific_image') is-invalid @enderror">
-                                </div>
+                                </div> --}}
                                 {{-- <input type="hidden" name="role" value="user"> --}}
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">Submit</button>

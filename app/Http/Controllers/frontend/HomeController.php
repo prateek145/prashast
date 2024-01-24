@@ -18,6 +18,7 @@ use App\Models\wishlist;
 use App\Models\BulkOrder;
 use App\Models\backend\ProductCategories;
 use App\Models\backend\ProductSubcategory;
+use App\Models\backend\ShopPageSlider;
 use App\Models\backend\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -70,6 +71,7 @@ class HomeController extends Controller
         $tags = Tags::where('status', 1)->latest()->get();
         $fsidebar = FsideBar::latest()->first();
         $page_image = BackendPageImages::where('name', 'shop')->first();
+        $shop_page_slider = ShopPageSlider::latest()->first();
         $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
         $min_price = (floor(min($price_array) / 100) * 100);
         $max_price = (ceil(max($price_array) / 100) * 100);
@@ -77,7 +79,7 @@ class HomeController extends Controller
         $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
 
         // dd($products);
-        return view('frontend.dynamic_subcat', compact('max_price', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
+        return view('frontend.dynamic_subcat', compact('max_price','shop_page_slider', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
     }
 
     public function dynamic_tags($slug)
@@ -163,8 +165,10 @@ class HomeController extends Controller
         $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
         // dd($min_price, $quatre_price, $medium_price, $max_price);
         $footer_image = FooterImages::latest()->first();
+        $shop_page_slider = ShopPageSlider::latest()->first();
         // dd($footer_image);
-        return view('frontend.dynamic_subcat', compact('footer_image', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
+        // dd($shop_page_slider);
+        return view('frontend.dynamic_subcat', compact('footer_image','shop_page_slider', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
     }
 
     public function product_detail($slug)

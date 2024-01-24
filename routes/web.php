@@ -13,6 +13,7 @@ use App\Http\Controllers\backend\ProductCategoryController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\ProductSubcategoryController;
 use App\Http\Controllers\backend\RazorpayController;
+use App\Http\Controllers\backend\ShopPageSliderController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\UserOrderController;
 use App\Http\Controllers\backend\SideBarController;
@@ -108,6 +109,7 @@ Route::post('footer-image-save', [PageImages::class, 'footer_image_save'])->name
 Route::resource('tags', TagController::class)->middleware('auth');
 Route::resource('orderdetails', OrderdetailsController::class)->middleware('auth');
 Route::resource('sidebar', FSideBarController::class)->middleware('auth');
+Route::resource('shop/page/slider', ShopPageSliderController::class)->middleware('auth');
 
 //for tag ajax
 Route::post('tag_create', [TagController::class, 'tag_create'])->name('tag.create');

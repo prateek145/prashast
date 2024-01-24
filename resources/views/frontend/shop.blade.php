@@ -165,9 +165,9 @@
                         <p class="d-block py-2 m-0">Showing 10 of 32 results </p>
                         <div class="ms-auto">
                             <select class="form-select d-inline-block w-auto border pt-1">
-                                <option value="0">Best match</option>
+                                {{-- <option value="0">Best match</option>
                                 <option value="1">Recommended</option>
-                                <option value="2">High rated</option>
+                                <option value="2">High rated</option> --}}
                                 <option value="3">Randomly</option>
                             </select>
                         </div>

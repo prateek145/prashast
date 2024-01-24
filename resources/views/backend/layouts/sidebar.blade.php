@@ -85,6 +85,14 @@
               </li><!-- End Dashboard Nav -->
 
               <li class="nav-item">
+                <a class="nav-link {{ request()->segment(1) == 'pages-images' ? '' : 'collapsed' }}"
+                    href="{{ route('slider.create') }}">
+                    <i class="bi bi-journal-text"></i>
+                    <span>Shop Pages Slider</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+              <li class="nav-item">
                 <a class="nav-link {{ request()->segment(1) == 'footer-image' ? '' : 'collapsed' }}"
                     href="{{ route('footer.image') }}">
                     <i class="bi bi-journal-text"></i>
@@ -104,7 +112,7 @@
                   <a class="nav-link {{ request()->segment(1) == 'vendor-index' ? '' : 'collapsed' }}"
                       href="{{ route('vendor.index') }}">
                       <i class="bi bi-journal-text"></i>
-                      <span>Vender</span>
+                      <span>Vendor</span>
                   </a>
               </li><!-- End Dashboard Nav -->
 

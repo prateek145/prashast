@@ -14,7 +14,7 @@
                     <div id="carouselExampleIndicatorsf" class="carousel slide d-flex">
                         <div class="carousel-indicators">
 
-                            @foreach (json_decode($product->featured_image) as $key => $item)
+                            @foreach (array_reverse(json_decode($product->featured_image)) as $key => $item)
                                 <button type="button" data-bs-target="#carouselExampleIndicatorsf"
                                     data-bs-slide-to="{{ $key }}" class="active" aria-current="true"
                                     aria-label="Slide {{ $key + 1 }}"><img src="{{ asset('public/product/' . $item) }}"
@@ -28,7 +28,7 @@
                                 <img src="{{ asset('public/frontend/images/03.png') }}" class="d-block" alt="">
                             </div> --}}
 
-                            @foreach (json_decode($product->featured_image) as $key => $item)
+                            @foreach (array_reverse(json_decode($product->featured_image)) as $key => $item)
                                 {{-- {{dd($key)}} --}}
                                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                     <img src="{{ asset('public/product/' . $item) }}" class="d-block" alt="">

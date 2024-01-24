@@ -21,11 +21,13 @@
             <div class="row">
                 <div class="col-12">
                     <div id="carouselExampleAutoplayingoffer" class="carousel slide my-5" data-bs-ride="carousel">
-                        @if (isset($page_image) && isset($page_image->specific_image))
+                        @if ($shop_page_slider)
+                            {{-- {{dd($shop_page_slider)}} --}}
                             <div class="carousel-inner">
-                                @foreach (json_decode($page_image->specific_image) as $key => $item)
+                                @foreach (array_reverse(json_decode($shop_page_slider->images)) as $key => $item)
+                                {{-- {{dd($item)}} --}}
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('public/pageimages/' . $item) }}" class="d-block w-100"
+                                        <img src="{{ asset('public/shopslider/' . $item) }}" class="d-block w-100"
                                             alt="...">
                                     </div>
                                 @endforeach
@@ -138,9 +140,9 @@
                         <p class="d-block py-2 m-0">Showing {{ count($products) }} of {{ count($products) }} results </p>
                         <div class="ms-auto">
                             <select class="form-select d-inline-block w-auto border pt-1">
-                                <option value="0">Best match</option>
+                                {{-- <option value="0">Best match</option>
                                 <option value="1">Recommended</option>
-                                <option value="2">High rated</option>
+                                <option value="2">High rated</option> --}}
                                 <option value="3">Randomly</option>
                             </select>
                         </div>

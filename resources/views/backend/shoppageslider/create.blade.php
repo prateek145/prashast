@@ -2,11 +2,11 @@
 @section('content')
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Page Images</h1>
+            <h1>Shop Page Sliders</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Page Images</li>
+                    <li class="breadcrumb-item active">Shop Page Sliders</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -16,22 +16,11 @@
                 <div class="col-lg-12">
                     <div class="card info-card sales-card">
                         <div class="card-body">
-                            <h5 class="card-title">Add Page Images</h5>
+                            <h5 class="card-title">Shop Page Slider</h5>
                             <form class="row g-3" action="{{ route('pages-images.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-6">
-                                        <label for="inputNanme4" class="form-label ">Name</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            name="name" onfocusout="show_carasoul()" value="{{ old('name') }}"
-                                            id="inputNanme4">
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
 
                                     <div class="col-6">
                                         <label for="phone" class="form-label">Status</label>
@@ -46,7 +35,7 @@
 
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label for="">Images</label>
                                     <input type="file" name="images"
                                         class="form-control @error('images') is-invalid @enderror" required>
@@ -71,7 +60,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Name</th>
+                                        {{-- <th scope="col">Name</th> --}}
                                         <th scope="col">Status</th>
                                         <th scope="col">Created By</th>
                                         <th scope="col">Action</th>

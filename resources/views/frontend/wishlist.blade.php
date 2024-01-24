@@ -111,7 +111,7 @@
             <div class="row">
                 <div class="col-12 text-center mx-auto position-relative">
                     @foreach ($sub_categories as $item)
-                        <a href="{{ url('dynamic-subcategory/' . $item->slug . '/category') }}"><img
+                        <a href="{{ route('dynamic.categories', $item->slug) }}"><img
                                 src="{{ asset('public/productsubcategory/' . $item->featured_image) }}"
                                 class="img-fluid icon m-grid rounded-4" /></a>
                     @endforeach

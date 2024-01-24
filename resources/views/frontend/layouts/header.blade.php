@@ -34,16 +34,21 @@
                                 <li class="nav-item dropdown mx-4">
                                     <a class="nav-link dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        Sign In
+                                        @if (auth()->user())
+                                            {{ auth()->user()->name ?? '' }}
+                                        @else
+                                            Sign In
+                                        @endif
                                     </a>
                                     <ul class="dropdown-menu bg-dark text-white">
                                         <li><a class="dropdown-item" href="{{ route('my.account') }}">My Account</a>
                                         </li>
                                         @if (auth()->user())
-                                            <form action="{{ route('logout') }}" method="post" style="margin-left: 10%;">
+                                            <form action="{{ route('logout') }}" method="post"
+                                                style="margin-left: 10%;">
                                                 @csrf
-                                                <button class="btn btn-danger btn-xs"
-                                                    style="background-color:#030303"> Logout</button>
+                                                <button class="btn btn-danger btn-xs" style="background-color:#030303">
+                                                    Logout</button>
                                             </form>
                                         @else
                                             <li><a class="dropdown-item" href="{{ route('login') }}"
