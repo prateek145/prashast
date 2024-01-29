@@ -123,6 +123,23 @@
                             </div>
                         </div>
 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @if ($productcategories->background_image != null)
+                                    <img src="{{ asset('public/productsubcategory/' . $productcategories->background_image) }}"
+                                        alt="" width="90%" height="90%" class="p-5">
+                                @else
+                                    <h4>Background Image is not available</h4>
+                                @endif
+                                <label for="control-label font-weight-bold">Background Image</label>
+                                <input class="form-control" name="background_image" type="file" />
+                                @error('background_image')
+                                    <label id="background_image-error" class="error text-danger"
+                                        for="background_image">{{ $message }}</label>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
 

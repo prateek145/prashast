@@ -42,16 +42,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-//forntend routes
-// Route::get('', function () {
-//     // dd('prateek');
-// })->name('frontend.home');
 Route::get('/', [HomeController::class, 'home'])->name('frontend.home');
-
 Route::get('contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact');
 Route::get('about-us', [PageController::class, 'about_us'])->name('frontend.about');
-// Route::get('{slug}', [Pagecontroller::class, 'dynamic_page'])->name('dynamic.page');
-// Route::get('shop-page', [Pagecontroller::class, 'shop_page'])->name('shop.page');
 Route::get('my-account', [Pagecontroller::class, 'my_account'])->name('my.account')->middleware('auth');
 Route::get('profile', [Pagecontroller::class, 'profile'])->name('profile')->middleware('auth');;
 Route::get('categories/{slug}', [HomeController::class, 'dynamic_categories'])->name('dynamic.categories');
@@ -59,7 +52,6 @@ Route::get('tags/{slug}', [HomeController::class, 'dynamic_tags'])->name('dynami
 Route::get('filter/{key}/{slug}', [HomeController::class, 'dynamic_filter'])->name('dynamic.filter');
 Route::get('shop', [HomeController::class, 'shop_page'])->name('shop.page');
 Route::get('categories', [HomeController::class, 'categories'])->name('categories');
-// Route::get('dynamic/{key}/{slug}', [HomeController::class, 'dynamic_subcategories'])->name('dynamic.subcategories');
 Route::get('product/{slug}', [HomeController::class, 'product_detail'])->name('product.detail');
 Route::get('cart', [HomeController::class, 'cart'])->name('cart');
 Route::get('buy/now/{id}/{qty}', [HomeController::class, 'buy_now'])->name('buy.now');

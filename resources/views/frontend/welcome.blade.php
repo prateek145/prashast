@@ -31,8 +31,8 @@
             <div class="row">
                 <div class="col-12 col-lg-4  text-center py-3 order-2 order-lg-1">
                     <div class=" topsell">
-                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
+                        <div class="carousel-inner">
+                            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                                 @foreach ($top_products as $key => $item)
                                     {{-- {{dd($item->product_subcategory($item->product_subcategories)->icon_image)}} --}}
                                     <div class="carousel-item text-center {{ $key == 0 ? 'active' : '' }}">
@@ -52,18 +52,6 @@
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
                                     </div>
-                                    {{-- <div class="carousel-item text-center">
-                                        <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                            class="img-fluid d-block mx-auto">
-                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                            class="img-fluid d-block mx-auto">
-                                        <p>TOP SELLER</p>
-                                        <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
-                                            alt="...">
-                                        <h6>Handmade Tortoise
-                                            Trinket Tray</h6>
-                                        <a href="{{ route('shop.page') }}" class="btn btn-secondary">Shop</a>
-                                    </div> --}}
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -149,8 +137,8 @@
                     </div>
                 </div>
                 <!--<div class="col-lg-4 text-center py-3 order-1 order-lg-3">
-                                            <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
-                                        </div>-->
+                                                <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
+                                            </div>-->
             </div>
         </div>
     </section>

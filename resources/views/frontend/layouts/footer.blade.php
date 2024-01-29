@@ -7,9 +7,10 @@
         </div>
         <div class="row">
             <div class="col-12 col-lg-4 mx-auto">
-                <form class="subscribe" method="POST" action="{{route('newsletter.store')}}" >
+                <form class="subscribe" method="POST" action="{{ route('newsletter.store') }}">
                     @csrf
-                    <input type="email" placeholder="enter your email Id" name="email"><input type="submit" value="Subscribe">
+                    <input type="email" placeholder="enter your email Id" name="email"><input type="submit"
+                        value="Subscribe">
                 </form>
             </div>
         </div>
@@ -77,15 +78,20 @@
             </div>
         </div>
     </div>
+    @php
+        $products = session()->get('cart');
+    @endphp
+
     <!-- cart start-->
     <button class="cart-btn btn btn-primary" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="bi bi-cart3"><span class=" badge rounded-pill bg-danger" style="top:-7px">
-    1
-   
-  </span></i>
+        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="bi bi-cart3"><span
+                class=" badge rounded-pill bg-danger" style="top:-7px">
+                {{count($products)}}
+
+            </span></i>
         Cart</button>
- 
-    <div class="offcanvas offcanvas-end {{session()->get('showcart') == 'true' ? 'show':''}}" tabindex="-1"
+
+    <div class="offcanvas offcanvas-end {{ session()->get('showcart') == 'true' ? 'show' : '' }}" tabindex="-1"
         id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">Shopping Cart</h5>
@@ -93,9 +99,7 @@
         </div>
         <div class="offcanvas-body">
             {{-- {{session()->get('cart')}} --}}
-            @php
-                $products = session()->get('cart');
-            @endphp
+
             <table class="table">
                 <tr>
                     <th>Product</th>
@@ -116,18 +120,20 @@
                                 <div class="input-group-btn-vertical d-flex">
                                     <form action="{{ route('remove.qty.cart') }}" method="post">
                                         @csrf
-                                        <input type="hidden" value="{{$value['sku']}}" name="sku">
-                                        <input type="hidden" value="{{$value['id']}}" name="id">
+                                        <input type="hidden" value="{{ $value['sku'] }}" name="sku">
+                                        <input type="hidden" value="{{ $value['id'] }}" name="id">
                                         <input type="hidden" value="{{ $value['qty'] }}" name="quantity">
-                                        <button class="btn btn-default" type="submit"><i class="bi bi-dash-square-fill"></i></button>
+                                        <button class="btn btn-default" type="submit"><i
+                                                class="bi bi-dash-square-fill"></i></button>
 
                                     </form>
-                                    
+
                                     <form action="{{ route('add.qty.cart') }}" method="post">
                                         @csrf
-                                        <input type="hidden" value="{{$value['sku']}}" name="sku">
-                                        <input type="hidden" value="{{$value['id']}}" name="id">
-                                        <button class="btn btn-default" type="submit"><i class="bi bi-plus-square-fill"></i></button>
+                                        <input type="hidden" value="{{ $value['sku'] }}" name="sku">
+                                        <input type="hidden" value="{{ $value['id'] }}" name="id">
+                                        <button class="btn btn-default" type="submit"><i
+                                                class="bi bi-plus-square-fill"></i></button>
 
                                     </form>
 
@@ -136,11 +142,11 @@
                             </td>
                             <td>{{ $value['price'] * $value['qty'] }}</td>
                             <td>
-                                <form action="{{route('remove.cart')}}" method="post">
-                                @csrf
-                                <input type="hidden" value="{{ $value['sku'] }}" name="sku">
-                                <input type="hidden" value="{{$value['id']}}" name="id">
-                                <button class="btn bg-light" >X</button>
+                                <form action="{{ route('remove.cart') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" value="{{ $value['sku'] }}" name="sku">
+                                    <input type="hidden" value="{{ $value['id'] }}" name="id">
+                                    <button class="btn bg-light">X</button>
 
                                 </form>
                             </td>
@@ -161,11 +167,11 @@
             </div>
             <div class="row">
                 {{-- <div class="col"><a href="{{ route('shop.page') }}" class="btn btn-block bg-light">Update Cart</a> --}}
-                </div>
-                <div class="col"><a href="{{ route('cart') }}" class="btn btn-block bg-dark text-white">CheckOut</a>
-                </div>
+            </div>
+            <div class="col"><a href="{{ route('cart') }}" class="btn btn-block bg-dark text-white">CheckOut</a>
             </div>
         </div>
+    </div>
     </div>
     <!-- cart end-->
 </footer>

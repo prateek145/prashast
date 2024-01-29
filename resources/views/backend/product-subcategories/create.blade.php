@@ -3,13 +3,13 @@
 <main id="main" class="main">
     <div class="pagetitle">
         <div class="d-flex justify-content-between">
-            <h1>Sub Category</h1>
-            {{-- <a href="{{route('product.sub.cat.index', $id)}}"> <button class="btn btn-primary">Index Sub-Category</button> </a> --}}
+            <h1>Category</h1>
+            {{-- <a href="{{route('product.cat.index', $id)}}"> <button class="btn btn-primary">Index Category</button> </a> --}}
         </div>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active">Sub Category</li>
+                <li class="breadcrumb-item active">Category</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -77,6 +77,17 @@
                             @error('dark_icon')
                                 <label id="dark_icon-error" class="error text-danger"
                                     for="dark_icon">{{ $message }}</label>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="control-label font-weight-bold">Background Image</label>
+                            <input class="form-control" name="background_image" type="file" required />
+                            @error('background_image')
+                                <label id="background_image-error" class="error text-danger"
+                                    for="background_image">{{ $message }}</label>
                             @enderror
                         </div>
                     </div>

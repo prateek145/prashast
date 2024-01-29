@@ -1,5 +1,4 @@
 @extends('frontend.layouts.app')
-{{-- @include('frontend.layouts.header') --}}
 @section('content')
     <section class="hero-contact">
     </section>
@@ -71,12 +70,9 @@
                 <div class="col-lg-2"></div>
                 <div class="mx-auto text-center col-lg-3">
                     <!-- <h5>PLACE BULK ORDER</h5> -->
-                    <a href="{{route('bulk.order.page')}}">
-                        <button type="submit" class="btn btn-primary text-white shadow" style="background-color: #986633">
-                            Place Bulk Order
-                        </button>
-
-                    </a>
+                    <button type="submit" class="btn btn-primary text-white shadow" style="background-color: #986633">
+                        Place Bulk Order
+                    </button>
                 </div>
                 {{-- <div class="mx-auto text-center col-lg-3">
                     <!-- <h5>SCHEDULE A PURCHASE</h5> -->
