@@ -79,7 +79,10 @@
     </div>
     <!-- cart start-->
     <button class="cart-btn btn btn-primary" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="bi bi-cart3"></i>
+        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="bi bi-cart3"><span class=" badge rounded-pill bg-danger" style="top:-7px">
+    1
+   
+  </span></i>
         Cart</button>
  
     <div class="offcanvas offcanvas-end {{session()->get('showcart') == 'true' ? 'show':''}}" tabindex="-1"
