@@ -86,7 +86,7 @@
     <button class="cart-btn btn btn-primary" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="bi bi-cart3"><span
                 class=" badge rounded-pill bg-danger" style="top:-7px">
-                {{count($products)}}
+                {{count($products) ?? 0}}
 
             </span></i>
         Cart</button>
