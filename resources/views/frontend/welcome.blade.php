@@ -137,8 +137,8 @@
                     </div>
                 </div>
                 <!--<div class="col-lg-4 text-center py-3 order-1 order-lg-3">
-                                                <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
-                                            </div>-->
+                                                                    <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
+                                                                </div>-->
             </div>
         </div>
     </section>
@@ -182,26 +182,29 @@
                 <div class="col-12">
                     @if (isset($footer_image))
                         <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern1"
-                            data-bs-ride="carousel"
-                            style="background-image:url({{ asset('public/pageimages/' . $footer_image->image) }})">
+                            data-bs-ride="carousel">
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 @foreach ($categories as $key => $item)
-                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
-                                        <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"
-                                            class="img-fluid d-block mx-auto">
-                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                            class="img-fluid d-block mx-auto">
-                                        <h4>{{ $item->name }}</h4>
-                                        {{-- {{dd($item->top_seller)}} --}}
-                                        @if (!isset($item->top_seller_name->name))
-                                            <h6>{{ 'Select Top Seller' }}</h6>
-                                        @else
-                                            <a href="{{ route('product.detail', $item->top_seller_name->slug) }}">
-                                                <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
-                                            </a>
-                                        @endif
-                                        <h5>TOP SELLER</h5>
+                                    <div class="carousel-item active py-5 my-lg-5">
+                                        <img src="https://omegawebdemo.com.au/ept/images/bg-black.png"
+                                            class="d-block w-100" alt="...">
+                                        <div class="carousel-caption d-none d-md-block ">
+                                            <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"
+                                                class="img-fluid d-block mx-auto">
+                                            <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                                class="img-fluid d-block mx-auto">
+                                            <h4>{{ $item->name ?? '' }}</h4>
+                                            @if (!isset($item->top_seller_name->name))
+                                                <h6>{{ 'Select Top Seller' }}</h6>
+                                            @else
+                                                <a href="{{ route('product.detail', $item->top_seller_name->slug) }}">
+                                                    <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
+                                                </a>
+                                            @endif
+                                            <h5>TOP SELLER</h5>
+                                        </div>
                                     </div>
+
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -216,26 +219,30 @@
                             </button>
                         </div>
                     @else
-                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern"
+                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide "
                             data-bs-ride="carousel">
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 <div class="carousel-item active py-5 my-lg-5">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <h4>Kala</h4>
-                                    <h6>MADHUBANI PAINTING</h6>
-                                    <h5>TOP SELLER</h5>
+                                    <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
+                                        alt="...">
+                                    <div class="carousel-caption d-none d-md-block ">
+                                        <img src="images/icon-top.png" class="img-fluid d-block mx-auto">
+                                        <img src="images/top-separator-white.png" class="img-fluid d-block mx-auto">
+                                        <h4>Kala</h4>
+                                        <h6>MADHUBANI PAINTING</h6>
+                                        <h5>TOP SELLER</h5>
+                                    </div>
                                 </div>
                                 <div class="carousel-item py-5 my-lg-5">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <h4>Kala</h4>
-                                    <h6>MADHUBANI PAINTING</h6>
-                                    <h5>TOP SELLER</h5>
+                                    <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
+                                        alt="...">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <img src="images/icon-top.png" class="img-fluid d-block mx-auto">
+                                        <img src="images/top-separator-white.png" class="img-fluid d-block mx-auto">
+                                        <h4>Kala</h4>
+                                        <h6>MADHUBANI PAINTING</h6>
+                                        <h5>TOP SELLER</h5>
+                                    </div>
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
