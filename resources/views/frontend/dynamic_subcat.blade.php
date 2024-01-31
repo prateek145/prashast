@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-12">
                     <div id="carouselExampleAutoplayingoffer" class="carousel slide my-5" data-bs-ride="carousel">
-                        @if ($shop_page_slider)
+                        @if (isset($shop_page_slider))
                             {{-- {{dd($shop_page_slider)}} --}}
                             <div class="carousel-inner">
                                 @foreach (array_reverse(json_decode($shop_page_slider->images)) as $key => $item)
