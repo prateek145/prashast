@@ -45,8 +45,10 @@ class HomeController extends Controller
         $sub_categories = ProductSubcategory::latest()->get();
         $footer_image = FooterImages::latest()->first();
         $page_image = BackendPageImages::where('name', 'shop')->first();
+        $categories = ProductSubcategory::where('status', 1)->latest()->get();
 
-        return view('frontend.contactus', compact('sub_categories', 'footer_image', 'page_image'));
+
+        return view('frontend.contactus', compact('sub_categories', 'footer_image', 'page_image', 'categories'));
     }
 
     public function dynamic_categories($slug)
