@@ -153,7 +153,7 @@ class HomeController extends Controller
     public function shop_page()
     {
         $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
-        $products = Product::latest()->get();
+        $products = Product::where('status', 1)->latest()->get();
         $categories = ProductSubcategory::where('status', 1)->latest()->get();
         $tags = Tags::where('status', 1)->latest()->get();
         $fsidebar = FsideBar::latest()->first();
