@@ -70,6 +70,7 @@
 
                     <h1>{{ $product->name }}</h1>
                     <p>{!! $product->description !!}</h3>
+                        <h3>₹{{$product->sale_price}}</h3>
 
                         <span class="qntbox float-start">
                             Quantity <input type="number" name="qty" min="1" value="1" id="input_quantity"
