@@ -47,13 +47,14 @@
 
                                 </div>
 
-                                <div class="col-md-12">
-                                    @if ($pageImage->images)
-                                        <div class="col-md-12">
+                                <div class="row">
+                                    {{-- prateek --}}
+                                    <div class="col-md-12 mt-3">
+                                        @if ($pageImage->images)
                                             <img src="{{ asset('public/pageimages/' . $pageImage->images) }}"
-                                                alt="">
-                                        </div>
-                                    @endif
+                                                alt="" style="width: 100%">
+                                        @endif
+                                    </div>
                                     <label for="">Images</label>
                                     <input type="file" name="images"
                                         class="form-control @error('images') is-invalid @enderror">
@@ -84,5 +85,4 @@
             </div>
         </section>
     </main><!-- End #main -->
-
 @endsection

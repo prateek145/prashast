@@ -210,6 +210,14 @@ class PageController extends Controller
         return view('frontend.dynamicp', compact('page', 'page_image', 'footer_image'));
     }
 
+    public function blogs(){
+        $page_image = PageImages::where('name', 'blogs')->first();
+        $page = Pages::where('slug', 'blogs')->first();
+        $footer_image = FooterImages::latest()->first();
+        // dd($page, $page_image, $footer_image);
+        return view('frontend.dynamicp', compact('page', 'page_image', 'footer_image'));
+    }
+
     public function profile()
     {
         return view('frontend.profile');

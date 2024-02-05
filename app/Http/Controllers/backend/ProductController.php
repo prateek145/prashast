@@ -10,6 +10,7 @@ use App\Models\backend\ProductSubcategory;
 use App\Models\backend\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
 {
@@ -66,7 +67,7 @@ class ProductController extends Controller
             'name' => 'required|unique:products',
             'sku' => 'required|unique:products',
             'sale_price' => 'required',
-            'featured_image' => 'required',
+            'featured_image' => 'required|array|min:5|max:12',
             'image' => 'required',
             'description' => 'required',
             // 'product_categories' => 'required',
@@ -81,49 +82,49 @@ class ProductController extends Controller
         ];
 
         $this->validate($request, $rules, $custommessages);
-        try {
-    
-            $data = $request->all();
-    
-            if ($request->featured_image) {
+
+        $data = $request->all();
+
+        if ($request->featured_image) {
+            # code...
+            unset($data['featured_image']);
+            $image_arr = [];
+            for ($i = 0; $i < count($request->featured_image); $i++) {
                 # code...
-                unset($data['featured_image']);
-                $image_arr = [];
-                for ($i = 0; $i < count($request->featured_image); $i++) {
-                    # code...
-                    $image = $request->featured_image[$i];
-                    $filename = rand() . $image->getClientoriginalName();
-                    // dd($filename);
-                    $destination_path = public_path('/product');
-                    $image->move($destination_path, $filename);
-                    $image_arr[] = $filename;
-                }
-                $data['featured_image'] = json_encode($image_arr);
-            }
-    
-            if ($request->image) {
-                # code...
-                unset($data['image']);
-                $image = $request->image;
+                $image = $request->featured_image[$i];
                 $filename = rand() . $image->getClientoriginalName();
                 // dd($filename);
                 $destination_path = public_path('/product');
                 $image->move($destination_path, $filename);
-                $data['image'] = $filename;
+                $image_arr[] = $filename;
             }
-    
-            unset($data['_token']);
-            unset($data['product_categories']);
-            unset($data['product_subcategories']);
-            unset($data['tag_selection']);
-            $data['slug'] = Str::slug($request->name);
-            // $data['product_categories'] = json_encode($request->product_categories);
-            $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
-            $data['product_subcategories'] = json_encode($request->product_subcategories);
-    
-            // dd($data);
-            Product::create($data);
-            return redirect()->route('products.index')->with('success', 'Successfully ' . $request->name . ' Created');
+            $data['featured_image'] = json_encode($image_arr);
+        }
+
+        if ($request->image) {
+            # code...
+            unset($data['image']);
+            $image = $request->image;
+            $filename = rand() . $image->getClientoriginalName();
+            $destination_path = public_path('/product');
+            $image_resize = Image::make($image->getRealPath())->resize(200, 200);
+            $image_resize->save($destination_path . '/' . $filename);
+            $data['image'] = $filename;
+        }
+
+        unset($data['_token']);
+        unset($data['product_categories']);
+        unset($data['product_subcategories']);
+        unset($data['tag_selection']);
+        $data['slug'] = Str::slug($request->name);
+        // $data['product_categories'] = json_encode($request->product_categories);
+        $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
+        $data['product_subcategories'] = json_encode($request->product_subcategories);
+
+        // dd($data);
+        Product::create($data);
+        return redirect()->route('products.index')->with('success', 'Successfully ' . $request->name . ' Created');
+        try {
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured')->withInput();
         }
@@ -160,7 +161,7 @@ class ProductController extends Controller
             // dd($product);
             $tags = Tags::whereIn('id', json_decode($product->tag_selection))->get();
             // dd($tags);
-            return view('backend.products.edit', compact('product','tags','productsubcategories'));
+            return view('backend.products.edit', compact('product', 'tags', 'productsubcategories'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -179,7 +180,7 @@ class ProductController extends Controller
             'name' => 'required|unique:products,name,' . $id .  "'",
             'sku' => 'required|unique:products,name,' . $id .  "'",
             'sale_price' => 'required',
-            // 'featured_image' => 'required',
+            // 'featured_image' => 'required|array|min:5|max:12',
             // 'image' => 'required',
             'description' => 'required',
             // 'product_categories' => 'required',
@@ -233,7 +234,8 @@ class ProductController extends Controller
                 $filename = rand() . $image->getClientoriginalName();
                 // dd($filename);
                 $destination_path = public_path('/product');
-                $image->move($destination_path, $filename);
+                $image_resize = Image::make($image->getRealPath())->resize(200, 200);
+                $image_resize->save($destination_path . '/' . $filename);
                 $data['image'] = $filename;
             }
 

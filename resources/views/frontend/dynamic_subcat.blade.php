@@ -158,7 +158,7 @@
                                             $pro = \App\Models\wishlist::where(['product_id' => $item->id, 'user_id' => auth()->id()])->first();
 
                                         @endphp
-                                        @if ($pro)
+                                        {{-- @if ($pro)
                                             <span class="wish">
                                                 <button type="button" class="btn wishlist-btn" data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
@@ -172,7 +172,7 @@
                                                     onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')"
                                                     title="Wishlist"><i class="bi bi-heart"></i></button>
                                             </span>
-                                        @endif
+                                        @endif --}}
                                         <span class="catbox mx-auto">
                                             @if ($item->product_subcategory($item->product_subcategories)->icon_image)
                                                 <img src="{{ asset('public/productsubcategory/' . $item->product_subcategory($item->product_subcategories)->icon_image) }}"
