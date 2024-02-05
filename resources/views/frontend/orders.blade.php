@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="col-12 col-lg-6 align-self-center">
                                     <a class="btn btn-secondary float-end"
-                                        href="{{ route('product.detail', $product->slug) }}">Buy Again</a>
+                                        href="#">Buy Again</a>
                                 </div>
                             </div>
                         @endforeach
