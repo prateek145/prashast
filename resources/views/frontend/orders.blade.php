@@ -81,6 +81,7 @@
                             @php
                                 $product = App\Models\backend\Product::find($value->id);
                             @endphp
+                            @if ($product)
                             <div class="row mt-5">
                                 <div class="col-12 col-lg-2 align-self-center">
                                     <h6>{{ $count++ }}</h6>
@@ -99,9 +100,13 @@
                                 </div>
                                 <div class="col-12 col-lg-6 align-self-center">
                                     <a class="btn btn-secondary float-end"
-                                        href="#">Buy Again</a>
+                                        href="{{ route('product.detail', $product->slug) }}">Buy Again</a>
                                 </div>
                             </div>
+                                
+                            @else
+                                <h3>Product Deleted</h3>
+                            @endif
                         @endforeach
 
                     </div>
