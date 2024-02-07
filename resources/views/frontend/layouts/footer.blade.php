@@ -1,3 +1,24 @@
+<style>
+    .float{
+	position:fixed;
+	width:50px;
+	height:50px;
+	bottom:115px;
+	left:95%;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50%;
+	text-align:center;
+	transform: translate(-50%, -50%);
+  font-size:35px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{
+	margin-top:16px;
+}
+</style>
 <section class="about py-5">
     <div class="container">
         <div class="row">
@@ -90,6 +111,9 @@
 
             </span></i>
         Cart</button>
+        <a href="" class="float" target="_blank">
+<i class="bi bi-whatsapp my-float"></i>
+</a>
 
     <div class="offcanvas offcanvas-end {{ session()->get('showcart') == 'true' ? 'show' : '' }}" tabindex="-1"
         id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
