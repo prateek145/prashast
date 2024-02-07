@@ -54,6 +54,7 @@
                     </li>
                     <li> <a style="color: #6e6e6e;" href="{{ route('shop.page') }}">Shop</a> </li>
                     <li> <a style="color: #6e6e6e;" href="{{ route('frontend.contact') }}">Contact Us</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('blogs') }}">Blogs</a> </li>
                 </ul>
                 <ul class="footlink text-center text-lg-start">
                     <li>Disclaimer</li>
