@@ -64,16 +64,17 @@
                                         @endif
                                     </ul>
                                 </li>
-                                
+
                             </ul>
                         </div>
                         <!-- Cart Icon -->
-<div class="navbar-nav ml-auto d-none d-md-block">
-    <a class="nav-link" href="">
-        <i class="bi bi-cart3 text-light h5" style="width:50px;padding:10px;height:50px;border-radius: 50%; 
+                        <div class="navbar-nav ml-auto d-none d-md-block">
+                            <a class="nav-link" href="{{route('cart')}}">
+                                <i class="bi bi-cart3 text-light h5"
+                                    style="width:50px;padding:10px;height:50px;border-radius: 50%; 
     background-color: #986633;"></i>
-    </a>
-</div>
+                            </a>
+                        </div>
                     </div>
                 </nav>
             </div>

@@ -188,7 +188,7 @@
 
                                         @if ($item->image)
                                             <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top"
-                                                height="200px" width="200px">
+                                                height="200px" >
                                         @else
                                             <img src="{{ asset('public/frontend/images/07.png') }}" class="card-img-top">
                                         @endif
