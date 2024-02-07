@@ -187,7 +187,7 @@
                                         </span>
 
                                         @if ($item->image)
-                                            <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top" >
+                                            <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top">
                                         @else
                                             <img src="{{ asset('public/frontend/images/07.png') }}" class="card-img-top">
                                         @endif
@@ -236,7 +236,7 @@
                             data-bs-ride="carousel">
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 @foreach ($categories as $key => $item)
-                                    <div class="carousel-item active py-5 my-lg-5">
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
                                         <img src="https://omegawebdemo.com.au/ept/images/bg-black.png"
                                             class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-none d-md-block ">
@@ -248,7 +248,8 @@
                                             @if (!isset($item->top_seller_name->name))
                                                 <h6>{{ 'Select Top Seller' }}</h6>
                                             @else
-                                                <a href="{{ route('product.detail', $item->top_seller_name->slug) }}">
+                                                <a href="{{ route('product.detail', $item->top_seller_name->slug) }}"
+                                                    class="text-light link-underline link-underline-opacity-0">
                                                     <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
                                                 </a>
                                             @endif

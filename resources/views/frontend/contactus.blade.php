@@ -46,11 +46,11 @@
                     <h1 class="text-center mb-5">Reach Us</h1>
 
                     <!-- <h4>ADDRESS</h4>
-                            <p>
-                              c-98, Gr ound floor,<br />
-                              Sector-10, Noida,<br />
-                              Uttar Pradesh- 201301
-                            </p> -->
+                                <p>
+                                  c-98, Gr ound floor,<br />
+                                  Sector-10, Noida,<br />
+                                  Uttar Pradesh- 201301
+                                </p> -->
 
                     <h4>EMAIL</h4>
                     <p>info@prashast.co.in</p>
@@ -71,7 +71,7 @@
                 <div class="col-lg-2"></div>
                 <div class="mx-auto text-center col-lg-3">
                     <!-- <h5>PLACE BULK ORDER</h5> -->
-                    <a href="{{route('bulk.order.page')}}">
+                    <a href="{{ route('bulk.order.page') }}">
                         <button type="submit" class="btn btn-primary text-white shadow" style="background-color: #986633">
                             Place Bulk Order
                         </button>
@@ -225,7 +225,7 @@
                             data-bs-ride="carousel">
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 @foreach ($categories as $key => $item)
-                                    <div class="carousel-item active py-5 my-lg-5">
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
                                         <img src="https://omegawebdemo.com.au/ept/images/bg-black.png"
                                             class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-none d-md-block ">
@@ -237,14 +237,14 @@
                                             @if (!isset($item->top_seller_name->name))
                                                 <h6>{{ 'Select Top Seller' }}</h6>
                                             @else
-                                                <a href="{{ route('product.detail', $item->top_seller_name->slug) }}">
+                                                <a href="{{ route('product.detail', $item->top_seller_name->slug) }}"
+                                                    class="text-light link-underline link-underline-opacity-0">
                                                     <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
                                                 </a>
                                             @endif
                                             <h5>TOP SELLER</h5>
                                         </div>
                                     </div>
-
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
