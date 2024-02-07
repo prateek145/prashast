@@ -187,8 +187,7 @@
                                         </span>
 
                                         @if ($item->image)
-                                            <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top"
-                                                height="200px" >
+                                            <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top" >
                                         @else
                                             <img src="{{ asset('public/frontend/images/07.png') }}" class="card-img-top">
                                         @endif
