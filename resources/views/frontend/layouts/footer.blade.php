@@ -1,23 +1,23 @@
 <style>
-    .float{
-	position:fixed;
-	width:50px;
-	height:50px;
-	bottom:115px;
-	left:95%;
-	background-color:#25d366;
-	color:#FFF;
-	border-radius:50%;
-	text-align:center;
-	transform: translate(-50%, -50%);
-  font-size:35px;
-	box-shadow: 2px 2px 3px #999;
-  z-index:100;
-}
+    .float {
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        bottom: 115px;
+        left: 95%;
+        background-color: #25d366;
+        color: #FFF;
+        border-radius: 50%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        font-size: 35px;
+        box-shadow: 2px 2px 3px #999;
+        z-index: 100;
+    }
 
-.my-float{
-	margin-top:16px;
-}
+    .my-float {
+        margin-top: 16px;
+    }
 </style>
 <section class="about py-5">
     <div class="container">
@@ -108,13 +108,13 @@
     <button class="cart-btn btn btn-primary" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="bi bi-cart3"><span
                 class=" badge rounded-pill bg-danger" style="top:-7px">
-                {{$products == true ? count($products) : 0}}
+                {{ $products == true ? count($products) : 0 }}
 
             </span></i>
         Cart</button>
-        <a href="" class="float" target="_blank">
-<i class="bi bi-whatsapp my-float"></i>
-</a>
+    <a href="https://wa.me/9625663737" class="float" target="_blank">
+        <i class="bi bi-whatsapp my-float"></i>
+    </a>
 
     <div class="offcanvas offcanvas-end {{ session()->get('showcart') == 'true' ? 'show' : '' }}" tabindex="-1"
         id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">

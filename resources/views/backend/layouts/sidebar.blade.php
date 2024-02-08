@@ -85,7 +85,8 @@
               </li><!-- End Dashboard Nav -->
 
               <li class="nav-item">
-                <a class="nav-link {{ request()->segment(1) == 'pages-images' ? '' : 'collapsed' }}"
+                {{-- {{dd(request()->segment(1))}} --}}
+                <a class="nav-link {{ request()->segment(1) == 'shop' ? '' : 'collapsed' }}"
                     href="{{ route('slider.create') }}">
                     <i class="bi bi-journal-text"></i>
                     <span>Shop Pages Slider</span>
@@ -101,7 +102,7 @@
             </li><!-- End Dashboard Nav -->
 
               <li class="nav-item">
-                  <a class="nav-link {{ request()->segment(1) == 'contactform' ? '' : 'collapsed' }}"
+                  <a class="nav-link {{ request()->segment(1) == 'contactform-index' ? '' : 'collapsed' }}"
                       href="{{ route('contactform.index') }}">
                       <i class="bi bi-journal-text"></i>
                       <span>Contact Form</span>
@@ -117,7 +118,7 @@
               </li><!-- End Dashboard Nav -->
 
               <li class="nav-item">
-                  <a class="nav-link {{ request()->segment(1) == 'bulkproduct' ? '' : 'collapsed' }}"
+                  <a class="nav-link {{ request()->segment(1) == 'bulkproduct-index' ? '' : 'collapsed' }}"
                       href="{{ route('bulkproduct.index') }}">
                       <i class="bi bi-journal-text"></i>
                       <span>Bulk Product</span>

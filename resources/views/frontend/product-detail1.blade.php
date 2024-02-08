@@ -70,22 +70,22 @@
 
                     <h1>{{ $product->name }}</h1>
                     <p>{!! $product->description !!}</h3>
-                        <h3>₹{{$product->sale_price}}</h3>
+                    <h3>₹{{ $product->sale_price }}</h3>
 
-                        <span class="qntbox float-start">
-                            Quantity <input type="number" name="qty" min="1" value="1" id="input_quantity"
-                                class="form-control" />
+                    <span class="qntbox float-start">
+                        Quantity <input type="number" name="qty" min="1" value="1" id="input_quantity"
+                            class="form-control" />
 
-                        </span>
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    </span>
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                        <span class="d-flex w-100 justify-content-end">
-                            <a class="btn btn-primary float-end  mx-4 shadow"
-                                onclick="addtocart('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Add to
-                                Cart</a> &nbsp; <a href="#" onclick="form_submit({{ $product->id }})"
-                                class="btn btn-secondary float-end shadow text-dark">Buy
-                                Now</a>
-                        </span>
+                    <span class="d-flex w-100 justify-content-end">
+                        <a class="btn btn-primary float-end  mx-4 shadow"
+                            onclick="addtocart('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Add to
+                            Cart</a> &nbsp; <a href="#" onclick="form_submit({{ $product->id }})"
+                            class="btn btn-secondary float-end shadow text-dark">Buy
+                            Now</a>
+                    </span>
 
                 </div>
             </div>
@@ -105,7 +105,7 @@
                                 <div
                                     class="card w-100 my-2 shadow-2-strong {{ strtolower($item->product_subcategory($item->product_subcategories)->name) ?? 'maati' }}">
                                     <a href="{{ route('product.detail', $item->slug) }}" class="btn-link product-link">
-                                        <span class="wish">
+                                        {{-- <span class="wish">
                                             <button
                                                 onclick="addtowishlist('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')"
                                                 type="button" class="btn wishlist-btn" data-bs-toggle="tooltip"
@@ -119,7 +119,7 @@
                                                     <i class="bi bi-heart"></i>
                                                 @endif
                                             </button>
-                                        </span>
+                                        </span> --}}
                                         <span class="catbox mx-auto">
                                             <img src="{{ asset('public/productsubcategory/' . $item->product_subcategory($item->product_subcategories)->icon_image) }}"
                                                 class="img-fluid d-block mx-auto" />
@@ -147,25 +147,28 @@
                 <div class="col-12">
                     @if (isset($footer_image))
                         <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern1"
-                            data-bs-ride="carousel"
-                            style="background-image:url({{ asset('public/pageimages/' . $footer_image->image) }})">
+                            data-bs-ride="carousel">
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 @foreach ($sub_categories as $key => $item)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
-                                        <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"
-                                            class="img-fluid d-block mx-auto">
-                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                            class="img-fluid d-block mx-auto">
-                                        <h4>{{ $item->name }}</h4>
-                                        {{-- {{dd($item->top_seller)}} --}}
-                                        @if (!isset($item->top_seller_name->name))
-                                            <h6>{{ 'Select Top Seller' }}</h6>
-                                        @else
-                                            <a href="{{ route('product.detail', $item->top_seller_name->slug) }}">
-                                                <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
-                                            </a>
-                                        @endif
-                                        <h5>TOP SELLER</h5>
+                                        <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
+                                            alt="...">
+                                        <div class="carousel-caption d-none d-md-block ">
+                                            <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"
+                                                class="img-fluid d-block mx-auto">
+                                            <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                                class="img-fluid d-block mx-auto">
+                                            <h4>{{ $item->name ?? '' }}</h4>
+                                            @if (!isset($item->top_seller_name->name))
+                                                <h6>{{ 'Select Top Seller' }}</h6>
+                                            @else
+                                                <a href="{{ route('product.detail', $item->top_seller_name->slug) }}"
+                                                    class="text-light link-underline link-underline-opacity-0">
+                                                    <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
+                                                </a>
+                                            @endif
+                                            <h5>TOP SELLER</h5>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
