@@ -186,7 +186,7 @@
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 @foreach ($categories as $key => $item)
                                     <div class="carousel-item {{$key == 0 ? 'active':""}} py-5 my-lg-5">
-                                        <img src="https://omegawebdemo.com.au/ept/images/bg-black.png"
+                                        <img src="{{asset('public/pageimages/' . $footer_image->image)}}"
                                             class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-none d-md-block ">
                                             <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"

@@ -37,6 +37,7 @@ class HomeController extends Controller
         $top_products = Product::latest()->take(4)->get();
         $footer_image = FooterImages::latest()->first();
 
+        // dd($footer_image);
         return view('frontend.welcome', compact('categories', 'page_image', 'new_products', 'top_products', 'footer_image'));
     }
 
