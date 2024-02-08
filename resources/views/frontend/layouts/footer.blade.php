@@ -112,7 +112,7 @@
 
             </span></i>
         Cart</button>
-    <a href="https://wa.me/9625663737" class="float" target="_blank">
+        <a href="https://wa.link/gjkzq0" class="float" target="_blank">
         <i class="bi bi-whatsapp my-float"></i>
     </a>
 
