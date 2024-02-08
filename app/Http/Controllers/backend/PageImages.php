@@ -194,7 +194,6 @@ class PageImages extends Controller
 
     public function footer_image(){
         $footer_image = FooterImages::latest()->first();
-        
         return view('backend/footerimage.create', compact('footer_image'));
     }
 

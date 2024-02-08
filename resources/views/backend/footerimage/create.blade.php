@@ -24,9 +24,7 @@
                                 {{-- {{dd($footer_image)}} --}}
                                 @if ($footer_image)
                                     <div class="col-md-12">
-                                        <div>
-                                            <img src="{{asset('public/pageimages/' . $footer_image->image)}}" alt="">
-                                        </div>
+                                        <img src="{{ asset('public/pageimages/' . $footer_image->image) }}" alt="" style="width: 100%">
                                         <label for="">Images</label>
                                         <input type="file" name="images"
                                             class="form-control @error('images') is-invalid @enderror" required>
