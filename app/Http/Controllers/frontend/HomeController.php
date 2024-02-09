@@ -143,7 +143,7 @@ class HomeController extends Controller
 
         if ($key == 'greaterthen') {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '=<', $slug)->gpaginate(9);
+            $products = Product::where('status', 1)->where('sale_price', '=<', $slug)->paginate(9);
             // dd($products, $slug, $max_price);
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
