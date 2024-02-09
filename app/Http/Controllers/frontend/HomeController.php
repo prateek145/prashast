@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\backend\Desiner;
 use App\Models\backend\FooterImages;
 use App\Models\backend\FsideBar;
+use App\Models\backend\HomePageSlider;
 use App\Models\backend\Product;
 use App\Models\backend\Order;
 use App\Models\backend\PageImages as BackendPageImages;
@@ -31,14 +32,12 @@ class HomeController extends Controller
     public function home()
     {
         $categories = ProductSubcategory::where('status', 1)->latest()->take(5)->get();
-        // $products = Product::where(['status' => 1, 'show_in_featuredproduct' => 1])->get();
-        $page_image = BackendPageImages::where('name', 'home')->first();
         $new_products = Product::latest()->take(4)->get();
         $top_products = Product::latest()->take(4)->get();
         $footer_image = FooterImages::latest()->first();
-
-        // dd($footer_image);
-        return view('frontend.welcome', compact('categories', 'page_image', 'new_products', 'top_products', 'footer_image'));
+        $home_slider = HomePageSlider::latest()->first();
+        // dd($home_slider);
+        return view('frontend.welcome', compact('categories','home_slider', 'new_products', 'top_products', 'footer_image'));
     }
 
     public function contact_us()
@@ -156,7 +155,7 @@ class HomeController extends Controller
     public function shop_page()
     {
         $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
-        $products = Product::where('status', 1)->latest()->get();
+        $products = Product::where('status', 1)->paginate(9);
         $categories = ProductSubcategory::where('status', 1)->latest()->get();
         $tags = Tags::where('status', 1)->latest()->get();
         $fsidebar = FsideBar::latest()->first();

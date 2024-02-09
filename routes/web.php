@@ -3,6 +3,7 @@
 use App\Http\Controllers\backend\AjaxController;
 use App\Http\Controllers\backend\DesinerConroller;
 use App\Http\Controllers\backend\FSideBarController;
+use App\Http\Controllers\backend\HomePageSliderController;
 use App\Http\Controllers\backend\NewsLetterController;
 use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\backend\OrderdetailsController;
@@ -103,6 +104,7 @@ Route::resource('tags', TagController::class)->middleware('auth');
 Route::resource('orderdetails', OrderdetailsController::class)->middleware('auth');
 Route::resource('sidebar', FSideBarController::class)->middleware('auth');
 Route::resource('shop/page/slider', ShopPageSliderController::class)->middleware('auth');
+Route::resource('home-slider', HomePageSliderController::class)->middleware('auth');
 
 //for tag ajax
 Route::post('tag_create', [TagController::class, 'tag_create'])->name('tag.create');

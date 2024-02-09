@@ -2,11 +2,76 @@
 {{-- @include('frontend.layouts.top-header') --}}
 @section('content')
     {{-- @include('frontend.layouts.slider') --}}
-    @if ($page_image)
-        <section class="hero1" style="background-image:url({{ asset('public/pageimages/' . $page_image->images) }})">
+    @if ($home_slider)
+        @php
+            $images = json_decode($home_slider->images);
+            $links = json_decode($home_slider->links);
+        @endphp
+        <section class="slider-top">
+            <div class="row" style=" --bs-gutter-x: 0;">
+                <div class="col-12">
+                    <div id="carouselExampleAutoplayingoffer" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach ($images as $key => $value)
+                                <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
+                                    <a href="{{$links[$key] ?? "#"}}">
+                                        <img src="{{asset('public/homeslider/' . $value)}}" class="d-block w-100" alt="...">
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselExampleAutoplayingoffer" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#carouselExampleAutoplayingoffer" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </section>
     @else
-        <section class="hero">
+        <section class="slider-top">
+            <div class="row" style=" --bs-gutter-x: 0;">
+                <div class="col-12">
+                    <div id="carouselExampleAutoplayingoffer" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <a href="shop.html">
+                                    <img src="{{ asset('public/frontend/images/1.jpg') }}" class="d-block w-100"
+                                        alt="...">
+                                </a>
+                            </div>
+                            <div class="carousel-item">
+                                <a href="shop.html">
+                                    <img src="{{ asset('public/frontend/images/2.jpg') }}" class="d-block w-100"
+                                        alt="...">
+                                </a>
+                            </div>
+                            <div class="carousel-item">
+                                <a href="shop.html">
+                                    <img src="{{ asset('public/frontend/images/3.jpg') }}" class="d-block w-100"
+                                        alt="...">
+                                </a>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselExampleAutoplayingoffer" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#carouselExampleAutoplayingoffer" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </section>
     @endif
     <section class="about py-5">
@@ -83,8 +148,8 @@
                                         <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
                                             class="img-fluid d-block mx-auto">
                                         <p>NEW COLLECTION</p>
-                                        <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
-                                            alt="...">
+                                        <img src="{{ asset('public/frontend/images/product.png') }}"
+                                            class="d-block w-100" alt="...">
                                         <h6>{{ $item->name }}</h6>
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
@@ -137,8 +202,8 @@
                     </div>
                 </div>
                 <!--<div class="col-lg-4 text-center py-3 order-1 order-lg-3">
-                                                                    <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
-                                                                </div>-->
+                                                                                <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
+                                                                            </div>-->
             </div>
         </div>
     </section>
@@ -185,8 +250,8 @@
                             data-bs-ride="carousel">
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 @foreach ($categories as $key => $item)
-                                    <div class="carousel-item {{$key == 0 ? 'active':""}} py-5 my-lg-5">
-                                        <img src="{{asset('public/pageimages/' . $footer_image->image)}}"
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
+                                        <img src="{{ asset('public/pageimages/' . $footer_image->image) }}"
                                             class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-none d-md-block ">
                                             <img src="{{ asset('public/productsubcategory/' . $item->icon_image) }}"
@@ -197,14 +262,14 @@
                                             @if (!isset($item->top_seller_name->name))
                                                 <h6>{{ 'Select Top Seller' }}</h6>
                                             @else
-                                                <a href="{{ route('product.detail', $item->top_seller_name->slug) }}" class="text-light link-underline link-underline-opacity-0">
+                                                <a href="{{ route('product.detail', $item->top_seller_name->slug) }}"
+                                                    class="text-light link-underline link-underline-opacity-0">
                                                     <h6>{{ $item->top_seller_name->name ?? '' }}</h6>
                                                 </a>
                                             @endif
                                             <h5>TOP SELLER</h5>
                                         </div>
                                     </div>
-
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"

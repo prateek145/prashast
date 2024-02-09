@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\backend\ShopPageSlider;
+use App\Models\backend\HomePageSlider;
 use Illuminate\Http\Request;
 
-class ShopPageSliderController extends Controller
+class HomePageSliderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,9 +25,8 @@ class ShopPageSliderController extends Controller
      */
     public function create()
     {
-        $shop_slider = ShopPageSlider::find(1);
-        // dd($shop_slider);
-        return view('backend/shoppageslider.edit', compact('shop_slider'));
+        $home_slider = HomePageSlider::latest()->first();
+        return view('backend/homepageslider.edit', compact('home_slider'));
     }
 
     /**
@@ -38,19 +37,20 @@ class ShopPageSliderController extends Controller
      */
     public function store(Request $request)
     {
-        
         try {
-            // dd($request->all());
-            $shop_slider = ShopPageSlider::find(1);
+
+            $home_slider = HomePageSlider::latest()->first();
             $data = $request->all();
     
-            if ($shop_slider) {
+            if ($home_slider) {
                 # code...
-                // dd($shop_slider);
+                // dd($home_slider);
                 if ($request->images) {
                     # code...
                     unset($data['images']);
                     unset($data['_token']);
+                    unset($data['links']);
+
                     $image_arr = [];
                     // dd($request->images);
                     for ($i = 0; $i < count($request->images); $i++) {
@@ -58,13 +58,15 @@ class ShopPageSliderController extends Controller
                         $image = $request->images[$i];
                         $filename = rand() . $image->getClientoriginalName();
                         // dd($filename);
-                        $destination_path = public_path('/shopslider');
+                        $destination_path = public_path('/homeslider');
                         $image->move($destination_path, $filename);
                         $image_arr[] = $filename;
                     }
                     $data['images'] = json_encode($image_arr);
                 }
-                $shop_slider->update($data);
+
+                $data['links'] = json_encode($request->links);
+                $home_slider->update($data);
                 return redirect()->back()->with('success', 'Success Shop Page Slider Updated.');
     
             } else {
@@ -73,6 +75,7 @@ class ShopPageSliderController extends Controller
                     # code...
                     unset($data['images']);
                     unset($data['_token']);
+                    unset($data['links']);
                     $image_arr = [];
                     // dd($request->images);
                     for ($i = 0; $i < count($request->images); $i++) {
@@ -80,15 +83,16 @@ class ShopPageSliderController extends Controller
                         $image = $request->images[$i];
                         $filename = rand() . $image->getClientoriginalName();
                         // dd($filename);
-                        $destination_path = public_path('/shopslider');
+                        $destination_path = public_path('/homeslider');
                         $image->move($destination_path, $filename);
                         $image_arr[] = $filename;
                     }
                     $data['images'] = json_encode($image_arr);
                 }
+                $data['links'] = json_encode($request->links);
                 // dd($data);
-                ShopPageSlider::create($data);
-                return redirect()->back()->with('success', 'Success Shop Page Slider Created.');
+                HomePageSlider::create($data);
+                return redirect()->back()->with('success', 'Success Home Page Slider Created.');
             }
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
