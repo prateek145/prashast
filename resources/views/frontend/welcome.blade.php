@@ -111,7 +111,7 @@
                                         <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
                                             class="img-fluid d-block mx-auto">
                                         <p>TOP SELLER</p>
-                                        <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
+                                        <img src="{{ asset('public/product/'.$item->image) }}" class="d-block w-100"
                                             alt="...">
                                         <h6>{{ $item->name }}</h6>
                                         <a href="{{ route('product.detail', $item->slug) }}"
@@ -148,7 +148,7 @@
                                         <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
                                             class="img-fluid d-block mx-auto">
                                         <p>NEW COLLECTION</p>
-                                        <img src="{{ asset('public/frontend/images/product.png') }}"
+                                        <img src="{{ asset('public/product/' . $item->image) }}"
                                             class="d-block w-100" alt="...">
                                         <h6>{{ $item->name }}</h6>
                                         <a href="{{ route('product.detail', $item->slug) }}"
