@@ -101,7 +101,7 @@
 
                     <div class="row">
                         @foreach ($latestproduct as $item)
-                            <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-6 d-flex">
                                 <div class="card w-100 my-2 shadow-2-strong border border-0 ">
                                     <a href="{{ route('product.detail', $item->slug) }}" class="btn-link product-link">
                                         @if ($item->image)
