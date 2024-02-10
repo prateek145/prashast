@@ -100,7 +100,7 @@
 
     <script>
         function search_product(event){
-            // console.log(value);
+            console.log('value');
             event.preventDefault();
             var value = document.getElementsByName('wishlist_search')[0].value;
             var text = value.replaceAll(' ', '');
