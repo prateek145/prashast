@@ -99,6 +99,8 @@
     </section>
 
     <script>
+            console.log('value');
+
         function search_product(event){
             console.log('value');
             event.preventDefault();
