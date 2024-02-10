@@ -42,46 +42,23 @@
                 <div class="row mt-5">
                     @if (count($products) > 0)
                         @foreach ($products as $item)
-                            <div class="col-lg-4 col-md-12 col-sm-12 col-12 d-flex {{' ' . str_replace(' ', '',$item->name) . ' '}} search_product">
-                                <div
-                                    class="line card w-100 my-2 shadow-2-strong {{ strtolower($item->product_subcategory($item->product_subcategories)->name) == 'kala' ? 'zevar' : strtolower($item->product_subcategory($item->product_subcategories)->name) }}">
-                                    <a class="btn-link product-link">
-                                        <span class="wishlst">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button"
-                                                    onclick="deletewishlist('delete', '{{ $item->id }}')"
-                                                    class="btn btn-trash"><i class="bi bi-trash"></i></button>
-                                                <button type="button" class="btn btn-book"
-                                                    onclick="addtocart('{{ $item->id }}', '{{ $item->sku }}', 'productdetail')""><i
-                                                        class="bi bi-cart"></i></button>
-                                            </div>
-                                        </span>
-                                        <span class="catbox mx-auto">
-                                            @if ($item->product_subcategory($item->product_subcategories)->icon_image)
-                                                <img src="{{ asset('public/productsubcategory/' . $item->product_subcategory($item->product_subcategories)->icon_image) }}"
-                                                    class="mb-1">
-                                            @else
-                                                <img src="{{ asset('public/frontend/images/cat-icon.png') }}"
-                                                    class="mb-1">
-                                            @endif
-                                            <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                                class="img-fluid d-block mx-auto">
-                                            <p>New Collection</p>
-                                        </span>
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-6 d-flex">
+                            <div class="card w-100 my-2 shadow-2-strong border border-0 ">
+                                <a href="{{ route('product.detail', $item->slug) }}" class="btn-link product-link">
+                                    @if ($item->image)
+                                        <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top">
+                                    @else
+                                        <img src="https://omegastaging.com.au/jbm/wp-content/uploads/2024/02/Madhubani-2-9.jpg"
+                                            class="card-img-top">
+                                    @endif
 
-                                        @if ($item->image)
-                                            <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top"
-                                                height="200px" width="200px">
-                                        @else
-                                            <img src="{{ asset('public/frontend/images/07.png') }}" class="card-img-top">
-                                        @endif
-                                        <span class="content">
-                                            <h6>{{ $item->name }}</h6>
-                                            <p>₹{{ $item->sale_price }}</p>
-                                        </span>
-                                    </a>
-                                </div>
+                                    <span class="content ">
+                                        <h6 class="text-black mt-3" style="color:black !important">{{ $item->name }}</h6>
+                                        <p class="text-black" style="color:black !important">₹{{ $item->sale_price }}</p>
+                                    </span>
+                                </a>
                             </div>
+                        </div>
                         @endforeach
                     @else
                         <h2 style="margin: auto">Select Products From Shop.</h2>
