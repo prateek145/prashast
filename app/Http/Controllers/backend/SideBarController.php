@@ -14,21 +14,21 @@ class SideBarController extends Controller
 
     public function contact_index()
     {
-        $forms = Contact::paginate(10);
+        $forms = Contact::latest()->get();
         $no = 1;
         return view('backend.contactform.index', compact('forms', 'no'));
     }
 
     public function vendor_index()
     {
-        $forms = Vendor::paginate(10);
+        $forms = Vendor::latest()->get();
         $no = 1;
         return view('backend.vendorform.index', compact('forms', 'no'));
     }
 
     public function bulkproduct_index()
     {
-        $forms = BulkOrder::paginate(10);
+        $forms = BulkOrder::latest()->get();
         $no = 1;
         return view('backend.bulkorderform.index', compact('forms', 'no'));
     }
