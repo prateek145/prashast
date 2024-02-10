@@ -118,13 +118,13 @@
                   </a>
               </li><!-- End Dashboard Nav -->
 
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                   <a class="nav-link {{ request()->segment(1) == 'vendor-index' ? '' : 'collapsed' }}"
                       href="{{ route('vendor.index') }}">
                       <i class="bi bi-journal-text"></i>
                       <span>Vendor</span>
                   </a>
-              </li><!-- End Dashboard Nav -->
+              </li><!-- End Dashboard Nav --> --}}
 
               <li class="nav-item">
                   <a class="nav-link {{ request()->segment(1) == 'bulkproduct-index' ? '' : 'collapsed' }}"
