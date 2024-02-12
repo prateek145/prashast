@@ -107,7 +107,7 @@ class ProductController extends Controller
             $image = $request->image;
             $filename = rand() . $image->getClientoriginalName();
             $destination_path = public_path('/product');
-            $image_resize = Image::make($image->getRealPath())->resize(200, 200);
+            $image_resize = Image::make($image->getRealPath())->resize(400, 400);
             $image_resize->save($destination_path . '/' . $filename);
             $data['image'] = $filename;
         }
@@ -234,7 +234,7 @@ class ProductController extends Controller
                 $filename = rand() . $image->getClientoriginalName();
                 // dd($filename);
                 $destination_path = public_path('/product');
-                $image_resize = Image::make($image->getRealPath())->resize(200, 200);
+                $image_resize = Image::make($image->getRealPath())->resize(400, 400);
                 $image_resize->save($destination_path . '/' . $filename);
                 $data['image'] = $filename;
             }
