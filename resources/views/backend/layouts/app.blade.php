@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('public/frontend/images/Regalia-logo-light.png') }}" rel="icon">
+    <link href="{{ asset('public/frontend/images/iconuppr.png') }}" rel="icon">
     <link href="{{ asset('public/backend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
