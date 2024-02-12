@@ -67,7 +67,7 @@ class ProductController extends Controller
             'name' => 'required|unique:products',
             'sku' => 'required|unique:products',
             'sale_price' => 'required',
-            'featured_image' => 'required|array|min:5|max:12',
+            'featured_image' => 'required|array|min:1|max:12',
             'image' => 'required',
             'description' => 'required',
             // 'product_categories' => 'required',
