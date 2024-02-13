@@ -59,11 +59,11 @@
                     @endphp
 
                     @if ($pro)
-                        <button class="btn btn-link wishlist-link  p-0"
+                        <button class="btn btn-link wishlist-link  p-0 mt-2"
                             onclick="addtowishlist('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Wishlist
                             <i class="bi bi-heart-fill"></i></button>
                     @else
-                        <button class="btn btn-link wishlist-link  p-0"
+                        <button class="btn btn-link wishlist-link  p-0 mt-2"
                             onclick="addtowishlist('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Wishlist
                             <i class="bi bi-heart"></i></button>
                     @endif
