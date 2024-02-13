@@ -95,7 +95,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-4  text-center py-3 order-2 order-lg-1">
-                    <div class=" topsell">
+                    <div class=" topsell" style="padding:20px !important;">
                         <div class="carousel-inner">
                             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                                 @foreach ($top_products as $key => $item)
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-4 text-center py-3 order-3 order-lg-2">
-                    <div class=" newcol">
+                    <div class=" newcol" style="padding:20px !important;">
                         <div id="carouselExampleAutoplayinga" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 @foreach ($new_products as $key => $item)
@@ -157,12 +157,12 @@
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev">
+                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev" style="top:0 !important;">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="next">
+                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="next" style="top:0 !important;">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>

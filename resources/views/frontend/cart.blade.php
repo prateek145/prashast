@@ -65,7 +65,7 @@
                             <div class="col-sm-12">
                                 <label for="firstName" class="form-label">Full name</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" id="firstName" value="{{ old('name') ?? '' }}" placeholder="Name">
+                                    name="name" id="firstName" value="{{ auth()->user() == true ? auth()->user()->name : old('name') ?? '' }}" placeholder="Name">
                                 <div class="invalid-feedback">
                                     Valid name is required.
                                 </div>
@@ -74,7 +74,7 @@
                                 <label for="email" class="form-label">Email <span class="text-muted"></span></label>
                                 <input type="email" name="email"
                                     class="form-control @error('email') is-invalid @enderror" id="email"
-                                    placeholder="you@example.com" value="{{ old('email') ?? '' }}" required>
+                                    placeholder="you@example.com" value="{{ auth()->user() == true ? auth()->user()->email : old('email') ?? '' }}" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.
                                 </div>
@@ -84,7 +84,7 @@
                                 <label for="phone" class="form-label">Phone <span class="text-muted"></span></label>
                                 <input type="text" name="phone"
                                     class="form-control @error('phone') is-invalid @enderror" id="phone"
-                                    placeholder="888888888" value="{{ old('phone') ?? '' }}" required>
+                                    placeholder="888888888" value="{{ auth()->user() == true ? auth()->user()->phone : old('phone') ?? '' }}" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid phone address for shipping updates.
                                 </div>
@@ -109,7 +109,7 @@
                                 <label for="country" class="form-label">Country</label>
                                 <select class="form-select @error('country') is-invalid @enderror" name="country"
                                     id="country" required="">
-                                    <option value="india">India</option>
+                                    <option value="india" selected>India</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select a valid country.
@@ -166,7 +166,7 @@
                                 <label for="zip" class="form-label">Pincode</label>
                                 <input type="text" name="pincode"
                                     class="form-control @error('pincode') is-invalid @enderror" id="pincode"
-                                    placeholder="Pincode">
+                                    placeholder="Pincode" value="{{old('pincode') ?? ''}}">
                                 <div class="invalid-feedback">
                                     Pincode code required.
                                 </div>
