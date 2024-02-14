@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="col-12 col-lg-4  text-center py-3 order-2 order-lg-1">
                     <div class=" topsell" style="padding:20px !important;">
-                        <div id="carouselExampleAutoplayinga" class="carousel slide" data-bs-ride="carousel">
+                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 @foreach ($top_products as $key => $item)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }} text-center">
@@ -109,7 +109,7 @@
                                         @endif
                                         <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
                                             class="img-fluid d-block mx-auto">
-                                        <p>NEW COLLECTION</p>
+                                        <p>TOP SELLER</p>
                                         <img src="{{ asset('public/product/' . $item->image) }}"
                                             class="d-block w-100" alt="...">
                                         <h6>{{ $item->name }}</h6>
@@ -119,12 +119,12 @@
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev" style="top:0 !important;">
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev" style="top:0 !important;">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="next" style="top:0 !important;">
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next" style="top:0 !important;">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>

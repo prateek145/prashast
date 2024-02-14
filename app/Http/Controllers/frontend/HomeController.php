@@ -33,7 +33,8 @@ class HomeController extends Controller
     {
         $categories = ProductSubcategory::where('status', 1)->latest()->take(5)->get();
         $new_products = Product::latest()->take(4)->get();
-        $top_products = Product::latest()->take(4)->get();
+        $top_products_ids = ProductSubcategory::where('status', 1)->pluck('top_seller');
+        $top_products = Product::whereIn('id', $top_products_ids)->get();
         $footer_image = FooterImages::latest()->first();
         $home_slider = HomePageSlider::latest()->first();
         // dd($home_slider);
