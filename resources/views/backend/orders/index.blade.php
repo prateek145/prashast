@@ -28,6 +28,7 @@
                                     <th>Shipping to</th>
                                     <th>Shipping Name</th>
                                     <th>Shipping Address</th>
+                                    <th>Created at</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -44,7 +45,7 @@
                                         <td>{{ $item->shipping_address_button ?? "off" }}</td>
                                         <td>{{ $item->shipping_name ?? "" }}</td>
                                         <td>{{ $item->shipping_address ?? "" }}</td>
-                                        {{-- <td>{{ $item->pincode }}</td> --}}
+                                        <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <div style="display:flex;">
                                                 <a href="{{ route('orders.edit', $item->id) }}" title="show"
