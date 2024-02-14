@@ -23,6 +23,7 @@
                             <tr>
                                 <th>#</th>
                                 <th> Name</th>
+                                <th> Sku</th>
                                 <th>Status</th>
                                 <th>Created_at</th>
                                 <th>Actions</th>
@@ -36,6 +37,7 @@
                                 <tr>
                                     <th scope="row">{{ $no++ }}</th>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->sku }}</td>
                                     <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                     <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                     <td>
