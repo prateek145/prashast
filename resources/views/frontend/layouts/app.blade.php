@@ -272,8 +272,8 @@
                     listname.innerHTML = '';
                     for (let index = 0; index < response.length; index++) {
                         const option = document.createElement('option');
-                        option.setAttribute('id', response[index].id);
-                        option.setAttribute('onclick', "enterValue(" + response[index].id+ ")");
+                        option.setAttribute('value', response[index].id);
+                        // option.setAttribute('onchange', "enterValue(" + response[index].id+ ")");
                         option.innerHTML = response[index].name;
                         // option.onselect = selectinput(this.value_);
                         // console.log(option);

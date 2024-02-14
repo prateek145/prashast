@@ -54,7 +54,17 @@ class FSideBarController extends Controller
             unset($data['_token']);
             $data['created_by'] = auth()->id();
             $data['updated_by'] = auth()->id();
-            FsideBar::create($data);
+
+            $sidebar = FsideBar::find(1);
+            if ($sidebar) {
+                # code...
+                FsideBar::update($data);
+            } else {
+                # code...
+                FsideBar::create($data);
+            }
+            
+        
             return redirect()->back()->with('Success', 'Successfully created.');
 
         } catch (\Exception $e) {

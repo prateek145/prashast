@@ -261,9 +261,10 @@ class HomeController extends Controller
     public function searchproduct(Request $request)
     {
 
-        dd($request->all());
+        // dd($request->all());
         $product = Product::find($request->id);
-        $latestproduct = Product::orderBy('id', 'ASC')->where('status', 1)->get()->take(3);
+        // dd($product);
+        $latestproduct = Product::orderBy('id', 'ASC')->where('status', 1)->get()->take(4);
         // dd($product);
         return view('frontend.product-detail1', compact('product', 'latestproduct'));
     }
