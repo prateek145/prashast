@@ -22,7 +22,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">List Tags</h5>
-                            <table id="example" class="table table-striped">
+                            <table class="table table-striped datatable">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
