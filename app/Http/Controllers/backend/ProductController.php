@@ -22,16 +22,8 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $query = Product::query();
-            if (isset(request()->search) && !empty(request()->search)) {
-                $search_text = request()->search;
-                $query->where('name', 'LIKE', "%{$search_text}%");
-                // ->orWhere('short_description', 'LIKE', "%{$search_text}%")
-                // ->orWhere('meta_description', 'LIKE', "%{$search_text}%")
-                // ->orWhere('email', 'LIKE', "%{$search_text}%");
-            }
-            $product = $query->orderBy('id')->paginate(10);
-            return view('backend.products.index', ['products' => $product])->with('no', 1);
+            $products = Product::latest()->get();
+            return view('backend.products.index', ['products' => $products])->with('no', 1);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
         }

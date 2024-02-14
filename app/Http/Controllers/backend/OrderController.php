@@ -16,15 +16,7 @@ class OrderController extends Controller
     public function index()
     {
         try {
-            $query = Order::query();
-            if (isset(request()->search) && !empty(request()->search)) {
-                $search_text = request()->search;
-                $query->where('name', 'LIKE', "%{$search_text}%");
-                // ->orWhere('short_description', 'LIKE', "%{$search_text}%")
-                // ->orWhere('meta_description', 'LIKE', "%{$search_text}%")
-                // ->orWhere('email', 'LIKE', "%{$search_text}%");
-            }
-            $orders = $query->orderBy('id', 'desc')->paginate(30);
+            $orders = Order::latest()->get();
             // dd($orders);
             return view('backend.orders.index', ['orders' => $orders])->with('no', 1);
         } catch (\Exception $e) {

@@ -18,7 +18,7 @@ class UserOrderController extends Controller
         try {
             //code...
             $user = auth()->user();
-            $user_order = $user->orders()->get();
+            $user_order = $user->orders()->latest()->get();
             $no = 1;
             return view('backend.userorders.index', compact('user_order', 'no'));
         } catch (\Exception $e) {

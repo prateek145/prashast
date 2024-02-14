@@ -22,15 +22,7 @@ class PageController extends Controller
     public function index()
     {
         try {
-            $query = Pages::query();
-            if (isset(request()->search) && !empty(request()->search)) {
-                $search_text = request()->search;
-                $query->where('name', 'LIKE', "%{$search_text}%");
-                // ->orWhere('short_description', 'LIKE', "%{$search_text}%")
-                // ->orWhere('meta_description', 'LIKE', "%{$search_text}%")
-                // ->orWhere('email', 'LIKE', "%{$search_text}%");
-            }
-            $pages = $query->orderBy('id')->paginate(10);
+            $pages = Pages::latest()->get();
             return view('backend.pages.index', ['pages' => $pages])->with('no', 1);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
