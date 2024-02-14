@@ -19,7 +19,7 @@
                             @endphp
                             @foreach ($products as $key => $value)
                                 <li class="list-group-item d-flex justify-content-between lh-sm">
-                                    <div>
+                                    <div style="width: 70%;">
                                         <h6 class="my-0">{{ $value['name'] }}</h6>
                                     </div>
                                     <span class="text-muted">{{ $value['qty'] }}</span>
