@@ -114,7 +114,9 @@
                             @csrf
                             <input type="text" class=" border-0 form-control" onkeyup="searchproducts(this.value)"
                                 list="datalistname" placeholder="Search">
-                            <select id="datalistname" class="form-control ml-2"></select>
+                            <select id="datalistname" class="form-control ml-2">
+                                <option value="">Search & Select</option>
+                            </select>
                             <button class="btn border-0 bg-light"><i class="bi bi-search"></i></button>
                             <input type="hidden" name="id" id="mainsearchbox">
                         </form>
