@@ -59,11 +59,11 @@
                     @endphp
 
                     @if ($pro)
-                        <button class="btn btn-link wishlist-link  p-0 mt-2"
+                        <button class="btn btn-link wishlist-link  p-0"
                             onclick="addtowishlist('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Wishlist
                             <i class="bi bi-heart-fill"></i></button>
                     @else
-                        <button class="btn btn-link wishlist-link  p-0 mt-2"
+                        <button class="btn btn-link wishlist-link  p-0"
                             onclick="addtowishlist('{{ $product->id }}', '{{ $product->sku }}', 'productdetail')">Wishlist
                             <i class="bi bi-heart"></i></button>
                     @endif
@@ -74,7 +74,7 @@
 
                     <span class="qntbox float-start">
                         Quantity <input type="number" name="qty" min="1" value="1" id="input_quantity"
-                            class="form-control" />
+                            class="form-control mb-4" />
 
                     </span>
                     <input type="hidden" name="product_id" value="{{ $product->id }}">

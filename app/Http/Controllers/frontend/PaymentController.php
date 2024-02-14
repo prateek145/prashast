@@ -132,7 +132,7 @@ class PaymentController extends Controller
 
     public function paytm_done(Request $request)
     {
-        dd($request->all(), session()->get('userdetails'));
+        // dd($request->all(), session()->get('userdetails'));
 
         if ($request->STATUS == 'TXN_SUCCESS') {
             # code...
