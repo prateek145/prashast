@@ -109,13 +109,14 @@
                 <!-- content -->
                 <div class="col-lg-9">
                     <header>
-                        <form class="form searchform d-flex col-12 col-lg-5" action="{{ route('searchproduct') }}"
+                        <form class="form searchform d-flex col-12 col-lg-12 mb-2" action="{{ route('searchproduct') }}"
                             method="post">
                             @csrf
                             <input type="text" class=" border-0 form-control" onkeyup="searchproducts(this.value)"
                                 list="datalistname" placeholder="Search">
-                            <datalist id="datalistname"></datalist>
+                            <select id="datalistname" class="form-control ml-2"></select>
                             <button class="btn border-0 bg-light"><i class="bi bi-search"></i></button>
+                            <input type="hidden" name="id" id="mainsearchbox">
                         </form>
                     </header>
                     <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
@@ -207,8 +208,8 @@
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block ">
-                                        <img src="images/icon-top.png" class="img-fluid d-block mx-auto">
-                                        <img src="images/top-separator-white.png" class="img-fluid d-block mx-auto">
+                                        <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
+                                        <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
                                         <h4>Kala</h4>
                                         <h6>MADHUBANI PAINTING</h6>
                                         <h5>TOP SELLER</h5>
@@ -218,8 +219,8 @@
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <img src="images/icon-top.png" class="img-fluid d-block mx-auto">
-                                        <img src="images/top-separator-white.png" class="img-fluid d-block mx-auto">
+                                        <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
+                                        <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
                                         <h4>Kala</h4>
                                         <h6>MADHUBANI PAINTING</h6>
                                         <h5>TOP SELLER</h5>
@@ -263,6 +264,10 @@
                 }
 
             }
+        }
+
+        function inputfield(value){
+            console.log(value);
         }
     </script>
 @endsection

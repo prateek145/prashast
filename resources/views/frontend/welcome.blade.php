@@ -290,8 +290,8 @@
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block ">
-                                        <img src="images/icon-top.png" class="img-fluid d-block mx-auto">
-                                        <img src="images/top-separator-white.png" class="img-fluid d-block mx-auto">
+                                        <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
+                                        <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
                                         <h4>Kala</h4>
                                         <h6>MADHUBANI PAINTING</h6>
                                         <h5>TOP SELLER</h5>
@@ -301,8 +301,8 @@
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <img src="images/icon-top.png" class="img-fluid d-block mx-auto">
-                                        <img src="images/top-separator-white.png" class="img-fluid d-block mx-auto">
+                                        <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
+                                        <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
                                         <h4>Kala</h4>
                                         <h6>MADHUBANI PAINTING</h6>
                                         <h5>TOP SELLER</h5>

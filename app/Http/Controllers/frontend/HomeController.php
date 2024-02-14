@@ -79,9 +79,11 @@ class HomeController extends Controller
         $max_price = (ceil(max($price_array) / 100) * 100);
         // $quatre_price = (ceil(max($price_array) / 100) * 100)/2.5;
         $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
+        $footer_image = FooterImages::latest()->first();
+
 
         // dd($products);
-        return view('frontend.dynamic_subcat', compact('max_price','shop_page_slider', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
+        return view('frontend.dynamic_subcat', compact('max_price','footer_image','shop_page_slider', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
     }
 
     public function dynamic_tags($slug)
@@ -110,8 +112,10 @@ class HomeController extends Controller
         $max_price = (ceil(max($price_array) / 100) * 100);
         // $quatre_price = (ceil(max($price_array) / 100) * 100)/2.5;
         $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
+        $footer_image = FooterImages::latest()->first();
 
-        return view('frontend.dynamic_subcat', compact('max_price', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
+
+        return view('frontend.dynamic_subcat', compact('max_price','footer_image', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
     }
 
     public function dynamic_filter($key, $slug)
@@ -121,6 +125,7 @@ class HomeController extends Controller
         $max_price = (ceil(max($price_array) / 100) * 100);
         // $quatre_price = (ceil(max($price_array) / 100) * 100)/2.5;
         $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
+        $footer_image = FooterImages::latest()->first();
 
         if ($key == 'greater') {
             # code...
@@ -138,7 +143,7 @@ class HomeController extends Controller
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
 
-            return view('frontend.dynamic_subcat', compact('max_price', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories'));
+            return view('frontend.dynamic_subcat', compact('max_price','footer_image', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories'));
         }
 
         if ($key == 'greaterthen') {
@@ -256,7 +261,8 @@ class HomeController extends Controller
     public function searchproduct(Request $request)
     {
 
-        $product = Product::where('name', 'LIKE', '%' . $request->search . '%')->where('status', 1)->first();
+        // dd($request->all());
+        $product = Product::find($request->id);
         $latestproduct = Product::orderBy('id', 'ASC')->where('status', 1)->get()->take(3);
         // dd($product);
         return view('frontend.product-detail1', compact('product', 'latestproduct'));

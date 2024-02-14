@@ -199,6 +199,7 @@ class AjaxController extends Controller
 
     public function product_search(Request $request)
     {
+        // dd($request->all());
         $products = Product::where('name', 'LIKE', '%' . $request->keyword . '%')->where('status', 1)->get();
         return response()->json($products);
     }
