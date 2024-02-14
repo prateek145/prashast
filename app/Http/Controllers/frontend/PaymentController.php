@@ -199,9 +199,12 @@ class PaymentController extends Controller
                 $order['email'] = $data['email'];
                 $order['phone'] = $data['phone'];
                 $order['billing_address'] = $data['address'] . ', ' . $data['address2'] . ', ' . $data['country'] . ', ' . $data['state'] . ', ' . $data['pincode'];
-                $order['shipping_address_button'] = $data['shipping_address_button'];
-                $order['shipping_name'] = $data['shipping_name'];
-                $order['shipping_address'] = $data['shipping_address'] . ', ' . $data['shipping_address2'] . ', ' . $data['shipping_country'] . ', ' . $data['shipping_state'] . ', ' . $data['shipping_pincode'];
+                $order['shipping_address_button'] = $data['shipping_address_button'] ?? "";
+                $order['shipping_name'] = $data['shipping_name'] ?? "";
+                if (isset($data['shipping_address_button'])) {
+                    # code...
+                    $order['shipping_address'] = $data['shipping_address'] . ', ' . $data['shipping_address2'] . ', ' . $data['shipping_country'] . ', ' . $data['shipping_state'] . ', ' . $data['shipping_pincode'];
+                }
 
                 $order['product_details'] = $pdetails;
                 $order['amount'] = $amount;
