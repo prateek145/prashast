@@ -55,10 +55,10 @@ class FSideBarController extends Controller
             $data['created_by'] = auth()->id();
             $data['updated_by'] = auth()->id();
 
-            $sidebar = FsideBar::find(1);
+            $sidebar = FsideBar::latest()->first();
             if ($sidebar) {
                 # code...
-                FsideBar::update($data);
+                $sidebar->update($data);
             } else {
                 # code...
                 FsideBar::create($data);

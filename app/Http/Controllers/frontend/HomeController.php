@@ -68,7 +68,7 @@ class HomeController extends Controller
         }
         // dd($key, $slug, $subcategory, $products1);
         $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
-        $products = Product::whereIn('id', $productids)->paginate(9);
+        $products = Product::whereIn('id', $productids)->paginate(6);
         $categories = ProductSubcategory::where('status', 1)->latest()->get();
         $tags = Tags::where('status', 1)->latest()->get();
         $fsidebar = FsideBar::latest()->first();
@@ -101,7 +101,7 @@ class HomeController extends Controller
             }
         }
         $sub_categories = ProductSubcategory::where('parent_id', 1)->get();
-        $products = Product::whereIn('id', $productids)->paginate(9);
+        $products = Product::whereIn('id', $productids)->paginate(6);
         // dd($products);
         $categories = ProductSubcategory::where('status', 1)->latest()->get();
         $tags = Tags::where('status', 1)->latest()->get();
@@ -129,7 +129,7 @@ class HomeController extends Controller
 
         if ($key == 'greater') {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '>=', $min_price)->where('sale_price', '<', $medium_price)->paginate(9);
+            $products = Product::where('status', 1)->where('sale_price', '>=', $min_price)->where('sale_price', '<', $medium_price)->paginate(6);
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
@@ -138,7 +138,7 @@ class HomeController extends Controller
 
         if ($key == 'equal') {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '<=', $medium_price)->where('sale_price', '<=', $max_price)->paginate(9);
+            $products = Product::where('status', 1)->where('sale_price', '<=', $medium_price)->where('sale_price', '<=', $max_price)->paginate(6);
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
@@ -148,7 +148,7 @@ class HomeController extends Controller
 
         if ($key == 'greaterthen') {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '=<', $slug)->paginate(9);
+            $products = Product::where('status', 1)->where('sale_price', '=<', $slug)->paginate(6);
             // dd($products, $slug, $max_price);
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
@@ -160,7 +160,7 @@ class HomeController extends Controller
     public function shop_page()
     {
         $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
-        $products = Product::where('status', 1)->paginate(9);
+        $products = Product::where('status', 1)->paginate(6);
         $categories = ProductSubcategory::where('status', 1)->latest()->get();
         $tags = Tags::where('status', 1)->latest()->get();
         $fsidebar = FsideBar::latest()->first();
