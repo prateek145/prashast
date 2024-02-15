@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\backend\AjaxController;
+use App\Http\Controllers\backend\BlogController;
 use App\Http\Controllers\backend\DesinerConroller;
 use App\Http\Controllers\backend\FSideBarController;
 use App\Http\Controllers\backend\HomePageSliderController;
@@ -47,6 +48,7 @@ Route::get('/', [HomeController::class, 'home'])->name('frontend.home');
 Route::get('contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact');
 Route::get('about-us', [PageController::class, 'about_us'])->name('frontend.about');
 Route::get('blogs', [PageController::class, 'blogs'])->name('blogs');
+Route::get('blogs/{id}', [PageController::class, 'blogs_show'])->name('blogs.show');
 Route::get('page/{slug}', [PageController::class, 'page_dynamic'])->name('page.dynamic');
 Route::get('my-account', [Pagecontroller::class, 'my_account'])->name('my.account')->middleware('auth');
 Route::get('profile', [Pagecontroller::class, 'profile'])->name('profile')->middleware('auth');;
@@ -106,6 +108,7 @@ Route::resource('orderdetails', OrderdetailsController::class)->middleware('auth
 Route::resource('sidebar', FSideBarController::class)->middleware('auth');
 Route::resource('shop/page/slider', ShopPageSliderController::class)->middleware('auth');
 Route::resource('home-slider', HomePageSliderController::class)->middleware('auth');
+Route::resource('blog', BlogController::class)->middleware('auth');
 
 //for tag ajax
 Route::post('tag_create', [TagController::class, 'tag_create'])->name('tag.create');

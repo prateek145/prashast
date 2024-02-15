@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\Blog;
 use App\Models\backend\FooterImages;
 use App\Models\backend\PageImages;
 use App\Models\backend\Pages;
@@ -51,32 +52,32 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'name' => 'required|max:100'
-        ];
-
-        $custommessages = [
-            'name.required' => 'Name is required'
-        ];
-
-        $this->validate($request, $rules, $custommessages);
-
-        $data = $request->all();
-        // if ($request->featured_image) {
-        //     # code...
-        //     $image = $request->featured_image;
-        //     $filename = rand() . $image->getClientOriginalName();
-        //     $image_resize = Image::make($image->getRealPath());
-        //     $image_resize->resize(400, 400);
-        //     $image_resize->save(storage_path('app/public/user_profile/' . $filename));
-        //     unset($data['featured_image']);
-        //     $data['featured_image'] = $filename;
-        // }
-        unset($data['_token']);
-        $data['slug'] = Str::slug($request->name);
-        Pages::create($data);
-        return redirect()->route('pages.index')->with('success', 'Successfully ' . $request->name . ' Created');
         try {
+            $rules = [
+                'name' => 'required|max:100'
+            ];
+    
+            $custommessages = [
+                'name.required' => 'Name is required'
+            ];
+    
+            $this->validate($request, $rules, $custommessages);
+    
+            $data = $request->all();
+            // if ($request->featured_image) {
+            //     # code...
+            //     $image = $request->featured_image;
+            //     $filename = rand() . $image->getClientOriginalName();
+            //     $image_resize = Image::make($image->getRealPath());
+            //     $image_resize->resize(400, 400);
+            //     $image_resize->save(storage_path('app/public/user_profile/' . $filename));
+            //     unset($data['featured_image']);
+            //     $data['featured_image'] = $filename;
+            // }
+            unset($data['_token']);
+            $data['slug'] = Str::slug($request->name);
+            Pages::create($data);
+            return redirect()->route('pages.index')->with('success', 'Successfully ' . $request->name . ' Created');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -187,10 +188,17 @@ class PageController extends Controller
 
     public function blogs(){
         $page_image = PageImages::where('name', 'blogs')->first();
-        $page = Pages::where('slug', 'blogs')->first();
+        $blogs = Blog::where('status', 1)->latest()->get();
         $footer_image = FooterImages::latest()->first();
         // dd($page, $page_image, $footer_image);
-        return view('frontend.dynamicp', compact('page', 'page_image', 'footer_image'));
+        return view('frontend.blogs', compact('page_image', 'footer_image', 'blogs'));
+    }
+
+    public function blogs_show($id){
+        $page_image = PageImages::where('name', 'blogs')->first();
+        $blog = Blog::find($id);
+        $footer_image = FooterImages::latest()->first();
+        return view('frontend.blogshow', compact('page_image', 'footer_image', 'blog'));
     }
 
     public function profile()
