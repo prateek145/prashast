@@ -119,7 +119,7 @@
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev" style="top:0 !important;">
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev" style="top:0 !important; left:0px !important">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
@@ -156,7 +156,7 @@
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev" style="top:0 !important;">
+                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev" style="top:0 !important;left:0px !important">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
