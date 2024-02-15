@@ -199,7 +199,7 @@ class PageController extends Controller
     }
 
     public function page_dynamic($slug){
-        $page_image = PageImages::where('name', 'blogs')->first();
+        $page_image = PageImages::where('name', 'dynamic')->first();
         $page = Pages::where('slug', $slug)->first();
         $footer_image = FooterImages::latest()->first();
         // dd($page, $page_image, $footer_image);
