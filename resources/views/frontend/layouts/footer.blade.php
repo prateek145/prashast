@@ -55,13 +55,15 @@
                     <li> <a style="color: #6e6e6e;" href="{{ route('shop.page') }}">Shop</a> </li>
                     <li> <a style="color: #6e6e6e;" href="{{ route('frontend.contact') }}">Contact Us</a> </li>
                     <li> <a style="color: #6e6e6e;" href="{{ route('blogs') }}">Blogs</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'return-and-cancellation-policy') }}">Return and Cancellation Policy</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'shipping-policy') }}">Shipping Policy</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'privacy-policy') }}">Privacy Policy</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'terms-and-conditions') }}">Terms and Conditions</a> </li>
+                    
+
                     {{-- <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', '') }}">Blogs</a> </li> --}}
                 </ul>
-                <ul class="footlink text-center text-lg-start">
-                    <li>Disclaimer</li>
-                    <li>Terms of Service</li>
-                    <li>Privacy Policy</li>
-                </ul>
+
             </div>
             <div class="col-lg-4 text-center">
                 <img src="{{ asset('public/frontend/images/footer-logo.png') }}" class="img-fluid footer-logo">

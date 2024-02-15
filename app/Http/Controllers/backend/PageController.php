@@ -202,7 +202,7 @@ class PageController extends Controller
         $page_image = PageImages::where('name', 'dynamic')->first();
         $page = Pages::where('slug', $slug)->first();
         $footer_image = FooterImages::latest()->first();
-        // dd($page, $page_image, $footer_image);
+        dd($page, $page_image, $footer_image);
         return view('frontend.dynamicp', compact('page', 'page_image', 'footer_image'));
     }
 
