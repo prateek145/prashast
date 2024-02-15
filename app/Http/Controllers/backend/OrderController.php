@@ -70,8 +70,8 @@ class OrderController extends Controller
     {
         try {
             $order = Order::where('id', $id)->first();
-            // dd($order);
             $order_details = Json_decode($order->product_details);
+            // dd($order, $order_details);
             return view('backend.orders.show', compact('order_details','order'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());

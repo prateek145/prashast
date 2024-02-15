@@ -139,23 +139,6 @@ class PageController extends Controller
 
             $data = $request->all();
             $page = Pages::where(['id' => $id])->first();
-
-            // if ($request->featured_image) {
-            //     # code...
-            //     if ($user->featured_image) {
-            //         # code...
-            //         // unlink(storage_path('app/public/user_profile/'. $user->featured_image));
-            //     }
-
-            //     $image = $request->featured_image;
-            //     $filename = rand() . $image->getClientOriginalName();
-            //     $image_resize = Image::make($image->getRealPath());
-            //     $image_resize->resize(400, 400);
-            //     $image_resize->save(storage_path('app/public/user_profile/' . $filename));
-            //     unset($data['featured_image']);
-            //     $data['featured_image'] = $filename;
-            // }
-
             $page->update($data);
             return redirect()->back()->with('success', 'Succesfully ' . $request->name . ' Updated');
         } catch (\Exception $e) {
@@ -213,6 +196,14 @@ class PageController extends Controller
     public function profile()
     {
         return view('frontend.profile');
+    }
+
+    public function page_dynamic($slug){
+        $page_image = PageImages::where('name', 'blogs')->first();
+        $page = Pages::where('slug', $slug)->first();
+        $footer_image = FooterImages::latest()->first();
+        // dd($page, $page_image, $footer_image);
+        return view('frontend.dynamicp', compact('page', 'page_image', 'footer_image'));
     }
 
 }

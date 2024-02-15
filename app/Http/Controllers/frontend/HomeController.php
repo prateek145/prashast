@@ -76,10 +76,9 @@ class HomeController extends Controller
         $page_image = BackendPageImages::where('name', 'shop')->first();
         $shop_page_slider = ShopPageSlider::latest()->first();
         $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
-        $min_price = (floor(min($price_array) / 100) * 100);
-        $max_price = (ceil(max($price_array) / 100) * 100);
-        // $quatre_price = (ceil(max($price_array) / 100) * 100)/2.5;
-        $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
+        $min_price = min($price_array);
+        $max_price = max($price_array);
+        $medium_price = round(($max_price - $min_price)/2, 0);
         $footer_image = FooterImages::latest()->first();
 
 
@@ -109,10 +108,9 @@ class HomeController extends Controller
         $fsidebar = FsideBar::latest()->first();
         $page_image = BackendPageImages::where('name', 'shop')->first();
         $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
-        $min_price = (floor(min($price_array) / 100) * 100);
-        $max_price = (ceil(max($price_array) / 100) * 100);
-        // $quatre_price = (ceil(max($price_array) / 100) * 100)/2.5;
-        $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
+        $min_price = min($price_array);
+        $max_price = max($price_array);
+        $medium_price = round(($max_price - $min_price)/2, 0);
         $footer_image = FooterImages::latest()->first();
 
 
@@ -122,15 +120,15 @@ class HomeController extends Controller
     public function dynamic_filter($key, $slug)
     {
         $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
-        $min_price = (floor(min($price_array) / 100) * 100);
-        $max_price = (ceil(max($price_array) / 100) * 100);
-        // $quatre_price = (ceil(max($price_array) / 100) * 100)/2.5;
-        $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
+        $min_price = min($price_array);
+        $max_price = max($price_array);
+        $medium_price = round(($max_price - $min_price)/2, 0);
+
         $footer_image = FooterImages::latest()->first();
 
         if ($key == 'greater') {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '>=', $min_price)->where('sale_price', '<', $medium_price)->paginate(6);
+            $products = Product::where('status', 1)->whereBetween('sale_price', [$min_price, $medium_price])->paginate(6);
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
@@ -139,7 +137,8 @@ class HomeController extends Controller
 
         if ($key == 'equal') {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '<=', $medium_price)->where('sale_price', '<=', $max_price)->paginate(6);
+            // dd($medium_price, gettype($max_price));
+            $products = Product::where('status', 1)->whereBetween('sale_price', [$medium_price, $max_price - 1])->paginate(6);
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
@@ -149,7 +148,7 @@ class HomeController extends Controller
 
         if ($key == 'greaterthen') {
             # code...
-            $products = Product::where('status', 1)->where('sale_price', '=<', $slug)->paginate(6);
+            $products = Product::where('status', 1)->where('sale_price', '=', $slug)->paginate(6);
             // dd($products, $slug, $max_price);
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
@@ -167,10 +166,9 @@ class HomeController extends Controller
         $fsidebar = FsideBar::latest()->first();
         $page_image = BackendPageImages::where('name', 'shop')->first();
         $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
-        $min_price = (floor(min($price_array) / 100) * 100);
-        $max_price = (ceil(max($price_array) / 100) * 100);
-        // $quatre_price = (ceil(max($price_array) / 100) * 100)/2.5;
-        $medium_price = (ceil(max($price_array) / 100) * 100) / 2;
+        $min_price = min($price_array);
+        $max_price = max($price_array);
+        $medium_price = round(($max_price - $min_price)/2, 0);
         // dd($min_price, $quatre_price, $medium_price, $max_price);
         $footer_image = FooterImages::latest()->first();
         $shop_page_slider = ShopPageSlider::latest()->first();

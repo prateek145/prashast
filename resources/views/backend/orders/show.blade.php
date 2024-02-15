@@ -135,7 +135,7 @@
     }
 
     header h1 {
-        background: #000;
+        background: #9e6838;
         border-radius: 0.25em;
         color: #FFF;
         margin: 0 0 1em;
@@ -388,45 +388,56 @@
     <body>
         <header>
             <h1>Invoice</h1>
-            <address contenteditable>
+            <address >
                 {{-- <p>{{$order->name}}</p> --}}
+                <p>Bill To:</p>
                 <p>Name : {{ $order->name ?? '' }}</p>
-                <p>Email : {{ $order->name ?? '' }}</p>
+                <p>Email : {{ $order->email ?? '' }}</p>
                 <p>Phone : {{ $order->phone ?? '' }}</p>
                 <p>Billing Address : {{ $order->billing_address ?? '' }}</p>
                 @if ($order->shipping_address)
-                    <p>Shipping Address : {{ $order->shipping_address ?? '' }}</p>
-                    <p>Shipping Name : {{ $order->shipping_name ?? '' }}</p>
+                    <p>Ship To:</p>
+                    <p>Shipping Name : {{ $order->shipping_name ?? $order->name }}</p>
+                    <p>Shipping Address : {{ $order->shipping_address ?? $order->billing_address }}</p>
                 @endif
             </address>
             <span> <a href="https://prashast.co.in/"><img alt=""
-                        src="{{ asset('backend/img/unnamed (1).png') }}"><input type="file" accept="image/*"></a>
+                        src="{{ asset('public/frontend/images/iconuppr.png') }}"></a>
             </span>
         </header>
         <article>
             <h1>Recipient</h1>
-            <address contenteditable>
 
-                <p>Prashast innovation<br>Private Limited</p>
-            </address>
+            <h3>Prashast innovation<br>Private Limited
+            </h3>
+
             <table class="meta">
                 <tr>
-                    <th><span contenteditable>Invoice #</span></th>
-                    <td><span contenteditable>{{ $order->order_id }}</span></td>
+                    <th><span >Order No</span></th>
+                    <td><span >{{ $order->order_id }}</span></td>
                 </tr>
                 <tr>
-                    <th><span contenteditable>Amount Total</span></th>
-                    <td><span id="prefix" contenteditable>₹</span><span>{{ $order->amount }}</span></td>
+                    <th><span >Order Date</span></th>
+                    <td><span >{{ $order->created_at->format('d-m-Y') ?? '' }}</span></td>
+                </tr>
+                <tr>
+                    <th><span >Payment Method</span></th>
+                    <td><span >PREPAID</span></td>
+                </tr>
+                <tr>
+                    <th><span >Amount Total</span></th>
+                    <td><span id="prefix" >₹</span><span>{{ $order->amount }}</span></td>
                 </tr>
             </table>
             <table class="inventory">
                 <thead>
                     <tr>
-                        <th><span contenteditable>product Name</span></th>
-                        <th><span contenteditable>product Sku</span></th>
-                        <th><span contenteditable>product Qty</span></th>
-                        <th><span contenteditable>product Price</span></th>
-                        <th><span contenteditable>product Total Price</span></th>
+                        <th><span >Sr No</span></th>
+                        <th style="width: 50%;"><span >product Name</span></th>
+                        <th style="width: 10%;"><span >product Sku</span></th>
+                        <th><span >product Qty</span></th>
+                        <th><span >product Price</span></th>
+                        <th><span >product Total Price</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -434,13 +445,14 @@
                     {{-- {{dd($order_details)}} --}}
                     @for ($i = 0; $i < count($order_details); $i++)
                         <tr>
-                            <td><span contenteditable>{{ $order_details[$i]->name ?? '' }}</span></td>
-                            <td><span contenteditable>{{ $order_details[$i]->sku ?? '' }}</span></td>
-                            <td><span contenteditable>{{ $order_details[$i]->qty ?? '' }}</span></td>
-                            <td><span data-prefix></span><span contenteditable>₹{{ $order_details[$i]->price }}</span>
+                            <td><span >{{ $i + 1 }}</span></td>
+                            <td><span >{{ $order_details[$i]->name ?? '' }}</span></td>
+                            <td><span >{{ $order_details[$i]->sku ?? '' }}</span></td>
+                            <td><span >{{ $order_details[$i]->qty ?? '' }}</span></td>
+                            <td><span data-prefix></span><span >₹{{ $order_details[$i]->price }}</span>
                             </td>
                             <td><span data-prefix></span><span
-                                    contenteditable>₹{{ $order_details[$i]->qty * $order_details[$i]->price }}</span>
+                                    >₹{{ $order_details[$i]->qty * $order_details[$i]->price }}</span>
                             </td>
                         </tr>
                     @endfor
@@ -450,15 +462,28 @@
             {{-- <a class="add">+</a> --}}
             <table class="balance">
                 <tr>
-                    <th><span contenteditable>Total</span></th>
+                    <th><span >Total</span></th>
                     <td><span data-prefix>₹</span><span>{{ $order->amount }}</span></td>
                 </tr>
             </table>
         </article>
 
+        <hr>
+
+        <h5>Sender :</h5>
+        <h4>
+            <p>Prashast innovation<br>Private Limited</p>
+        </h4>
+        <h5>
+            C 98, Sector 10, Noida, Gautam
+            Buddha Nagar, Uttar Pradesh,,
+            NOIDA - 201301
+            Uttar Pradesh (09), India<br><br>
+            GSTIN: 09AALCP2948L1ZQ
+        </h5>
         <h4>Use Ctrl + p / Take ScreenShot</h4>
         {{-- <aside>
-			<h1><span contenteditable>Additional Notes</span></h1>
+			<h1><span >Additional Notes</span></h1>
 			<div contenteditable>
 				<p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
 			</div>

@@ -47,6 +47,7 @@ Route::get('/', [HomeController::class, 'home'])->name('frontend.home');
 Route::get('contact-us', [HomeController::class, 'contact_us'])->name('frontend.contact');
 Route::get('about-us', [PageController::class, 'about_us'])->name('frontend.about');
 Route::get('blogs', [PageController::class, 'blogs'])->name('blogs');
+Route::get('page/{slug}', [PageController::class, 'page_dynamic'])->name('page.dynamic');
 Route::get('my-account', [Pagecontroller::class, 'my_account'])->name('my.account')->middleware('auth');
 Route::get('profile', [Pagecontroller::class, 'profile'])->name('profile')->middleware('auth');;
 Route::get('categories/{slug}', [HomeController::class, 'dynamic_categories'])->name('dynamic.categories');
