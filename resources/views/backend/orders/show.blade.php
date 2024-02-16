@@ -395,11 +395,9 @@
                 <p>Email : {{ $order->email ?? '' }}</p>
                 <p>Phone : {{ $order->phone ?? '' }}</p>
                 <p>Billing Address : {{ $order->billing_address ?? '' }}</p>
-                @if ($order->shipping_address)
-                    <p>Ship To:</p>
-                    <p>Shipping Name : {{ $order->shipping_name ?? $order->name }}</p>
-                    <p>Shipping Address : {{ $order->shipping_address ?? $order->billing_address }}</p>
-                @endif
+                <p>Ship To:</p>
+                <p>Shipping Name : {{ $order->shipping_name ?? $order->name }}</p>
+                <p>Shipping Address : {{ $order->shipping_address ?? $order->billing_address }}</p>
             </address>
             <span> <a href="https://prashast.co.in/"><img alt=""
                         src="{{ asset('public/frontend/images/iconuppr.png') }}"></a>
