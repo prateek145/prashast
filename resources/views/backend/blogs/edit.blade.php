@@ -63,7 +63,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="control-label font-weight-bold">Description</label>
-                                        <textarea name="description" id="editor1">{{$blog->description ?? ""}}</textarea>
+                                        <textarea name="description" id="editor1">{!! $blog->description ?? "" !!}</textarea>
                                         @error('content')
                                             <label id="content-error" class="error text-danger" for="content">{{ $message }}</label>
                                         @enderror

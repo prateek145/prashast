@@ -79,7 +79,7 @@
 
               <li class="nav-item">
                   <a class="nav-link {{ request()->segment(1) == 'blog' ? '' : 'collapsed' }}"
-                      href="{{ route('blog.index') }}">
+                      href="{{ url('blog_admin') }}">
                       <i class="bi bi-journal-text"></i>
                       <span>Blogs</span>
                   </a>

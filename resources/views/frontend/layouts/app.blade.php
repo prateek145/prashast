@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('public/frontend/owl/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/frontend/owl/assets/owl.theme.default.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/style.css') }}" />
+    <link type="text/css" href="{{ asset('public/binshops-blog.css') }}" rel="stylesheet">
+
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css"
         integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">

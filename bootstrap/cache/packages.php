@@ -1,4 +1,21 @@
 <?php return array (
+  'binshops/laravel-blog' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'BinshopsBlog\\BinshopsBlogServiceProvider',
+    ),
+    'aliases' => 
+    array (
+    ),
+  ),
+  'cviebrock/eloquent-sluggable' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Cviebrock\\EloquentSluggable\\ServiceProvider',
+    ),
+  ),
   'facade/ignition' => 
   array (
     'providers' => 
