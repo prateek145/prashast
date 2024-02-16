@@ -70,7 +70,7 @@
                                     Valid name is required.
                                 </div>
                             </div>
-                            <input type="hidden" value="{{ $totalprice }}" name="amount">
+                            <input type="hidden" value="{{ $totalprice ?? $product->sale_price * $qty}}" name="amount">
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span class="text-muted"></span></label>
                                 <input type="email" name="email"
