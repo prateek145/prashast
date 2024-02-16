@@ -10,7 +10,7 @@
             <?=$post->image_tag("medium", true, ''); ?>
           
         </div>
-        {{dd($post)}}
+        {{-- {{dd($post)}} --}}
         <div class="col p-4 d-flex flex-column position-static">
           {{-- <strong class="d-inline-block mb-2 text-primary-emphasis">{{$post->categories}}asdasd</strong> <!--NOT working--> --}}
           <h3 class="mb-0">{{$post->title}}</h3>
