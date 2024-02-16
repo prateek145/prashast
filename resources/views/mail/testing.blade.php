@@ -396,6 +396,7 @@
                 <p>Phone : {{ $order->phone ?? '' }}</p>
                 <p>Billing Address : {{ $order->billing_address ?? '' }}</p>
                 <p>Ship To:</p>
+                {{dd($order->shipping_name)}}
                 <p>Shipping Name : {{ $order->shipping_name == '' ? $order->name : $order->shipping_name}}</p>
                 <p>Shipping Address : {{ $order->shipping_address ?? $order->billing_address }}</p>
             </address>
