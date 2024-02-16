@@ -396,7 +396,7 @@
                 <p>Phone : {{ $order->phone ?? '' }}</p>
                 <p>Billing Address : {{ $order->billing_address ?? '' }}</p>
                 <p>Ship To:</p>
-                <p>Shipping Name : {{ $order->shipping_name ?? $order->name }}</p>
+                <p>Shipping Name : {{ $order->shipping_name == '' ? $order->name : $order->shipping_name}}</p>
                 <p>Shipping Address : {{ $order->shipping_address ?? $order->billing_address }}</p>
             </address>
             <span> <a href="https://prashast.co.in/"><img alt=""
