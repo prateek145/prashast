@@ -108,7 +108,7 @@ Route::resource('orderdetails', OrderdetailsController::class)->middleware('auth
 Route::resource('sidebar', FSideBarController::class)->middleware('auth');
 Route::resource('shop/page/slider', ShopPageSliderController::class)->middleware('auth');
 Route::resource('home-slider', HomePageSliderController::class)->middleware('auth');
-// Route::resource('blog', BlogController::class)->middleware('auth');
+Route::resource('blog', BlogController::class)->middleware('auth');
 
 //for tag ajax
 Route::post('tag_create', [TagController::class, 'tag_create'])->name('tag.create');
@@ -169,19 +169,19 @@ Route::get('download-bill/{id}', function ($id) {
     return view('mail.testing', compact('order', 'order_details'));
 })->name('download.bill');
 
-Route::get('sendmail', function () {
+// Route::get('sendmail', function () {
 
-    $data1 = ['prateek' => 'kumar'];
-    $message = "testing";
-    $user = 'testing';
+//     $data1 = ['prateek' => 'kumar'];
+//     $message = "testing";
+//     $user = 'testing';
 
-    $mail = Mail::send('mail.testing1', ['body' => $data1], function ($message) use ($user) {
-        $message->sender('projectmanagement@omegawebdemo.com.au');
-        $message->subject('Prashast');
-        $message->to('prateekk898@gmail.com');
-    });
+//     $mail = Mail::send('mail.testing1', ['body' => $data1], function ($message) use ($user) {
+//         $message->sender('projectmanagement@omegawebdemo.com.au');
+//         $message->subject('Prashast');
+//         $message->to('prateekk898@gmail.com');
+//     });
 
-});
+// });
 
 
 //paytm payment routes 
