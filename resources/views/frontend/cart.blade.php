@@ -41,7 +41,7 @@
                     @if ($cart == false)
                         <ul class="list-group mb-3">
                             <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div>
+                                <div style="width: 70%;">
                                     <h6 class="my-0">{{ $product->name }}</h6>
                                 </div>
                                 <span class="text-muted">{{ $qty }}</span>

@@ -1,53 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Prashast</title>
-    {{-- <link rel="stylesheet" href="./style.css"> --}}
-
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="invoice.css">
 </head>
+
 <style>
-    {
+    * {
         border: 0;
-        box-sizing: content-box;
-        color: inherit;
-        font-family: inherit;
-        font-size: inherit;
-        font-style: inherit;
-        font-weight: inherit;
-        line-height: inherit;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        text-decoration: none;
-        vertical-align: top;
+        box-sizing: border-box;
+
     }
 
-    /* content editable */
+    /* page */
 
-    *[contenteditable] {
-        border-radius: 0.25em;
-        min-width: 1em;
-        outline: 0;
+    html {
+        overflow: auto;
+        padding: 0.5in;
     }
 
-    *[contenteditable] {
-        cursor: pointer;
+    html {
+        background: #999;
+        cursor: default;
     }
 
-    *[contenteditable]:hover,
-    *[contenteditable]:focus,
-    td:hover *[contenteditable],
-    td:focus *[contenteditable],
-    img.hover {
-        background: #DEF;
-        box-shadow: 0 0 1em 0.5em #DEF;
+    body {
+        box-sizing: border-box;
+        height: 11in;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 0.5in;
+        width: 8.5in;
     }
 
-    span[contenteditable] {
-        display: inline-block;
-    }
 
     /* heading */
 
@@ -56,6 +44,7 @@
         letter-spacing: 0.5em;
         text-align: center;
         text-transform: uppercase;
+
     }
 
     /* table */
@@ -94,33 +83,6 @@
         border-color: #DDD;
     }
 
-    /* page */
-
-    html {
-        font: 16px/1 'Open Sans', sans-serif;
-        overflow: auto;
-        padding: 0.5in;
-    }
-
-    html {
-        background: #999;
-        cursor: default;
-    }
-
-    body {
-        box-sizing: border-box;
-        height: 11in;
-        margin: 0 auto;
-        overflow: hidden;
-        padding: 0.5in;
-        width: 8.5in;
-    }
-
-    body {
-        background: #FFF;
-        border-radius: 1px;
-        box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
-    }
 
     /* header */
 
@@ -135,7 +97,7 @@
     }
 
     header h1 {
-        background: #9e6838;
+        background: #986633;
         border-radius: 0.25em;
         color: #FFF;
         margin: 0 0 1em;
@@ -147,7 +109,7 @@
         font-size: 75%;
         font-style: normal;
         line-height: 1.25;
-        margin: 0 1em 1em 0;
+        margin: 0 1em 0em 0;
     }
 
     header address p {
@@ -165,22 +127,6 @@
         max-height: 25%;
         max-width: 60%;
         position: relative;
-    }
-
-    header img {
-        max-height: 100%;
-        max-width: 100%;
-    }
-
-    header input {
-        cursor: pointer;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-        height: 100%;
-        left: 0;
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
     }
 
     /* article */
@@ -211,12 +157,7 @@
 
     /* table meta & balance */
 
-    table.meta,
-    table.balance {
-        float: right;
-        width: 36%;
-    }
-
+    /* table.meta, table.balance { float: right;  } */
     table.meta:after,
     table.balance:after {
         clear: both;
@@ -244,6 +185,8 @@
     table.inventory th {
         font-weight: bold;
         text-align: center;
+        align-items: center;
+        justify-content: center;
     }
 
     table.inventory td:nth-child(1) {
@@ -280,6 +223,11 @@
         text-align: right;
     }
 
+    table.balance tr {
+        text-align: right;
+        width: 50%;
+    }
+
     /* aside */
 
     aside h1 {
@@ -293,55 +241,7 @@
         border-bottom-style: solid;
     }
 
-    /* javascript */
 
-    .add,
-    .cut {
-        border-width: 1px;
-        display: block;
-        font-size: .8rem;
-        padding: 0.25em 0.5em;
-        float: left;
-        text-align: center;
-        width: 0.6em;
-    }
-
-    .add,
-    .cut {
-        background: #9AF;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        background-image: -moz-linear-gradient(#00ADEE 5%, #0078A5 100%);
-        background-image: -webkit-linear-gradient(#00ADEE 5%, #0078A5 100%);
-        border-radius: 0.5em;
-        border-color: #0076A3;
-        color: #FFF;
-        cursor: pointer;
-        font-weight: bold;
-        text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.333);
-    }
-
-    .add {
-        margin: -2.5em 0 0;
-    }
-
-    .add:hover {
-        background: #00ADEE;
-    }
-
-    .cut {
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: -1.5em;
-    }
-
-    .cut {
-        -webkit-transition: opacity 100ms ease-in;
-    }
-
-    tr:hover .cut {
-        opacity: 1;
-    }
 
     @media print {
         * {
@@ -371,126 +271,154 @@
     @page {
         margin: 0;
     }
+
+    .receive .bill {
+        line-height: 10px;
+        font-size: 14px;
+    }
+
+    .receive .ship {
+        line-height: 15px;
+        font-size: 14px;
+    }
+
+    .balance {
+        width: 40%;
+        float: right;
+    }
 </style>
 
 <body>
-    <!-- partial:index.partial.html -->
-    <html>
 
-    <head>
-        <meta charset="utf-8">
-        <title>Invoice</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
-        <script src="script.js"></script>
-    </head>
+    <!-- Logo section  -->
+    <div class="text-center mb-3">
+        <img src="{{ asset('public/frontend/images/iconuppr.png') }}" alt="">
 
-    <body>
-        <header>
+    </div>
+
+    <!-- Header Section  -->
+    <header>
+
+        <div class="head">
             <h1>Invoice</h1>
-            <address >
-                {{-- <p>{{$order->name}}</p> --}}
-                <p>Bill To:</p>
-                <p>Name : {{ $order->name ?? '' }}</p>
-                <p>Email : {{ $order->email ?? '' }}</p>
-                <p>Phone : {{ $order->phone ?? '' }}</p>
-                <p>Billing Address : {{ $order->billing_address ?? '' }}</p>
-                <p>Ship To:</p>
-                <p>Shipping Name : {{ $order->shipping_name == '' ? $order->name : $order->shipping_name}}</p>
-                <p>Shipping Address : {{ $order->shipping_address ?? $order->billing_address }}</p>
-            </address>
-            <span> <a href="https://prashast.co.in/"><img alt=""
-                        src="{{ asset('public/frontend/images/iconuppr.png') }}"></a>
-            </span>
-        </header>
-        <article>
-            <h1>Recipient</h1>
 
-            <h3>Prashast innovation<br>Private Limited
-            </h3>
+        </div>
+        <address>
+            <p class="fs-6 fw-bold mb-2">Sender:</p>
+            <p><b>Prashast Innovation Private Limited</b></p>
+            <p><b>C-98, Sector-10, Noida, Gautam Buddha Nagar, (09) Uttar Pradesh-201301</b></p>
+            <p><b>GSTIN: 09AALCP2948L1ZQ</b></p>
+            <hr style="width: 60%; ">
+
+        </address>
+
+    </header>
+
+    <!-- Bill Section  -->
+
+    <div class="row mb-3">
+
+        <div class="col col-6 receive py-2">
+
+            <div class="bill">
+                <p><b>Bill To:</b> </p>
+                <p>Name: <span>{{ $order->name ?? '' }}</span> </p>
+                <p>Email: <span>{{ $order->email ?? '' }}</span> </p>
+                <p>Phone: <span>{{ $order->phone ?? '' }}</span> </p>
+                <p>Billing Address: <span> {{ $order->billing_address ?? '' }}</span> </p>
+            </div>
+
+            <div class="ship mt-4">
+                <p><b>Ship To:</b></p>
+                <p>Shipping Name: <span>{{ $order->shipping_name == '' ? $order->name : $order->shipping_name }}</span>
+                </p>
+                <p>Shipping Address: <span> {{ $order->shipping_address ?? $order->billing_address }}</span> </p>
+
+            </div>
+
+
+
+        </div>
+
+        <div class="col col-5">
 
             <table class="meta">
+
+                <h6 class="text-center">Prashast Innovation Private Limited</h6>
+
+
                 <tr>
-                    <th><span >Order No</span></th>
-                    <td><span >{{ $order->order_id }}</span></td>
+                    <th class="text-center"><span><b>Order No</b></span></th>
+                    <td><span>{{ $order->order_id }}</span></td>
                 </tr>
                 <tr>
-                    <th><span >Order Date</span></th>
-                    <td><span >{{ $order->created_at->format('d-m-Y') ?? '' }}</span></td>
+                    <th class="text-center"><span><b>Order Date</b></span></th>
+                    <td><span>{{ $order->created_at->format('d-m-Y') ?? '' }}</span></td>
                 </tr>
                 <tr>
-                    <th><span >Payment Method</span></th>
-                    <td><span >PREPAID</span></td>
+                    <th class="text-center"><span><b>Payment Mode</b></span></th>
+                    <td><span>Prepaid</span></td>
                 </tr>
                 <tr>
-                    <th><span >Amount Total</span></th>
-                    <td><span id="prefix" >₹</span><span>{{ $order->amount }}</span></td>
+                    <th class="text-center"><span><b>Amount Total</b></span></th>
+                    <td><span id="prefix">₹</span><span>{{ $order->amount }}</span></td>
                 </tr>
             </table>
-            <table class="inventory">
-                <thead>
+
+
+        </div>
+
+    </div>
+
+
+
+    <article>
+
+
+        <!-- Bill Table Section  -->
+
+        <table class="inventory">
+            <thead>
+                <tr>
+                    <th><span>Sr. No.</span></th>
+                    <th colspan="3"><span>Product Name</span></th>
+                    <th><span>Product SKU</span></th>
+                    <th><span>Product Qty</span></th>
+                    <th><span>Product Price</span></th>
+                    <th><span>Product Total Price</span></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for ($i = 0; $i < count($order_details); $i++)
                     <tr>
-                        <th><span >Sr No</span></th>
-                        <th style="width: 50%;"><span >product Name</span></th>
-                        <th style="width: 10%;"><span >product Sku</span></th>
-                        <th><span >product Qty</span></th>
-                        <th><span >product Price</span></th>
-                        <th><span >product Total Price</span></th>
+                        <td class="text-center"><span>{{ $i + 1 }}</span></td>
+                        <td colspan="3"><span>{{ $order_details[$i]->name ?? '' }}</span></td>
+                        <td class="text-center"><span>{{ $order_details[$i]->sku ?? '' }}</span></td>
+                        <td class="text-center"><span>{{ $order_details[$i]->qty ?? '' }}</span></td>
+                        <td class="text-center"><span data-prefix></span><span>₹{{ $order_details[$i]->price }}</span>
+                        </td>
+                        <td class="text-center"><span data-prefix></span><span>₹{{ $order_details[$i]->qty * $order_details[$i]->price }}</span>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
+                @endfor
 
-                    {{-- {{dd($order_details)}} --}}
-                    @for ($i = 0; $i < count($order_details); $i++)
-                        <tr>
-                            <td><span >{{ $i + 1 }}</span></td>
-                            <td><span >{{ $order_details[$i]->name ?? '' }}</span></td>
-                            <td><span >{{ $order_details[$i]->sku ?? '' }}</span></td>
-                            <td><span >{{ $order_details[$i]->qty ?? '' }}</span></td>
-                            <td><span data-prefix></span><span >₹{{ $order_details[$i]->price }}</span>
-                            </td>
-                            <td><span data-prefix></span><span
-                                    >₹{{ $order_details[$i]->qty * $order_details[$i]->price }}</span>
-                            </td>
-                        </tr>
-                    @endfor
 
-                </tbody>
-            </table>
-            {{-- <a class="add">+</a> --}}
-            <table class="balance">
-                <tr>
-                    <th><span >Total</span></th>
-                    <td><span data-prefix>₹</span><span>{{ $order->amount }}</span></td>
-                </tr>
-            </table>
-        </article>
+            </tbody>
+        </table>
 
-        <hr>
+        <!-- Bill Total Section  -->
 
-        <h5>Sender :</h5>
-        <h4>
-            <p>Prashast innovation<br>Private Limited</p>
-        </h4>
-        <h5>
-            C 98, Sector 10, Noida, Gautam
-            Buddha Nagar, Uttar Pradesh,,
-            NOIDA - 201301
-            Uttar Pradesh (09), India<br><br>
-            GSTIN: 09AALCP2948L1ZQ
-        </h5>
-        <h4>Use Ctrl + p / Take ScreenShot</h4>
-        {{-- <aside>
-			<h1><span >Additional Notes</span></h1>
-			<div contenteditable>
-				<p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
-			</div>
-		</aside> --}}
-    </body>
 
-    </html>
-    <!-- partial -->
-    <script src="./script.js"></script>
+        <table class="balance ">
+
+            <tr>
+                <th class="text-center"><span>Total</span></th>
+                <td><span data-prefix>₹</span><span>{{ $order->amount }}</span></td>
+            </tr>
+
+        </table>
+    </article>
 
 </body>
 

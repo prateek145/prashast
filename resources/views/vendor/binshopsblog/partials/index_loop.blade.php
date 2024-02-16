@@ -5,6 +5,7 @@
     <div class="blog-item">
 
         <div class='text-center blog-image'>
+            {{-- {{dd($post->image_tag("medium", true, ''))}} --}}
             <?=$post->image_tag("medium", true, ''); ?>
         </div>
         <div class="blog-inner-item">
