@@ -42,6 +42,7 @@
 
     <div>
         <h3>Order Details</h3>
+        Customer Mail After Payment
         <table>
             <tr>
                 <th style="border:1px solid black">Product Name</th>
@@ -51,7 +52,7 @@
                 <th style="border:1px solid black">Sub Total</th>
             </tr>
 
-            Customer Mail After Payment
+    
             @foreach ($productdetails as $item)
                 <tr>
                     <td style="border:1px solid black">{{ $item->name ?? '' }}</td>
@@ -67,16 +68,15 @@
 
     <div>
         This product(s) will shipped to following Address.
-        @if ($order['shipping_address_button'] == 'on')
-            <h3>Shipping Address</h3>
-            <h3>{{ $order['shipping_name'] ?? '' }}</h3>
-            {{ $order['shipping_address'] ?? '' }}<br>
-        @else
+
             <h3>Billing Address</h3>
 
             <h3>{{ $order['name'] ?? '' }}</h3>
             {{ $order['billing_address'] ?? '' }}<br>
-        @endif
+
+            <h3>Shipping Address</h3>
+            <h3>{{ $order['shipping_name'] == '' ? $order['name'] : $order['shipping_name']}}</h3>
+            {{ $order['shipping_address'] ?? $order['billing_address'] }}<br>
 
     </div>
 </div>
