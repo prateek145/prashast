@@ -108,7 +108,7 @@ Route::resource('orderdetails', OrderdetailsController::class)->middleware('auth
 Route::resource('sidebar', FSideBarController::class)->middleware('auth');
 Route::resource('shop/page/slider', ShopPageSliderController::class)->middleware('auth');
 Route::resource('home-slider', HomePageSliderController::class)->middleware('auth');
-Route::resource('blog', BlogController::class)->middleware('auth');
+// Route::resource('blog', BlogController::class)->middleware('auth');
 
 //for tag ajax
 Route::post('tag_create', [TagController::class, 'tag_create'])->name('tag.create');
