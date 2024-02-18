@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app', ['title' => $title])
 @section('content')
+    <div class="container">
+    <div class="row">
     <div class='col-sm-12 binshopsblog_container'>
         @if (\Auth::check() && \Auth::user()->canManageBinshopsBlogPosts())
             <div class="text-center">
@@ -86,6 +88,7 @@
             </div>
         </div>
     </div>
+    </div></div>
 
 @endsection
 

@@ -169,35 +169,8 @@
                     </div>
                 </div>
                 <div class="col-lg-4 text-center py-3 order-1 order-lg-3">
-                    <div class="collection">
-                        <div id="carouselExampleAutoplayinga" style="opacity: 0;" class="carousel slide"
-                            data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{ asset('public/frontend/images/icon-top.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
-                                        class="img-fluid d-block mx-auto">
-                                    <p>NEW COLLECTION</p>
-                                    <img src="{{ asset('public/frontend/images/product.png') }}" class="d-block w-100"
-                                        alt="...">
-                                    <h6>Handmade Tortoise
-                                        Trinket Tray</h6>
-                                    <a href="{{ route('shop.page') }}" class="btn btn-secondary"
-                                        style="cursor:default;">Shop</a>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                    <div class="collectixon">
+                        <img src="{{ asset('public/frontend/images/collections.png') }}" class="img-fluid" />
                     </div>
                 </div>
                 <!--<div class="col-lg-4 text-center py-3 order-1 order-lg-3">

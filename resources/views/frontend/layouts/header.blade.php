@@ -33,7 +33,7 @@
                                 </li>
 
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link" href="{{ url('en/blog') }}">Blogs</a>
+                                    <a class="nav-link" href="{{ url('en/blog') }}">Blog</a>
                                 </li>
 
                                 <li class="nav-item dropdown mx-4">

@@ -4,7 +4,7 @@
 
 
     <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
         <div class="col-auto d-none d-lg-block">
            {{-- {{dd($post->image_tag("medium", true, ''))}} <!--Remove atag--> --}}
             <?=$post->image_tag("medium", true, ''); ?>
