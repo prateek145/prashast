@@ -109,13 +109,11 @@
                 <!-- content -->
                 <div class="col-lg-9">
                     <header>
-                        <form class="form searchform d-flex col-12 col-lg-12 mb-2" action="{{ route('searchproduct') }}"
-                            method="post">
-                            @csrf
-                            <input type="text" class=" border-0 form-control" onkeyup="searchproducts(this.value)"
-                                list="datalistname" placeholder="Search">
-                            <select id="datalistname" onchange="enterValue(this.value)" class="form-control ml-2"></select>
-                            <input type="hidden" name="id" id="mainsearchbox">
+                        <form class="form searchform d-flex col-12 col-lg-12 mb-2" action="{{ route('shop.page') }}"
+                            method="get">
+                            {{-- @csrf --}}
+                            <input type="text" class=" border-0 form-control" placeholder="Search" name="search">
+                          
                             <button class="btn border-0 bg-light"><i class="bi bi-search"></i></button>
                         </form>
                     </header>

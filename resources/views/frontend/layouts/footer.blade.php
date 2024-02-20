@@ -30,7 +30,7 @@
             <div class="col-12 col-lg-4 mx-auto">
                 <form class="subscribe" method="POST" action="{{ route('newsletter.store') }}">
                     @csrf
-                    <input type="email" placeholder="enter your email Id" name="email"><input type="submit"
+                    <input type="email" placeholder="enter your email Id" name="email" required><input type="submit"
                         value="Subscribe">
                 </form>
             </div>
@@ -88,11 +88,11 @@
                 </div>
                 <div class="d-block w-100 min-height-60 d-flex d-lg-block">
                     <ul class="social p-0 mx-auto float-lg-end">
-                        <li><i class="bi bi-facebook"></i></li>
-                        <li><i class="bi bi-twitter-x"></i></li>
-                        <li><i class="bi bi-instagram"></i></li>
+                        <li> <a href="https://www.instagram.com/prashast.co.in?igsh=N3lsMG5zaGh4bDN4&utm_source=qr" target="_blank"><i class="bi bi-instagram"></i></a> </li>
+                        <li> <a href="https://twitter.com/Prashast_co_in" target="_blank"><i class="bi bi-twitter-x"></i></a> </li>
+                        {{-- <li><i class="bi bi-instagram"></i></li>
                         <li><i class="bi bi-linkedin"></i></li>
-                        <li><i class="bi bi-youtube"></i></li>
+                        <li><i class="bi bi-youtube"></i></li> --}}
                     </ul>
                 </div>
                 <ul class="footlink text-center text-lg-end w-100">

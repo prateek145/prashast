@@ -258,41 +258,41 @@
             });
         }
 
-        function searchproducts(keyword) {
-            //   console.log(keyword);
+        // function searchproducts(keyword) {
+        //     //   console.log(keyword);
 
-            $.ajax({
-                url: "{{ route('product.search') }}",
-                method: "POST",
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    "keyword": keyword
-                },
-                success: function(response) {
-                    // console.log(response);
-                    var listname = document.getElementById('datalistname');
-                    listname.innerHTML = '';
-                    for (let index = 0; index < response.length; index++) {
-                        const option = document.createElement('option');
-                        option.setAttribute('value', response[index].id);
-                        // option.setAttribute('onchange', "enterValue(" + response[index].id+ ")");
-                        option.innerHTML = response[index].name;
-                        // option.onselect = selectinput(this.value_);
-                        // console.log(option);
-                        listname.appendChild(option);
-                    }
-                }
-            });
+        //     $.ajax({
+        //         url: "{{ route('product.search') }}",
+        //         method: "POST",
+        //         data: {
+        //             '_token': "{{ csrf_token() }}",
+        //             "keyword": keyword
+        //         },
+        //         success: function(response) {
+        //             // console.log(response);
+        //             var listname = document.getElementById('datalistname');
+        //             listname.innerHTML = '';
+        //             for (let index = 0; index < response.length; index++) {
+        //                 const option = document.createElement('option');
+        //                 option.setAttribute('value', response[index].id);
+        //                 // option.setAttribute('onchange', "enterValue(" + response[index].id+ ")");
+        //                 option.innerHTML = response[index].name;
+        //                 // option.onselect = selectinput(this.value_);
+        //                 // console.log(option);
+        //                 listname.appendChild(option);
+        //             }
+        //         }
+        //     });
 
 
-        }
+        // }
 
-        function enterValue(id){
-            console.log(id);
-            var mainbox = document.getElementById('mainsearchbox');
-            mainbox.value = id;
-            console.log(mainbox);
-        }
+        // function enterValue(id){
+        //     console.log(id);
+        //     var mainbox = document.getElementById('mainsearchbox');
+        //     mainbox.value = id;
+        //     console.log(mainbox);
+        // }
 
         function form_submit(product_id) {
             var qty = document.getElementById('input_quantity').value;

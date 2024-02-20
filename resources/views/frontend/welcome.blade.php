@@ -83,9 +83,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <p class="maintext">Our products are designed and produced indigenously<br>
-                        by workers and artisans belonging to an underpriviledged socioeconomic<br>
-                        background, living in remote rural or urban slum settings.</p>
+                    <p class="maintext">Prashast is a proud aggregator of sustainable and artisanal handicraft products sourced from the makers from Indian rural and tribal areas, promoting traditional and contemporary crafts. While Prashast as a brand has a larger focus and purpose around handicraft manufacturing, e-commerce promotion & management, dealing in farm & non farm products, training & consultancy, this website is the one-stop shop for all the products under the banner.</p>
                     <a href="{{ route('frontend.about') }}" class="btn btn-primary shadow">Know More</a>
                 </div>
             </div>
@@ -180,7 +178,7 @@
         </div>
     </section>
 
-    <section class="category py-5 d-lg-none d-block">
+    <section class="category d-lg-none d-block">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -198,7 +196,7 @@
     </section>
 
 
-    <section class="category py-5 d-none d-lg-block">
+    <section class="category d-none d-lg-block">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mx-auto position-relative">
@@ -320,20 +318,19 @@
                 <div class="col-12 col-lg-3 text-center"></div>
                 <div class="col-12 col-lg-2 text-center position-relative fact-height">
                     <div class="fact-box">
-                        <h1 class="yellow facts">235</h1>
+                        <h1 class="yellow facts">500+</h1>
                         <p>artisans helped</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-2 text-center position-relative fact-height">
                     <div class="fact-box">
-                        <h1 class="yellow facts">17</h1>
+                        <h1 class="yellow facts">10+</h1>
                         <p>cities reached</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-2 text-center position-relative fact-height">
                     <div class="fact-box">
-                        <h1 class="yellow facts">2.5
-                            lakh</h1>
+                        <h1 class="yellow facts">250+</h1>
                         <p>products sold</p>
                     </div>
                 </div>

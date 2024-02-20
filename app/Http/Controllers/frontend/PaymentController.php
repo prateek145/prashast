@@ -15,11 +15,11 @@ class PaymentController extends Controller
         $rules = [
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|integer|min:10',
+            'phone' => 'numeric|min:10',
             'address' => 'required',
             'country' => 'required',
             'state' => 'required',
-            'pincode' => 'required|integer',
+            'pincode' => 'min:6|numeric',
             'shipping_name' => 'required_if:shipping_address_button, == ,on',
             'shipping_address' => 'required_if:shipping_address_button, == ,on',
             'shipping_country' => 'required_if:shipping_address_button, == ,on',
@@ -35,9 +35,9 @@ class PaymentController extends Controller
             'email.required' => 'Email is required *',
             'address.required' => 'Address is required *',
             'country.required' => 'Country is required *',
-            'state.required' => 'State is required *'
-            //  'pincode.required' => 'Pincode is required *',
-            //  'pincode.integer' => 'Phone should be number *',
+            'state.required' => 'State is required *',
+             'pincode.required' => 'Pincode is required *',
+             'pincode.integer' => 'Phone should be number *',
 
         ];
 

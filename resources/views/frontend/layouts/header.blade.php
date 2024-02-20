@@ -42,7 +42,7 @@
                                         @if (auth()->user())
                                             {{ auth()->user()->name ?? '' }}
                                         @else
-                                            Sign In
+                                            SignIn/Register
                                         @endif
                                     </a>
                                     <ul class="dropdown-menu bg-dark text-white">

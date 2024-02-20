@@ -59,45 +59,58 @@
                 </div>
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Billing address</h4>
-                    <form class="needs-validation" novalidate="" action="{{ route('paytm.payment') }}" method="POST">
+                    <form action="{{ route('paytm.payment') }}" method="POST">
                         @csrf
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="firstName" class="form-label">Full name</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" id="firstName" value="{{ auth()->user() == true ? auth()->user()->name : old('name') ?? '' }}" placeholder="Name">
-                                <div class="invalid-feedback">
-                                    Valid name is required.
-                                </div>
+                                    name="name" id="firstName"
+                                    value="{{ auth()->user() == true ? auth()->user()->name : old('name') ?? '' }}"
+                                    placeholder="Name" required>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            <input type="hidden" value="{{ $totalprice ?? $product->sale_price * $qty}}" name="amount">
+                            <input type="hidden" value="{{ $totalprice ?? $product->sale_price * $qty }}" name="amount">
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span class="text-muted"></span></label>
                                 <input type="email" name="email"
                                     class="form-control @error('email') is-invalid @enderror" id="email"
-                                    placeholder="you@example.com" value="{{ auth()->user() == true ? auth()->user()->email : old('email') ?? '' }}" required>
-                                <div class="invalid-feedback">
-                                    Please enter a valid email address for shipping updates.
-                                </div>
+                                    placeholder="you@example.com"
+                                    value="{{ auth()->user() == true ? auth()->user()->email : old('email') ?? '' }}"
+                                    required>
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div class="col-12">
                                 <label for="phone" class="form-label">Phone <span class="text-muted"></span></label>
-                                <input type="text" name="phone"
-                                    class="form-control @error('phone') is-invalid @enderror" id="phone"
-                                    placeholder="888888888" value="{{ auth()->user() == true ? auth()->user()->phone : old('phone') ?? '' }}" required>
-                                <div class="invalid-feedback">
-                                    Please enter a valid phone address for shipping updates.
-                                </div>
+                                <input type="numeric" min="10" name="phone"
+                                    class="form-control @error('phone') is-invalid @enderror" placeholder="888888888"
+                                    value="{{ auth()->user() == true ? auth()->user()->phone : old('phone') ?? '' }}"
+                                    required>
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-12">
                                 <label for="address" class="form-label">Address</label>
                                 <input type="text" name="address"
                                     class="form-control @error('address') is-invalid @enderror" id="address"
                                     value="{{ old('address') ?? '' }}" placeholder="1234 Main St" required="">
-                                <div class="invalid-feedback">
-                                    Please enter your shipping address.
-                                </div>
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-12">
                                 <label for="address2" class="form-label">Address 2 <span
@@ -112,9 +125,11 @@
                                     id="country" required="">
                                     <option value="india" selected>India</option>
                                 </select>
-                                <div class="invalid-feedback">
-                                    Please select a valid country.
-                                </div>
+                                @error('country')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-md-4">
                                 <label for="state" class="form-label">State</label>
@@ -159,25 +174,30 @@
                                     <option value="Uttarakhand">Uttarakhand</option>
                                     <option value="West Bengal">West Bengal</option>
                                 </select>
-                                <div class="invalid-feedback">
-                                    Please provide a valid state.
-                                </div>
+                                @error('state')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-md-3">
                                 <label for="zip" class="form-label">Pincode</label>
                                 <input type="text" name="pincode"
                                     class="form-control @error('pincode') is-invalid @enderror" id="pincode"
-                                    placeholder="Pincode" value="{{old('pincode') ?? ''}}">
-                                <div class="invalid-feedback">
-                                    Pincode code required.
-                                </div>
+                                    placeholder="Pincode" value="{{ old('pincode') ?? '' }}">
+                                @error('pincode')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <hr class="my-4">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="same-address" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
-                                aria-controls="collapseExample" name="shipping_address_button" {{old('shipping_address_button') == 'on' ? 'checked' : ''}}>
+                                aria-controls="collapseExample" name="shipping_address_button"
+                                {{ old('shipping_address_button') == 'on' ? 'checked' : '' }}>
                             <label class="form-check-label" for="same-address">Shipping address is the different as my
                                 billing address</label>
                         </div>
@@ -190,15 +210,16 @@
                             <input type="hidden" value="{{ json_encode($productdetails) }}" name="productdetail">
                         @endif
                         <!--shipping-->
-                        <div class="collapse {{old('shipping_address_button') == 'on' ? 'show' : ''}}" id="collapseExample">
+                        <div class="collapse {{ old('shipping_address_button') == 'on' ? 'show' : '' }}"
+                            id="collapseExample">
                             <h4 class="mb-3">Shipping address</h4>
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <label for="firstName" class="form-label">Full name</label>
                                     <input type="text"
                                         class="form-control @error('shipping_name') is-invalid @enderror"
-                                        name="shipping_name" id="firstName" placeholder="" value="{{ old('shipping_name') ?? '' }}"
-                                        required="">
+                                        name="shipping_name" id="firstName" placeholder=""
+                                        value="{{ old('shipping_name') ?? '' }}">
                                     <div class="invalid-feedback">
                                         Valid first name is required.
                                     </div>
@@ -226,7 +247,8 @@
                                             class="text-muted">(Optional)</span></label>
                                     <input type="text"
                                         class="form-control @error('shipping_address2') is-invalid @enderror"
-                                        name="shipping_address2" id="address2" placeholder="Apartment or suite" value="{{ old('shipping_address2') ?? '' }}">
+                                        name="shipping_address2" id="address2" placeholder="Apartment or suite"
+                                        value="{{ old('shipping_address2') ?? '' }}">
                                 </div>
                                 <div class="col-md-5">
                                     <label for="country"
@@ -241,7 +263,7 @@
                                 <div class="col-md-4">
                                     <label for="state" class="form-label">State</label>
                                     <select class="form-select @error('shipping_state') is-invalid @enderror"
-                                        id="state" name="shipping_state" >
+                                        id="state" name="shipping_state">
                                         <option value="">Select</option>
                                         <option value="Andhra Pradesh">Andhra Pradesh</option>
                                         <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
@@ -288,7 +310,8 @@
                                     <label for="pincode" class="form-label">Pincode</label>
                                     <input type="text"
                                         class="form-control @error('shipping_pincode') is-invalid @enderror"
-                                        name="shipping_pincode" id="pincode" placeholder="" value="{{ old('shipping_pincode') ?? '' }}">
+                                        name="shipping_pincode" id="pincode" placeholder=""
+                                        value="{{ old('shipping_pincode') ?? '' }}">
                                     <div class="invalid-feedback">
                                         pincode code required.
                                     </div>

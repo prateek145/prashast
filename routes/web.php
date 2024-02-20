@@ -169,19 +169,21 @@ Route::get('download-bill/{id}', function ($id) {
     return view('mail.testing', compact('order', 'order_details'));
 })->name('download.bill');
 
-// Route::get('sendmail', function () {
+Route::get('sendmail', function () {
 
-//     $data1 = ['prateek' => 'kumar'];
-//     $message = "testing";
-//     $user = 'testing';
+    $data1 = ['prateek' => 'kumar'];
+    $message = "testing";
+    $user = 'testing';
 
-//     $mail = Mail::send('mail.testing1', ['body' => $data1], function ($message) use ($user) {
-//         $message->sender('projectmanagement@omegawebdemo.com.au');
-//         $message->subject('Prashast');
-//         $message->to('prateekk898@gmail.com');
-//     });
+    $mail = \Mail::send('mail.testing1', ['body' => $data1], function ($message) use ($user) {
+        $message->sender('shop@prashast.co.in');
+        $message->subject('Prashast');
+        $message->to('prateekk898@gmail.com');
+    });
 
-// });
+    dd($mail);
+
+});
 
 
 //paytm payment routes 
