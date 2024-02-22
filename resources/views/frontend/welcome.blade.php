@@ -216,9 +216,9 @@
             <div class="row">
                 <div class="col-12">
                     @if (isset($footer_image))
-                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern1"
+                        <div id="carouselExampleAutoplayingb" class="my-lg-2 py-lg-2 carousel slide bg-pattern1"
                             data-bs-ride="carousel">
-                            <div class="carousel-inner py-lg-5 my-lg-5">
+                            <div class="carousel-inner py-lg-2 my-lg-2">
                                 @foreach ($categories as $key => $item)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
                                         <img src="{{ asset('public/pageimages/' . $footer_image->image) }}"
@@ -254,7 +254,7 @@
                             </button>
                         </div>
                     @else
-                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide "
+                        <div id="carouselExampleAutoplayingb" class="my-lg-2 py-lg-2 carousel slide "
                             data-bs-ride="carousel">
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 <div class="carousel-item active py-5 my-lg-5">
@@ -268,7 +268,7 @@
                                         <h5>TOP SELLER</h5>
                                     </div>
                                 </div>
-                                <div class="carousel-item py-5 my-lg-5">
+                                <div class="carousel-item py-2 my-lg-2">
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block">
@@ -296,7 +296,7 @@
             </div>
         </div>
     </section>
-    <section class="about py-5">
+    <section class="about py-1">
         <div class="container">
             <div class="row">
                 <div class="col-12">

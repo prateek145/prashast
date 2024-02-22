@@ -35,7 +35,13 @@
         padding: 0.5in;
         width: 8.5in;
     }
-
+.address{
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: hidden; /* Optionally add to handle long addresses */
+    line-height:14px;
+    
+}
 
     /* heading */
 
@@ -325,14 +331,14 @@
                 <p>Name: <span>{{ $order->name ?? '' }}</span> </p>
                 <p>Email: <span>{{ $order->email ?? '' }}</span> </p>
                 <p>Phone: <span>{{ $order->phone ?? '' }}</span> </p>
-                <p>Billing Address: <span> {{ $order->billing_address ?? '' }}</span> </p>
+                <p>Billing Address: <span class="address"> {{ $order->billing_address ?? '' }}</span> </p>
             </div>
 
             <div class="ship mt-4">
                 <p><b>Ship To:</b></p>
                 <p>Shipping Name: <span>{{ $order->shipping_name == '' ? $order->name : $order->shipping_name }}</span>
                 </p>
-                <p>Shipping Address: <span> {{ $order->shipping_address ?? $order->billing_address }}</span> </p>
+                <p>Shipping Address: <span class="address"> {{ $order->shipping_address ?? $order->billing_address }}</span> </p>
 
             </div>
 

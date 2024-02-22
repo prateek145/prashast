@@ -325,7 +325,7 @@
                 <p>Name: <span>{{ $order->name ?? '' }}</span> </p>
                 <p>Email: <span>{{ $order->email ?? '' }}</span> </p>
                 <p>Phone: <span>{{ $order->phone ?? '' }}</span> </p>
-                <p>Billing Address: <span> {{ $order->billing_address ?? '' }}</span> </p>
+                <p>Billing Address: <p> {{ $order->billing_address ?? '' }}</p> </p>
             </div>
 
             <div class="ship mt-4">
