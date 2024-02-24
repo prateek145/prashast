@@ -36,7 +36,7 @@
                                     @if ($images)
                                         @foreach ($images as $key => $item)
                                             <div class="col-md-6">
-                                                {{$links[$key]}}
+                                                {{$links[$key] ?? ""}}
                                                 <img src="{{ asset('public/homeslider/' . $item) }}" width="100%"
                                                     class="mt-4">
                                             </div>

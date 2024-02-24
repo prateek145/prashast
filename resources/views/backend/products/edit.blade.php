@@ -165,14 +165,40 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="control-label font-weight-bold">Quantity</label>
+                                        <input class="form-control" placeholder="Product Quantity" id="featuredimage" name="quantity" 
+                                            type="number" value="{{$product->quantity}}" required />
+                                        @error('quantity')
+                                            <label id="quantity-error" class="error text-danger"
+                                                for="quantity">{{ $message }}</label>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="row mt-3">
                                     <div class="col-md-12" id="description">
                                         <div class="form-group">
                                             <label for="control-label font-description-bold">Description</label>
-                                            <textarea name="description" id="editor1">{{ $product->description }}</textarea>
+                                            <textarea name="description" id="editor" class="form-control">{{ $product->description }}</textarea>
                                             @error('description')
                                                 <label id="description-error" class="error text-danger"
                                                     for="description">{{ $message }}</label>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-12" id="specification">
+                                        <div class="form-group">
+                                            <label for="control-label font-specification-bold">Product Specification</label>
+                                            <textarea name="specification" id="editor1">{{ $product->specification }}</textarea>
+                                            @error('specification')
+                                                <label id="specification-error" class="error text-danger"
+                                                    for="specification">{{ $message }}</label>
                                             @enderror
                                         </div>
                                     </div>

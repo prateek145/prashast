@@ -5,7 +5,7 @@
             <h1>Orders</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Orders</li>
                 </ol>
             </nav>
@@ -41,10 +41,10 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->billing_address ?? "" }}</td>
-                                        <td>{{ $item->shipping_address_button ?? "off" }}</td>
-                                        <td>{{ $item->shipping_name ?? "" }}</td>
-                                        <td>{{ $item->shipping_address ?? "" }}</td>
+                                        <td>{{ $item->billing_address ?? '' }}</td>
+                                        <td>{{ $item->shipping_address_button ?? 'off' }}</td>
+                                        <td>{{ $item->shipping_name ?? '' }}</td>
+                                        <td>{{ $item->shipping_address ?? '' }}</td>
                                         <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <div style="display:flex;">
@@ -53,7 +53,7 @@
                                                     <button class="btn btn-success btn-sm">Order Details</button>
                                                 </a>
                                             </div>
-                            
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -64,9 +64,45 @@
             </div>
             </div>
         </section>
+
+        <section class="section dashboard">
+            <div class="row">
+                <!-- Left side columns -->
+                <div class="col-lg-12">
+                    <div class="card info-card sales-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Export Orders</h5>
+                            <form action="{{ route('orders.export') }}" method="get" id="selectCategory">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <label for="">Start Date</label>
+
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="date" class="form-control" name="start_date">
+
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <label for="">End Date</label>
+
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="date" class="form-control" name="end_date">
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group mt-3">
+                                    <input type="submit" value="Export" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-
 @endsection
-
-
-

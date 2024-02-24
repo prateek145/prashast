@@ -1,6 +1,4 @@
 @extends('frontend.layouts.app')
-{{-- @include('frontend.layouts.header') --}}
-
 @section('content')
     <section class="hero-contact">
     </section>
@@ -198,8 +196,7 @@
                                 data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
                                 aria-controls="collapseExample" name="shipping_address_button"
                                 {{ old('shipping_address_button') == 'on' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="same-address">Shipping address is the different as my
-                                billing address</label>
+                            <label class="form-check-label" for="same-address">Shipping address is different from my billing address</label>
                         </div>
                         @if ($cart == true)
                             <input type="hidden" value="{{ json_encode(session()->get('cart')) }}"

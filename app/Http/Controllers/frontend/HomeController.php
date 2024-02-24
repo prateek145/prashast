@@ -38,7 +38,7 @@ class HomeController extends Controller
         $footer_image = FooterImages::latest()->first();
         $home_slider = HomePageSlider::latest()->first();
         // dd($home_slider);
-        return view('frontend.welcome', compact('categories','home_slider', 'new_products', 'top_products', 'footer_image'));
+        return view('frontend.welcome', compact('categories', 'home_slider', 'new_products', 'top_products', 'footer_image'));
     }
 
     public function contact_us()
@@ -55,6 +55,7 @@ class HomeController extends Controller
     public function dynamic_categories($slug)
     {
         # code...
+        // dd('prateee');
         $subcategory = ProductSubcategory::where('slug', $slug)->first();
         $products1 = Product::where('status', 1)->get();
         $productids = [];
@@ -78,12 +79,12 @@ class HomeController extends Controller
         $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
         $min_price = min($price_array);
         $max_price = max($price_array);
-        $medium_price = round(($max_price - $min_price)/2, 0);
+        $medium_price = round(($max_price - $min_price) / 2, 0);
         $footer_image = FooterImages::latest()->first();
 
 
         // dd($products);
-        return view('frontend.dynamic_subcat', compact('max_price','footer_image','shop_page_slider', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
+        return view('frontend.dynamic_subcat', compact('max_price', 'footer_image', 'shop_page_slider', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
     }
 
     public function dynamic_tags($slug)
@@ -111,11 +112,11 @@ class HomeController extends Controller
         $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
         $min_price = min($price_array);
         $max_price = max($price_array);
-        $medium_price = round(($max_price - $min_price)/2, 0);
+        $medium_price = round(($max_price - $min_price) / 2, 0);
         $footer_image = FooterImages::latest()->first();
 
 
-        return view('frontend.dynamic_subcat', compact('shop_page_slider','max_price','footer_image', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
+        return view('frontend.dynamic_subcat', compact('shop_page_slider', 'max_price', 'footer_image', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories', 'tags', 'subcategory', 'sub_categories'));
     }
 
     public function dynamic_filter($key, $slug)
@@ -123,7 +124,8 @@ class HomeController extends Controller
         $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
         $min_price = min($price_array);
         $max_price = max($price_array);
-        $medium_price = round(($max_price - $min_price)/2, 0);
+        $medium_price = round(($max_price - $min_price) / 2, 0);
+        $shop_page_slider = ShopPageSlider::latest()->first();
 
         $footer_image = FooterImages::latest()->first();
 
@@ -133,7 +135,7 @@ class HomeController extends Controller
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
-            return view('frontend.dynamic_subcat', compact('max_price', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories'));
+            return view('frontend.dynamic_subcat', compact('max_price','shop_page_slider', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories'));
         }
 
         if ($key == 'equal') {
@@ -144,7 +146,7 @@ class HomeController extends Controller
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
 
-            return view('frontend.dynamic_subcat', compact('max_price','footer_image', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories'));
+            return view('frontend.dynamic_subcat', compact('max_price','shop_page_slider','footer_image', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories'));
         }
 
         if ($key == 'greaterthen') {
@@ -154,20 +156,20 @@ class HomeController extends Controller
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
             $page_image = BackendPageImages::where('name', 'shop')->first();
-            return view('frontend.dynamic_subcat', compact('max_price', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories'));
+            return view('frontend.dynamic_subcat', compact('max_price','shop_page_slider', 'medium_price', 'min_price', 'page_image', 'products', 'fsidebar', 'categories'));
         }
     }
 
     public function shop_page()
     {
-        // dd();
+        // dd(request());
 
         if (request()->input('search')) {
             # code...
             $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
             $search = request()->input('search');
             $url = request()->url() . '?search=' . $search;
-            $products = Product::where('status', 1)->where('name','LIKE',"%{$search}%")->paginate(6)->setPath($url);
+            $products = Product::where('status', 1)->where('name', 'LIKE', "%{$search}%")->paginate(6)->setPath($url);
             $categories = ProductSubcategory::where('status', 1)->latest()->get();
             $tags = Tags::where('status', 1)->latest()->get();
             $fsidebar = FsideBar::latest()->first();
@@ -175,14 +177,76 @@ class HomeController extends Controller
             $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
             $min_price = min($price_array);
             $max_price = max($price_array);
-            $medium_price = round(($max_price - $min_price)/2, 0);
+            $medium_price = round(($max_price - $min_price) / 2, 0);
             // dd($min_price, $quatre_price, $medium_price, $max_price);
             $footer_image = FooterImages::latest()->first();
             $shop_page_slider = ShopPageSlider::latest()->first();
             // dd($products);
             // dd($shop_page_slider);
-            return view('frontend.dynamic_subcat', compact('footer_image','shop_page_slider', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
-
+            return view('frontend.dynamic_subcat', compact('footer_image', 'shop_page_slider', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
+        } elseif (request()->input('search_box') == 'low_to_high') {
+            # code...
+            $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $search = request()->input('search_box');
+            $url = request()->url() . '?search_box=' . $search;
+            $products = Product::where('status', 1)->orderBy('sale_price', 'asc')->paginate(6)->setPath($url);
+            // dd($products);
+            $categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $tags = Tags::where('status', 1)->latest()->get();
+            $fsidebar = FsideBar::latest()->first();
+            $page_image = BackendPageImages::where('name', 'shop')->first();
+            $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
+            $min_price = min($price_array);
+            $max_price = max($price_array);
+            $medium_price = round(($max_price - $min_price) / 2, 0);
+            // dd($min_price, $quatre_price, $medium_price, $max_price);
+            $footer_image = FooterImages::latest()->first();
+            $shop_page_slider = ShopPageSlider::latest()->first();
+            // dd($products);
+            // dd($shop_page_slider);
+            return view('frontend.dynamic_subcat', compact('footer_image', 'shop_page_slider', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
+        } elseif (request()->input('search_box') == 'high_to_low') {
+            # code...
+            $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $search = request()->input('search_box');
+            $url = request()->url() . '?search_box=' . $search;
+            $products = Product::where('status', 1)->orderBy('sale_price', 'desc')->paginate(6)->setPath($url);
+            // dd($products);
+            $categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $tags = Tags::where('status', 1)->latest()->get();
+            $fsidebar = FsideBar::latest()->first();
+            $page_image = BackendPageImages::where('name', 'shop')->first();
+            $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
+            $min_price = min($price_array);
+            $max_price = max($price_array);
+            $medium_price = round(($max_price - $min_price) / 2, 0);
+            // dd($min_price, $quatre_price, $medium_price, $max_price);
+            $footer_image = FooterImages::latest()->first();
+            $shop_page_slider = ShopPageSlider::latest()->first();
+            // dd($products);
+            // dd($shop_page_slider);
+            return view('frontend.dynamic_subcat', compact('footer_image', 'shop_page_slider', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
+        } elseif (request()->input('search_box') == 'now_product') {
+            # code...
+            $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $search = request()->input('search_box');
+            $url = request()->url() . '?search_box=' . $search;
+            $products = Product::where('status', 1)->latest()->paginate(6)->setPath($url);
+            // dd($products);
+            $categories = ProductSubcategory::where('status', 1)->latest()->get();
+            $tags = Tags::where('status', 1)->latest()->get();
+            $fsidebar = FsideBar::latest()->first();
+            $page_image = BackendPageImages::where('name', 'shop')->first();
+            $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
+            $min_price = min($price_array);
+            $max_price = max($price_array);
+            $medium_price = round(($max_price - $min_price) / 2, 0);
+            // dd($min_price, $quatre_price, $medium_price, $max_price);
+            $footer_image = FooterImages::latest()->first();
+            $shop_page_slider = ShopPageSlider::latest()->first();
+            // dd($products);
+            // dd($shop_page_slider);
+            return view('frontend.dynamic_subcat', compact('footer_image', 'shop_page_slider', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
         } else {
             # code...
             $sub_categories = ProductSubcategory::where('status', 1)->latest()->get();
@@ -194,15 +258,14 @@ class HomeController extends Controller
             $price_array = array_map('intval', Product::latest()->pluck('sale_price')->toArray());
             $min_price = min($price_array);
             $max_price = max($price_array);
-            $medium_price = round(($max_price - $min_price)/2, 0);
+            $medium_price = round(($max_price - $min_price) / 2, 0);
             // dd($min_price, $quatre_price, $medium_price, $max_price);
             $footer_image = FooterImages::latest()->first();
             $shop_page_slider = ShopPageSlider::latest()->first();
             // dd($footer_image);
             // dd($shop_page_slider);
-            return view('frontend.dynamic_subcat', compact('footer_image','shop_page_slider', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
+            return view('frontend.dynamic_subcat', compact('footer_image', 'shop_page_slider', 'max_price', 'medium_price', 'min_price', 'products', 'page_image', 'fsidebar', 'sub_categories', 'categories', 'tags'));
         }
-        
     }
 
     public function product_detail($slug)
@@ -218,16 +281,6 @@ class HomeController extends Controller
 
             return view('frontend.product-detail1', compact('product', 'footer_image', 'latestproduct', 'sub_categories'));
         }
-
-        // if ($product->product_type == 'variable_product') {
-        //     # code...
-        //     $attr = $product->attributes()->get();
-        //     $variance = $product->variance()->get();
-        //     $latestproduct = Product::orderBy('id', 'DESC')->where('status', 1)->get()->take(3);
-        //     // dd($latestproduct);
-        //     // dd($product, $attr, $variance, $latestproduct);
-        //     return view('frontend.product-detail1', compact('product', 'attr', 'variance', 'latestproduct', 'desiner_name'));
-        // }
     }
 
     public function get_product_attr(Request $request)
@@ -379,43 +432,6 @@ class HomeController extends Controller
         Schedule_a_purchase::create($data);
         return redirect()->back()->with('success', 'Your message was sent successfully! We will be in touch as soon as We can !');
     }
-
-    // public function categories()
-    // {
-    //     $categories = ProductCategories::all();
-    //     // dd($categories);
-    //     return view('frontend.categories', compact('categories'));
-    // }
-
-    // public function password_change(Request $request)
-    // {
-    //     // dd($request->all());
-    //     $user = User::where('email', $request->email)->first();
-    //     if ($user) {
-    //         # code...
-    //         return response()->json(['user' => 'found']);
-    //     } else {
-    //         # code...
-    //         return response()->json(['user' => 'notfound']);
-    //     }
-    // }
-
-    // public function password_change1(Request $request)
-    // {
-    //     // dd($request->all());
-
-    //     if ($request->password != '') {
-    //         # code...
-    //         $user = User::where('email', $request->email)->first();
-    //         $password = Hash::make($request->password);
-    //         $user->password = $password;
-    //         $user->save();
-    //         return response()->json(['result' => 'done']);
-    //     } else {
-    //         # code...
-    //         return response()->json(['result' => 'empty']);
-    //     }
-    // }
 
 
 

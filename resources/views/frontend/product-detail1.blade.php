@@ -4,8 +4,8 @@
         <div class="container pb-5">
             <div class="row">
                 <div class="col-12 float-end">
-                    <p class="float-end"><strong>Products /
-                            {{ $product->product_subcategory($product->product_subcategories)->name ?? '' }} /
+                    <p class="float-end"><strong> <a href="{{route('shop.page')}}">Products</a>  /
+                           <a href="{{ route('dynamic.categories', $product->product_subcategory($product->product_subcategories)->name ?? '') }}">{{ $product->product_subcategory($product->product_subcategories)->name ?? '' }}</a> /
                             {{ $product->name ?? '' }}</strong></p>
                 </div>
             </div>

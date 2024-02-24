@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Exports\ProductsExport;
 use App\Http\Controllers\Controller;
 use App\Models\backend\Desiner;
 use App\Models\backend\Product;
@@ -11,6 +12,7 @@ use App\Models\backend\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -23,7 +25,8 @@ class ProductController extends Controller
     {
         try {
             $products = Product::latest()->get();
-            return view('backend.products.index', ['products' => $products])->with('no', 1);
+            $categories = ProductSubcategory::latest()->get();
+            return view('backend.products.index', ['products' => $products, 'categories' => $categories])->with('no', 1);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error Occured');
         }
@@ -262,5 +265,48 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    public function products_export(){
+        try {
+            if (request()->input('category')) {
+                # code...
+                $search = request()->input('category');
+                $category = ProductSubcategory::find($search);
+                $products = $category->subproducts($search);
+                $file_name = 'products.xls';
+                $count = 1;
+                foreach ($products as $key => $value) {
+                    # code...
+                    $value->count = $count;
+                    $count++;
+                }
+    
+                // dd($queryTodo->get(), request()->get('user_id'), request()->get('start_date'), request()->get('end_date'));
+                $export = Excel::store(new ProductsExport($products), $file_name, 'local');
+                $file = storage_path() . '/app/products.xls';
+                return \Response::download($file, 'products.xls');
+    
+            }else{
+                $products = Product::latest()->get();
+                $file_name = 'products.xls';
+                $count = 1;
+                foreach ($products as $key => $value) {
+                    # code...
+                    $value->count = $count;
+                    $count++;
+                }
+                // dd($queryTodo->get(), request()->get('user_id'), request()->get('start_date'), request()->get('end_date'));
+                $export = Excel::store(new ProductsExport($products), $file_name, 'local');
+                $file = storage_path() . '/app/products.xls';
+                return \Response::download($file, 'products.xls');
+    
+            }
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+        
     }
 }

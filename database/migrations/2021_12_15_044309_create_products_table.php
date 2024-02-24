@@ -19,7 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('sku')->nullable();
             $table->string('product_type')->nullable();
             $table->string('regular_price')->nullable();
-            $table->string('sale_price')->nullable();
+            $table->integer('sale_price')->nullable();
+            $table->integer('quantity')->nullable();
             $table->integer('show_in_featuredproduct')->default(0);
             $table->string('weight')->nullable();
             $table->string('height')->nullable();
@@ -32,6 +33,7 @@ class CreateProductsTable extends Migration
             $table->longText('featured_image', 191)->nullable();
             $table->string('image', 191)->nullable();
             $table->longText('description')->nullable();
+            $table->longText('specification')->nullable();
             $table->longText('tag_selection')->nullable();
             $table->string('meta_title', 191)->nullable();
             $table->string('cannonical_link', 191)->nullable();

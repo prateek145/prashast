@@ -9,46 +9,33 @@
             border: 4px dashed #f0b53f !important;
         }
     </style>
-    @if ($page_image)
+    {{-- @if ($page_image)
         <section class="hero1" style="background-image:url({{ asset('public/pageimages/' . $page_image->images) }})">
         </section>
     @else
         <section class="hero-shop">
         </section>
-    @endif
-    <section class="offers py-5">
-        <div class="container">
-            <div class="row">
+    @endif --}}
+    @if ($shop_page_slider)
+        @php
+            $images = json_decode($shop_page_slider->images);
+            $links = json_decode($shop_page_slider->links);
+            // dd($images, $links);
+        @endphp
+        <section class="slider-top">
+            <div class="row" style=" --bs-gutter-x: 0;">
                 <div class="col-12">
-                    <div id="carouselExampleAutoplayingoffer" class="carousel slide my-5" data-bs-ride="carousel">
-                        @if (isset($shop_page_slider))
-                            {{-- {{dd($shop_page_slider)}} --}}
-                            <div class="carousel-inner">
-                                @foreach (array_reverse(json_decode($shop_page_slider->images)) as $key => $item)
-                                    {{-- {{dd($item)}} --}}
-                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                        <img src="{{ asset('public/shopslider/' . $item) }}" class="d-block w-100"
+                    <div id="carouselExampleAutoplayingoffer" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach ($images as $key => $value)
+                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                    <a href="{{ $links[$key] ?? '#' }}">
+                                        <img src="{{ asset('public/shopslider/' . $value) }}" class="d-block w-100"
                                             alt="...">
-                                    </div>
-                                @endforeach
-                            </div>
-                        @else
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
-                                        alt="...">
+                                    </a>
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
-                                        alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('public/frontend/images/offer-banner.png') }}" class="d-block w-100"
-                                        alt="...">
-                                </div>
-                            </div>
-                        @endif
-
+                            @endforeach
+                        </div>
                         <button class="carousel-control-prev" type="button"
                             data-bs-target="#carouselExampleAutoplayingoffer" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -62,9 +49,49 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="">
+        </section>
+    @else
+        <section class="slider-top">
+            <div class="row" style=" --bs-gutter-x: 0;">
+                <div class="col-12">
+                    <div id="carouselExampleAutoplayingoffer" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <a href="shop.html">
+                                    <img src="{{ asset('public/frontend/images/1.jpg') }}" class="d-block w-100"
+                                        alt="...">
+                                </a>
+                            </div>
+                            <div class="carousel-item">
+                                <a href="shop.html">
+                                    <img src="{{ asset('public/frontend/images/2.jpg') }}" class="d-block w-100"
+                                        alt="...">
+                                </a>
+                            </div>
+                            <div class="carousel-item">
+                                <a href="shop.html">
+                                    <img src="{{ asset('public/frontend/images/3.jpg') }}" class="d-block w-100"
+                                        alt="...">
+                                </a>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselExampleAutoplayingoffer" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#carouselExampleAutoplayingoffer" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    <section class="py-5">
         <div class="container">
             <div class="row">
                 <!-- sidebar -->
@@ -94,7 +121,8 @@
                         @endif
 
                         <h2 style="padding: 1rem">Filter</h2>
-                        <form>
+                        <form action="{{ route('shop.page') }}" method="get" id="filter_form">
+                            <input type="hidden" name="filter_search">
                             <select class="form-select form-control" onchange="filter_price(this.value)">
                                 <option value="" selected>Select</option>
                                 <option value="{{ $min_price }}">{{ $min_price }} < </option>
@@ -113,19 +141,24 @@
                             method="get">
                             {{-- @csrf --}}
                             <input type="text" class=" border-0 form-control" placeholder="Search" name="search">
-                          
+
                             <button class="btn border-0 bg-light"><i class="bi bi-search"></i></button>
                         </form>
                     </header>
                     <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                         <p class="d-block py-2 m-0">Showing {{ count($products) }} of {{ count($products) }} results </p>
                         <div class="ms-auto">
-                            <select class="form-select d-inline-block w-auto border pt-1">
-                                {{-- <option value="0">Best match</option>
-                                <option value="1">Recommended</option>
-                                <option value="2">High rated</option> --}}
-                                <option value="3">Randomly</option>
-                            </select>
+                            <form action="{{ route('shop.page') }}" method="get" id="selectForm">
+                                <input type="hidden" name="search_box">
+                                <select class="form-select d-inline-block w-auto border pt-1"
+                                    onchange="selectForm(this.value)">
+                                    <option value="">Short By</option>
+                                    <option value="low_to_high">Price Low to High</option>
+                                    <option value="high_to_low">Price High to Low</option>
+                                    <option value="now_product">What’s new?</option>
+                                </select>
+
+                            </form>
                         </div>
                     </header>
                     <div class="row">
@@ -134,20 +167,22 @@
                                 <div class="card w-100 my-2 shadow-2-strong border border-0 ">
                                     <a href="{{ route('product.detail', $item->slug) }}" class="btn-link product-link">
                                         @if ($item->image)
-                                            <img src="{{ asset('public/product/' . $item->image) }}" class="card-img-top">
+                                            <img src="{{ asset('public/product/' . $item->image) }}"
+                                                class="card-img-top">
                                         @else
                                             <img src="https://omegastaging.com.au/jbm/wp-content/uploads/2024/02/Madhubani-2-9.jpg"
                                                 class="card-img-top">
                                         @endif
 
                                         <span class="content ">
-                                            <h6 class="text-black mt-3" style="color:black !important">{{ $item->name }}</h6>
-                                            <p class="text-black" style="color:black !important">₹{{ $item->sale_price }}</p>
+                                            <h6 class="text-black mt-3" style="color:black !important">
+                                                {{ $item->name }}</h6>
+                                            <p class="text-black" style="color:black !important">₹{{ $item->sale_price }}
+                                            </p>
                                         </span>
                                     </a>
                                 </div>
                             </div>
-
                         @endforeach
                     </div>
                     <hr>
@@ -206,8 +241,10 @@
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block ">
-                                        <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                        <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
                                         <h4>Kala</h4>
                                         <h6>MADHUBANI PAINTING</h6>
                                         <h5>TOP SELLER</h5>
@@ -217,8 +254,10 @@
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                        <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
                                         <h4>Kala</h4>
                                         <h6>MADHUBANI PAINTING</h6>
                                         <h5>TOP SELLER</h5>
@@ -248,24 +287,24 @@
         var max_price = "{{ $max_price }}";
 
         function filter_price(value) {
-            if (value !== "") {
-                if (value == "{{ $min_price }}") {
-                    window.location.href = "{{ url('filter/greater') }}" + "/" + min_price;
-                }
-
-                if (value == "{{ $medium_price }}") {
-                    window.location.href = "{{ url('filter/equal') }}" + "/" + medium_price;
-                }
-
-                if (value == "{{ $max_price }}") {
-                    window.location.href = "{{ url('filter/greaterthen') }}" + "/" + max_price;
-                }
+            if (value != "") {
+                document.getElementsByName('filter_search')[0].value = value;
+                document.getElementById('filter_form').submit();
 
             }
         }
 
-        function inputfield(value){
+        function inputfield(value) {
             console.log(value);
+        }
+
+        function selectForm(value) {
+            // console.log(value);
+            if (value != "") {
+                document.getElementsByName('search_box')[0].value = value;
+                document.getElementById('selectForm').submit();
+
+            }
         }
     </script>
 @endsection

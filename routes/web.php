@@ -104,6 +104,7 @@ Route::resource('pages-images', PageImages::class)->middleware('auth');
 Route::get('footer-image', [PageImages::class, 'footer_image'])->name('footer.image')->middleware('auth');
 Route::post('footer-image-save', [PageImages::class, 'footer_image_save'])->name('footer.image.save')->middleware('auth');
 Route::resource('tags', TagController::class)->middleware('auth');
+Route::post('tagsDelete', [TagController::class, 'tags_delete'])->name('tags.delete');
 Route::resource('orderdetails', OrderdetailsController::class)->middleware('auth');
 Route::resource('sidebar', FSideBarController::class)->middleware('auth');
 Route::resource('shop/page/slider', ShopPageSliderController::class)->middleware('auth');
@@ -201,3 +202,7 @@ Route::group(['middleware' => ['auth']], function () {
     // backend ROutes frontend login'billing.address'
     Route::post('billing/address', [AfterLoginController::class, 'billing_address'])->name('billing.address');
 });
+
+//Export Functionality
+Route::get('productsExport', [ProductController::class, 'products_export'])->name('products.export');
+Route::get('ordersExport', [OrderController::class, 'orders_export'])->name('orders.export');

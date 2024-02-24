@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Exports\OrdersExport;
 use App\Http\Controllers\Controller;
 use App\Models\backend\Order;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -142,6 +144,62 @@ class OrderController extends Controller
         try {
             Order::destroy($id);
             return redirect()->back()->with('success', 'Successfully Deleted');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function orders_export(){
+        try {
+            if (request()->input('start_date') && request()->input('end_date')) {
+                # code...
+                // dd(request()->input('start_date'), request()->input('end_date'));
+                $orders = Order::whereBetween('created_at', [request()->input('start_date'), request()->input('end_date')])->get();
+                $file_name = 'orders.xls';
+                $count = 1;
+                foreach ($orders as $key => $value) {
+                    # code...
+                    $value->count = $count;
+                    $count++;
+                }
+
+                foreach ($orders as $key => $value) {
+                    foreach (json_decode($value->product_details, true) as $key1 => $value1) {
+                        $value->product_name  .= 'product name = ' . $value1['name'] . ' ';
+                        $value->product_sku .= 'product sku = ' . $value1['sku'] . ' ';
+                        $value->product_price .= 'product price = ' . $value1['price'] . ' ';
+                        $value->product_qty .= 'product qty = ' . $value1['qty'] . ' ';
+                    }
+                }
+
+                $export = Excel::store(new OrdersExport($orders), $file_name, 'local');
+                $file = storage_path() . '/app/orders.xls';
+                return \Response::download($file, 'orders.xls');
+    
+            }else{
+                $orders = Order::latest()->get();
+                $file_name = 'orders.xls';
+                $count = 1;
+                foreach ($orders as $key => $value) {
+                    # code...
+                    $value->count = $count;
+                    $count++;
+                }
+
+                foreach ($orders as $key => $value) {
+                    foreach (json_decode($value->product_details, true) as $key1 => $value1) {
+                        $value->product_name  .= 'product name = ' . $value1['name'] . ' ';
+                        $value->product_sku .= 'product sku = ' . $value1['sku'] . ' ';
+                        $value->product_price .= 'product price = ' . $value1['price'] . ' ';
+                        $value->product_qty .= 'product qty = ' . $value1['qty'] . ' ';
+                    }
+                }
+                $export = Excel::store(new OrdersExport($orders), $file_name, 'local');
+                $file = storage_path() . '/app/orders.xls';
+                return \Response::download($file, 'orders.xls');
+    
+            }
+
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

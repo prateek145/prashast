@@ -205,4 +205,21 @@ class TagController extends Controller
                 ->with('error', $e->getMessage());
         }
     }
+
+    public function tags_delete(Request $request){
+        try {
+            $data = $request->all();
+            if ($request->array == []) {
+                # code...
+                throw new \Exception("Delete Array is Empty.");
+                
+            }
+            Tags::destroy($request->array);
+            return response()->json(['success'=> 'true']);
+            
+        } catch (\Exception $e) {
+            return response()->json(['success'=> $e->getMessage()]);
+
+        }
+    }
 }

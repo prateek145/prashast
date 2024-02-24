@@ -30,7 +30,7 @@
             <div class="col-12 col-lg-4 mx-auto">
                 <form class="subscribe" method="POST" action="{{ route('newsletter.store') }}">
                     @csrf
-                    <input type="email" placeholder="enter your email Id" name="email" required><input type="submit"
+                    <input type="email" placeholder="Enter Your Email ID" name="email" required><input type="submit"
                         value="Subscribe">
                 </form>
             </div>

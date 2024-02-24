@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-3"></div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <h1 class="text-center mb-5">We would love
                         to hear from you!</h1>
                     <form class="text-center" action="{{ route('bulk.order.page.save') }}" method="POST">
@@ -41,7 +41,7 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
-                <div class="col-lg-2 text-center">
+                {{-- <div class="col-lg-2 text-center">
                     <h1 class="text-center mb-5">Bulk Order</h1>
 
                     <h4>ADDRESS</h4>
@@ -55,7 +55,7 @@
                     <h4>PHONE</h4>
                     <p>+91 7982512636</p>
 
-                </div>
+                </div> --}}
                 <div class="col-lg-3"></div>
 
 
