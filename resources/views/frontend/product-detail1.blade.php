@@ -4,8 +4,8 @@
         <div class="container pb-5">
             <div class="row">
                 <div class="col-12 float-end">
-                    <p class="float-end"><strong> <a href="{{route('shop.page')}}">Products</a>  /
-                           <a href="{{ route('dynamic.categories', $product->product_subcategory($product->product_subcategories)->name ?? '') }}">{{ $product->product_subcategory($product->product_subcategories)->name ?? '' }}</a> /
+                    <p class="float-end"><strong> <a href="{{route('shop.page')}}" style="color: #6e6e6e;">Products</a>  /
+                           <a href="{{ route('dynamic.categories', $product->product_subcategory($product->product_subcategories)->name ?? '') }}" style="color: #6e6e6e;">{{ $product->product_subcategory($product->product_subcategories)->name ?? '' }}</a> /
                             {{ $product->name ?? '' }}</strong></p>
                 </div>
             </div>
@@ -132,11 +132,11 @@
             <div class="row">
                 <div class="col-12">
                     @if (isset($footer_image))
-                        <div id="carouselExampleAutoplayingb" class="my-lg-5 py-lg-5 carousel slide bg-pattern1"
+                        <div id="carouselExampleAutoplayingb" class="my-lg-1 py-lg-1 carousel slide bg-pattern1"
                             data-bs-ride="carousel">
                             <div class="carousel-inner py-lg-5 my-lg-5">
                                 @foreach ($sub_categories as $key => $item)
-                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-5 my-lg-5">
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }} py-1 my-lg-1">
                                         <img src="{{ asset('public/pageimages/' . $footer_image->image) }}"
                                             class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-none d-md-block ">

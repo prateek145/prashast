@@ -88,8 +88,8 @@
                 </div>
                 <div class="d-block w-100 min-height-60 d-flex d-lg-block">
                     <ul class="social p-0 mx-auto float-lg-end">
-                        <li> <a href="https://www.instagram.com/prashast.co.in?igsh=N3lsMG5zaGh4bDN4&utm_source=qr" target="_blank"><i class="bi bi-instagram"></i></a> </li>
-                        <li> <a href="https://twitter.com/Prashast_co_in" target="_blank"><i class="bi bi-twitter-x"></i></a> </li>
+                        <li> <a href="https://www.instagram.com/prashast.co.in?igsh=N3lsMG5zaGh4bDN4&utm_source=qr" target="_blank"><i class="bi bi-instagram" style="color: #6e6e6e;"></i></a> </li>
+                        <li> <a href="https://twitter.com/Prashast_co_in" target="_blank"><i class="bi bi-twitter-x" style="color: #6e6e6e;"></i></a> </li>
                         {{-- <li><i class="bi bi-instagram"></i></li>
                         <li><i class="bi bi-linkedin"></i></li>
                         <li><i class="bi bi-youtube"></i></li> --}}
