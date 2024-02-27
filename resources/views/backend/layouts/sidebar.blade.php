@@ -127,6 +127,31 @@
                   </a>
               </li><!-- End Dashboard Nav -->
 
+
+              <li class="nav-item">
+                  <a class="nav-link {{ request()->segment(1) == 'coupon' ? '' : 'collapsed' }}"
+                      href="{{ route('coupon.create') }}">
+                      <i class="bi bi-journal-text"></i>
+                      <span>Coupons</span>
+                  </a>
+              </li><!-- End Dashboard Nav -->
+
+              <li class="nav-item">
+                  <a class="nav-link {{ request()->segment(1) == 'campaign-offer' ? '' : 'collapsed' }}"
+                      href="{{ route('campaign-offer.create') }}">
+                      <i class="bi bi-journal-text"></i>
+                      <span>CampainOffer PopUp</span>
+                  </a>
+              </li><!-- End Dashboard Nav -->
+
+              <li class="nav-item">
+                  <a class="nav-link {{ request()->segment(1) == 'flash-deal' ? '' : 'collapsed' }}"
+                      href="{{ route('flash-deal.create') }}">
+                      <i class="bi bi-journal-text"></i>
+                      <span>Announcement</span>
+                  </a>
+              </li><!-- End Dashboard Nav -->
+
               {{-- <li class="nav-item">
                   <a class="nav-link {{ request()->segment(1) == 'vendor-index' ? '' : 'collapsed' }}"
                       href="{{ route('vendor.index') }}">

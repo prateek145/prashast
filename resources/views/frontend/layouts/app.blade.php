@@ -230,7 +230,14 @@
                     "qty": qty
                 },
                 success: function(response) {
-                    location.reload();
+                    if (response.result == 'out_of_stock') {
+                        var popup = document.getElementById('stockPopUp1');
+                        popup.classList.add('show');
+                        popup.style.display = 'block';
+                    }else{
+                        location.reload();
+
+                    }
                 }
             });
 

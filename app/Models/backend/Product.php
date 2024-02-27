@@ -4,6 +4,8 @@ namespace App\Models\backend;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ProductImport;
 
 class Product extends Model
 {
@@ -31,5 +33,11 @@ class Product extends Model
         $sub_category = json_decode($data);
         return ProductSubcategory::find($sub_category[0]);
         // return $this->hasone(ProductSubcategory::class, 'id', 'product_subcategories');
+    }
+
+    public function import() 
+    {
+        Excel::import(new ProductImport, 'products.xlsx');
+        return redirect('back')->with('success', 'All good!');
     }
 }

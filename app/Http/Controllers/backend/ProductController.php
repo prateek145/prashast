@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Exports\ProductsExport;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductImport;
 use App\Models\backend\Desiner;
 use App\Models\backend\Product;
 use App\Models\backend\ProductCategories;
@@ -171,6 +172,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // (dd($request->all()));
         $rules = [
             'name' => 'required|unique:products,name,' . $id .  "'",
             'sku' => 'required|unique:products,name,' . $id .  "'",
@@ -180,7 +182,7 @@ class ProductController extends Controller
             'description' => 'required',
             // 'product_categories' => 'required',
             'product_subcategories' => 'required',
-            'tag_selection' => 'required|array',
+            // 'tag_selection' => 'required|array',
             'status' => 'required',
 
         ];
@@ -239,7 +241,10 @@ class ProductController extends Controller
             unset($data['tag_selection']);
             $data['slug'] = Str::slug($request->name);
             $data['product_subcategories'] = json_encode($request->product_subcategories);
-            $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
+            if ($request->tag_selection) {
+                # code...
+                $data['tag_selection'] = json_encode(array_unique($request->tag_selection));
+            }
 
             $product->update($data);
             return redirect()->back()->with('success', 'Succesfully ' . $request->name . ' Updated');
@@ -308,5 +313,26 @@ class ProductController extends Controller
         }
 
         
+    }
+    public function product_upload(Request $request){
+        try {
+            //code...
+            $rules = [
+                'products' => 'required|file|mimes:xls,xlsx',
+            ];
+
+            $custommessage = [];
+
+            $this->validate($request, $rules, $custommessage);
+            // dd($request->all(), $request->file('products'));
+            Excel::import(new ProductImport(), $request->file('products')->store('files'));
+            return redirect()
+                ->back()
+                ->with('success', 'Successfully Uploaded.');
+        } catch (\Exception $th) {
+            return redirect()
+                ->back()
+                ->with('error', $th->getMessage());
+        }
     }
 }

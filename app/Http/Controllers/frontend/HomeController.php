@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\backend\PageImages;
 use App\Http\Controllers\Controller;
+use App\Models\backend\CampaignOffer;
 use App\Models\backend\Desiner;
 use App\Models\backend\FooterImages;
 use App\Models\backend\FsideBar;
@@ -37,8 +38,10 @@ class HomeController extends Controller
         $top_products = Product::whereIn('id', $top_products_ids)->get();
         $footer_image = FooterImages::latest()->first();
         $home_slider = HomePageSlider::latest()->first();
+        $campaign_offer = CampaignOffer::latest()->first();
+
         // dd($home_slider);
-        return view('frontend.welcome', compact('categories', 'home_slider', 'new_products', 'top_products', 'footer_image'));
+        return view('frontend.welcome', compact('campaign_offer','categories', 'home_slider', 'new_products', 'top_products', 'footer_image'));
     }
 
     public function contact_us()
@@ -304,21 +307,30 @@ class HomeController extends Controller
     public function buy_now($id, $qty)
     {
         // dd($id, $qty);
-        $product = Product::find($id);
-        $qty = $qty;
-        $cart = false;
-        $productdetails = [];
-        $array = [
-            'id' => $product->id,
-            'name' => $product->name,
-            'sku' => $product->sku,
-            'qty' => $qty,
-            'price' => $product->sale_price,
-            'image' => 'product/' . $product->image
-        ];
-        array_push($productdetails, $array);
 
-        return view('frontend.cart', compact('product', 'qty', 'cart', 'productdetails'));
+        $product = Product::find($id);
+
+        if ($qty > $product->quantity) {
+            # code...
+            return redirect()->back()->with('StockPopUp', 'true');
+        } else {
+            # code...
+            $qty = $qty;
+            $cart = false;
+            $productdetails = [];
+            $array = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'sku' => $product->sku,
+                'qty' => $qty,
+                'price' => $product->sale_price,
+                'image' => 'product/' . $product->image
+            ];
+            array_push($productdetails, $array);
+    
+            return view('frontend.cart', compact('product', 'qty', 'cart', 'productdetails'));
+        }
+        
     }
 
     public function wishlist()

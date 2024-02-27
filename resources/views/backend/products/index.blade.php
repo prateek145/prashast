@@ -3,8 +3,29 @@
     <main id="main" class="main">
         <div class="pagetitle">
             <div class="d-flex justify-content-between">
-                <h1>Product</h1>
-                <a href="{{ route('products.create') }}"> <button class="btn btn-primary">Add Product</button> </a>
+                <div class="col-md-3">
+                    <h1>Product</h1>
+                    <a href="{{ route('products.create') }}"> <button class="btn btn-primary">Add Product</button> </a>
+
+                </div>
+                <div class="col-md-6 mt-2 ">
+                    <h4>Upload Products</h4>
+                    <form action="{{ route('product.upload') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="d-flex">
+                            <div class="col-md-10">
+                                <input type="file" name="products" class="form-control ">
+    
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" class="form-control btn btn-primary">
+    
+                            </div>
+    
+                        </div>
+                    </form>
+    
+                </div>
             </div>
             <nav>
                 <ol class="breadcrumb">

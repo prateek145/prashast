@@ -13,9 +13,10 @@
                     <div id="carouselExampleAutoplayingoffer" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach ($images as $key => $value)
-                                <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
-                                    <a href="{{$links[$key] ?? "#"}}">
-                                        <img src="{{asset('public/homeslider/' . $value)}}" class="d-block w-100" alt="...">
+                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                    <a href="{{ $links[$key] ?? '#' }}">
+                                        <img src="{{ asset('public/homeslider/' . $value) }}" class="d-block w-100"
+                                            alt="...">
                                     </a>
                                 </div>
                             @endforeach
@@ -83,7 +84,11 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <p class="maintext">Prashast is a proud aggregator of sustainable and artisanal handicraft products sourced from the makers from Indian rural and tribal areas, promoting traditional and contemporary crafts. While Prashast as a brand has a larger focus and purpose around handicraft manufacturing, e-commerce promotion & management, dealing in farm & non farm products, training & consultancy, this website is the one-stop shop for all the products under the banner.</p>
+                    <p class="maintext">Prashast is a proud aggregator of sustainable and artisanal handicraft products
+                        sourced from the makers from Indian rural and tribal areas, promoting traditional and contemporary
+                        crafts. While Prashast as a brand has a larger focus and purpose around handicraft manufacturing,
+                        e-commerce promotion & management, dealing in farm & non farm products, training & consultancy, this
+                        website is the one-stop shop for all the products under the banner.</p>
                     <a href="{{ route('frontend.about') }}" class="btn btn-primary shadow">Know More</a>
                 </div>
             </div>
@@ -108,8 +113,8 @@
                                         <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
                                             class="img-fluid d-block mx-auto">
                                         <p>TOP SELLER</p>
-                                        <img src="{{ asset('public/product/' . $item->image) }}"
-                                            class="d-block w-100" alt="...">
+                                        <img src="{{ asset('public/product/' . $item->image) }}" class="d-block w-100"
+                                            alt="...">
                                         <h6>{{ $item->name }}</h6>
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
@@ -117,12 +122,14 @@
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev" style="top:0 !important; left:0px !important">
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev"
+                                style="top:0 !important; left:0px !important">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button"
-                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next" style="top:0 !important;">
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next"
+                                style="top:0 !important;">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -145,8 +152,8 @@
                                         <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
                                             class="img-fluid d-block mx-auto">
                                         <p>NEW COLLECTION</p>
-                                        <img src="{{ asset('public/product/' . $item->image) }}"
-                                            class="d-block w-100" alt="...">
+                                        <img src="{{ asset('public/product/' . $item->image) }}" class="d-block w-100"
+                                            alt="...">
                                         <h6>{{ $item->name }}</h6>
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
@@ -154,12 +161,14 @@
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev" style="top:0 !important;left:0px !important">
+                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="prev"
+                                style="top:0 !important;left:0px !important">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button"
-                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="next" style="top:0 !important;">
+                                data-bs-target="#carouselExampleAutoplayinga" data-bs-slide="next"
+                                style="top:0 !important;">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -172,8 +181,8 @@
                     </div>
                 </div>
                 <!--<div class="col-lg-4 text-center py-3 order-1 order-lg-3">
-                                                                                <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
-                                                                            </div>-->
+                                                                                    <div class="collection" style="background: url('dynamic/public/frontend/images/collections.png); background-size: cover; height: 100vh;"></div>
+                                                                                </div>-->
             </div>
         </div>
     </section>
@@ -261,8 +270,10 @@
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block ">
-                                        <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                        <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
                                         <h4>Kala</h4>
                                         <h6>MADHUBANI PAINTING</h6>
                                         <h5>TOP SELLER</h5>
@@ -272,8 +283,10 @@
                                     <img src="https://omegawebdemo.com.au/ept/images/bg-black.png" class="d-block w-100"
                                         alt="...">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <img src="{{asset('public/frontend/images/icon-top.png')}}" class="img-fluid d-block mx-auto">
-                                        <img src="{{asset('public/frontend/images/top-separator-white.png')}}" class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/icon-top.png') }}"
+                                            class="img-fluid d-block mx-auto">
+                                        <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
+                                            class="img-fluid d-block mx-auto">
                                         <h4>Kala</h4>
                                         <h6>MADHUBANI PAINTING</h6>
                                         <h5>TOP SELLER</h5>
@@ -359,12 +372,52 @@
         </div>
     </section>
 
+
+    @if ($campaign_offer->status == 1)
+    <div class="modal fade show" id="campaignOffer" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true" style=display:block;>
+       <div class="modal-dialog">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h1 class="modal-title fs-5" id="exampleModalLabel">Campaign Offer</h1>
+                   <button type="button" class="btn-close" onclick="campaignOffer()" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                   {!! $campaign_offer->description !!}
+               </div>
+           </div>
+       </div>
+   </div>
+    @else
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+       <div class="modal-dialog">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h1 class="modal-title fs-5" id="exampleModalLabel">Campaign Offer</h1>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                   {!! $campaign_offer->description !!}
+               </div>
+           </div>
+       </div>
+   </div>
+    @endif
+
+
+
     <script>
         function switchactive(id) {
             console.log(id);
             var upper = document.getElementsByClassName('switchactive' + id)[0];
             var lower = document.getElementsByClassName('switchactive1' + id)[0];
 
+        }
+
+        function campaignOffer(){
+           var campaignOffer =  document.getElementById('campaignOffer');
+           campaignOffer.style.display = 'none';
         }
     </script>
 @endsection

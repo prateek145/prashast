@@ -41,21 +41,40 @@ class AjaxController extends Controller
     {
         $product = Product::find($request->productId);
         $cart = session()->get('cart');
-        // dd($cart);
-        if ($cart) {
+        // dd($request->all());
+
+        // dd($product);
+        if ($request->qty > $product->quantity) {
             # code...
-            $found = false;
-            foreach ($cart as $key => $value) {
+            return response()->json(['result' => 'out_of_stock']);
+        } else {
+            if ($cart) {
                 # code...
-                // dd('prateek', in_array($cart[$key]['id'], $request->productId));
-                if ($cart[$key]['id'] == $request->productId) {
+                $found = false;
+                foreach ($cart as $key => $value) {
                     # code...
-                    $cart[$key]['quantity']++;
-                    $found = true;
+                    // dd('prateek', in_array($cart[$key]['id'], $request->productId));
+                    if ($cart[$key]['id'] == $request->productId) {
+                        # code...
+                        $cart[$key]['quantity']++;
+                        $found = true;
+                    }
                 }
-            }
-            if ($found == false) {
+                if ($found == false) {
+                    # code...
+                    array_push($cart, [
+                        "id" => $product->id,
+                        "name" => $product->name,
+                        "qty" => $request->qty,
+                        "price" => $product->sale_price,
+                        "image" => 'product/' . $product->image,
+                        "sku" => $request->sku
+                    ]);
+                }
+            } else {
                 # code...
+                // dd('prateek');
+                $cart = [];
                 array_push($cart, [
                     "id" => $product->id,
                     "name" => $product->name,
@@ -66,24 +85,11 @@ class AjaxController extends Controller
                 ]);
             }
 
-        } else {
-            # code...
-            // dd('prateek');
-            $cart = [];
-            array_push($cart, [
-                "id" => $product->id,
-                "name" => $product->name,
-                "qty" => $request->qty,
-                "price" => $product->sale_price,
-                "image" => 'product/' . $product->image,
-                "sku" => $request->sku
-            ]);
+            session()->put('cart', $cart);
+            // session()->flush('cart');
+            // dd(session()->get('cart'));
+            return response()->json(['result' => $cart]);
         }
-
-        session()->put('cart', $cart);
-        // session()->flush('cart');
-        // dd(session()->get('cart'));
-        return response()->json(['result' => $cart]);
     }
 
 
@@ -115,16 +121,26 @@ class AjaxController extends Controller
         // dd($request->all());
         $cart = session()->get('cart');
         foreach ($cart as $id => $deatils) {
-            if ($deatils['id'] == $request->id) {
+            // dd($deatils);
+            $product = Product::find($deatils['id']);
+            // dd($deatils);
+            if ($deatils['qty'] >= $product->quantity) {
                 # code...
-                $val = $deatils['qty'];
-                $val++;
-                $deatils['qty'] = $val;
+                return redirect()->back()->with('StockPopUp', 'true');
+            } else {
+                # code...
+                if ($deatils['id'] == $request->id) {
+                    # code...
+                    $val = $deatils['qty'];
+                    $val++;
+                    $deatils['qty'] = $val;
+                }
+                $cart[$id] = $deatils;
+                session()->put('cart', $cart);
+                return redirect()->back()->with('showcart', 'true');
             }
-            $cart[$id] = $deatils;
         }
-        session()->put('cart', $cart);
-        return redirect()->back()->with('showcart', 'true');
+
         // return response()->json(['result' => 'success']);
     }
 

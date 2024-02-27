@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\Product;
 use App\Models\backend\Tags;
 use Illuminate\Http\Request;
 
@@ -215,6 +216,10 @@ class TagController extends Controller
                 
             }
             Tags::destroy($request->array);
+
+            //product remove tags
+            $products = Product::latest()->get();
+
             return response()->json(['success'=> 'true']);
             
         } catch (\Exception $e) {

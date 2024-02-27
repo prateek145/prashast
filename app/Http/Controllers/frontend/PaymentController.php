@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\backend\Order;
+use App\Models\backend\Product;
 
 class PaymentController extends Controller
 {
@@ -179,6 +180,13 @@ class PaymentController extends Controller
                     $message->to(env('ADMINMAIL'));
                 });
 
+                foreach (json_decode($data['productdetail']) as $key => $value) {
+                    # code...
+                    $product = Product::find($value->id);
+                    $product->quantity =$product->quantity - $value->qty;
+                    $product->save();
+                }
+
                 // dd('auth');
                 session()->flush('cart');
                 session()->flush('userdetails');
@@ -225,6 +233,14 @@ class PaymentController extends Controller
                     $message->subject('Purchase');
                     $message->to(env('ADMINMAIL'));
                 });
+
+                foreach (json_decode($data['productdetail']) as $key => $value) {
+                    # code...
+                    $product = Product::find($value->id);
+                    $product->quantity =$product->quantity - $value->qty;
+                    $product->save();
+                }
+
 
                 // dd('guest');
                 session()->flush('cart');

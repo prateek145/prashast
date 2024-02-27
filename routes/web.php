@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\backend\AjaxController;
 use App\Http\Controllers\backend\BlogController;
+use App\Http\Controllers\backend\CampaignOfferController;
+use App\Http\Controllers\backend\CouponController;
 use App\Http\Controllers\backend\DesinerConroller;
+use App\Http\Controllers\backend\FlashDealController;
 use App\Http\Controllers\backend\FSideBarController;
 use App\Http\Controllers\backend\HomePageSliderController;
 use App\Http\Controllers\backend\NewsLetterController;
@@ -68,6 +71,9 @@ Route::get('place-a-bulk-order', [HomeController::class, 'place_a_bulk_order'])-
 Route::get('user-orders', [HomeController::class, 'user_orders'])->name('orders.page')->middleware('auth');
 Route::get('schedule-a-purchase', [HomeController::class, 'schedule_purchase'])->name('schedule.purchase');
 Route::resource('newsletter', NewsLetterController::class);
+Route::resource('coupon', CouponController::class);
+Route::resource('campaign-offer', CampaignOfferController::class);
+Route::resource('flash-deal', FlashDealController::class);
 
 //post save
 Route::post('become-a-vendor-save', [HomeController::class, 'vendor_save'])->name('become.a.vendor');
@@ -97,6 +103,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('users', UserController::class)->middleware('auth');
 Route::resource('desiners', DesinerConroller::class)->middleware('auth');
 Route::resource('products', ProductController::class)->middleware('auth');
+Route::post('product/upload', [ProductController::class, 'product_upload'])->name('product.upload')->middleware('auth');
 Route::resource('products-categories', ProductCategoryController::class)->middleware('auth');
 Route::resource('orders', OrderController::class)->middleware('auth');
 Route::resource('pages', PageController::class)->middleware('auth');
@@ -189,7 +196,7 @@ Route::get('sendmail', function () {
 
 //paytm payment routes 
 Route::post('paytm-payment', [PaymentController::class, 'paytm_payment'])->name('paytm.payment');
-Route::post('paytm-done', [PaymentController::class, 'paytm_done'])->name('paytm.payment.done')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+Route::get('paytm-done', [PaymentController::class, 'paytm_done'])->name('paytm.payment.done')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
 
 //password change 

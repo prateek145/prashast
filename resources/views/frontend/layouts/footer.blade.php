@@ -1,23 +1,23 @@
 <style>
-    .float{
-	position:fixed;
-	width:50px;
-	height:50px;
-	bottom:115px;
-	left:95%;
-	background-color:#25d366;
-	color:#FFF;
-	border-radius:50%;
-	text-align:center;
-	transform: translate(-50%, -50%);
-  font-size:35px;
-	box-shadow: 2px 2px 3px #999;
-  z-index:100;
-}
+    .float {
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        bottom: 115px;
+        left: 95%;
+        background-color: #25d366;
+        color: #FFF;
+        border-radius: 50%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        font-size: 35px;
+        box-shadow: 2px 2px 3px #999;
+        z-index: 100;
+    }
 
-.my-float{
-	margin-top:16px;
-}
+    .my-float {
+        margin-top: 16px;
+    }
 </style>
 <section class="about py-5">
     <div class="container">
@@ -30,8 +30,8 @@
             <div class="col-12 col-lg-4 mx-auto">
                 <form class="subscribe" method="POST" action="{{ route('newsletter.store') }}">
                     @csrf
-                    <input type="email" placeholder="Enter Your Email ID" name="email" required><input type="submit"
-                        value="Subscribe">
+                    <input type="email" placeholder="Enter Your Email ID" name="email" required><input
+                        type="submit" value="Subscribe">
                 </form>
             </div>
         </div>
@@ -55,11 +55,16 @@
                     <li> <a style="color: #6e6e6e;" href="{{ route('shop.page') }}">Shop</a> </li>
                     <li> <a style="color: #6e6e6e;" href="{{ route('frontend.contact') }}">Contact Us</a> </li>
                     <li> <a style="color: #6e6e6e;" href="{{ route('blogs') }}">Blogs</a> </li>
-                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'return-and-cancellation-policy') }}">Return and Cancellation Policy</a> </li>
-                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'shipping-policy') }}">Shipping Policy</a> </li>
-                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'privacy-policy') }}">Privacy Policy</a> </li>
-                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'terms-and-conditions') }}">Terms and Conditions</a> </li>
-                    
+                    <li> <a style="color: #6e6e6e;"
+                            href="{{ route('page.dynamic', 'return-and-cancellation-policy') }}">Return and Cancellation
+                            Policy</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'shipping-policy') }}">Shipping
+                            Policy</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'privacy-policy') }}">Privacy
+                            Policy</a> </li>
+                    <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', 'terms-and-conditions') }}">Terms
+                            and Conditions</a> </li>
+
 
                     {{-- <li> <a style="color: #6e6e6e;" href="{{ route('page.dynamic', '') }}">Blogs</a> </li> --}}
                 </ul>
@@ -88,8 +93,10 @@
                 </div>
                 <div class="d-block w-100 min-height-60 d-flex d-lg-block">
                     <ul class="social p-0 mx-auto float-lg-end">
-                        <li> <a href="https://www.instagram.com/prashast.co.in?igsh=N3lsMG5zaGh4bDN4&utm_source=qr" target="_blank"><i class="bi bi-instagram" style="color: #6e6e6e;"></i></a> </li>
-                        <li> <a href="https://twitter.com/Prashast_co_in" target="_blank"><i class="bi bi-twitter-x" style="color: #6e6e6e;"></i></a> </li>
+                        <li> <a href="https://www.instagram.com/prashast.co.in?igsh=N3lsMG5zaGh4bDN4&utm_source=qr"
+                                target="_blank"><i class="bi bi-instagram" style="color: #6e6e6e;"></i></a> </li>
+                        <li> <a href="https://twitter.com/Prashast_co_in" target="_blank"><i class="bi bi-twitter-x"
+                                    style="color: #6e6e6e;"></i></a> </li>
                         {{-- <li><i class="bi bi-instagram"></i></li>
                         <li><i class="bi bi-linkedin"></i></li>
                         <li><i class="bi bi-youtube"></i></li> --}}
@@ -111,13 +118,13 @@
     <button class="cart-btn btn btn-primary" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="bi bi-cart3"><span
                 class=" badge rounded-pill bg-danger" style="top:-7px">
-                {{$products == true ? count($products) : 0}}
+                {{ $products == true ? count($products) : 0 }}
 
             </span></i>
         Cart</button>
-        <a href="https://wa.link/gjkzq0" class="float" target="_blank">
-<i class="bi bi-whatsapp my-float"></i>
-</a>
+    <a href="https://wa.link/gjkzq0" class="float" target="_blank">
+        <i class="bi bi-whatsapp my-float"></i>
+    </a>
 
     <div class="offcanvas offcanvas-end {{ session()->get('showcart') == 'true' ? 'show' : '' }}" tabindex="-1"
         id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
@@ -202,6 +209,57 @@
     </div>
     </div>
     <!-- cart end-->
+
+    <div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        {{-- {{dd(session()->get('StockPopUp'))}} --}}
+        <div class="modal fade {{ session()->get('StockPopUp') == true ? 'show' : '' }}"
+            {{ session()->get('StockPopUp') == true ? 'style=display:block;' : 'style=display:none;' }}
+            id="stockPopUp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Stock Pop Up</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            onClick="stockPopUp()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-danger"> Product Add More is Not Possible</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            onClick="stockPopUp()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="stockPopUp1" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Stock Pop Up</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            onClick="stockPopUp1()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-danger"> Product Add More is Not Possible</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            onClick="stockPopUp1()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </footer>
 
 <script>
@@ -259,5 +317,15 @@
                 }
             }
         });
+    }
+
+    function stockPopUp() {
+        var stockPopUp = document.getElementById('stockPopUp');
+        stockPopUp.style.display = 'none';
+    }
+
+    function stockPopUp1() {
+        var stockPopUp = document.getElementById('stockPopUp1');
+        stockPopUp.style.display = 'none';
     }
 </script>
