@@ -373,7 +373,7 @@
     </section>
 
 
-    @if ($campaign_offer->status == 1)
+    @if ((isset($campaign_offer)) && $campaign_offer->status == 1)
     <div class="modal fade show" id="campaignOffer" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true" style=display:block;>
        <div class="modal-dialog">
