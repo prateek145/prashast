@@ -41,7 +41,7 @@ class AjaxController extends Controller
     {
         $product = Product::find($request->productId);
         $cart = session()->get('cart');
-        // dd($request->all());
+        // dd($cart);
 
         // dd($product);
         if ($request->qty > $product->quantity) {
@@ -53,11 +53,10 @@ class AjaxController extends Controller
                 $found = false;
                 foreach ($cart as $key => $value) {
                     # code...
-                    // dd('prateek', in_array($cart[$key]['id'], $request->productId));
-                    if ($cart[$key]['id'] == $request->productId) {
-                        # code...
-                        $cart[$key]['quantity']++;
+                    // dd($value, $value['id']);
+                    if ($value['id'] == $request->productId) {
                         $found = true;
+                        return response()->json(['result' => 'product_found']);
                     }
                 }
                 if ($found == false) {

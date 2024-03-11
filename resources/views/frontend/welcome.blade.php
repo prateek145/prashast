@@ -4,8 +4,8 @@
     {{-- @include('frontend.layouts.slider') --}}
     @if ($home_slider)
         @php
-            $images = json_decode($home_slider->images);
-            $links = json_decode($home_slider->links);
+            $images = json_decode($home_slider->images, true);
+            $links = json_decode($home_slider->links, true);
         @endphp
         <section class="slider-top">
             <div class="row" style=" --bs-gutter-x: 0;">

@@ -26,22 +26,28 @@
                                     @php
                                         if (!is_null($shop_slider)) {
                                             # code...
-                                            $images = json_decode($shop_slider->images) ?? null;
-                                            $links = json_decode($shop_slider->links) ?? null;
+                                            $images = json_decode($shop_slider->images, true) ?? null;
+                                            $links = json_decode($shop_slider->links, true) ?? null;
                                         } else {
                                             $images = null;
                                             $links = null;
                                         }
+
+                                        // dd($images, $links);
                                     @endphp
                                     @if ($images)
                                         @foreach ($images as $key => $item)
                                             <div class="col-md-6">
-                                                {{$links[$key] ?? ""}}
+                                                <a href="{{ route('slider.show', $key) }}">
+                                                    <input type="button" class="btn btn-danger btn-sm" value="Delete"
+                                                        onclick="return confirm('Are You Sure ?')">
+                                                </a>
+
+                                                {{ $links[$key] ?? '' }}
                                                 <img src="{{ asset('public/shopslider/' . $item) }}" width="100%"
                                                     class="mt-4">
                                             </div>
                                         @endforeach
-
                                     @endif
 
                                 </div>
@@ -52,21 +58,24 @@
                                             <label for="">Images</label>
                                             <input type="file" name="images[]"
                                                 class="form-control @error('images') is-invalid @enderror" required>
-        
+
                                         </div>
-    
+
                                         <div class="col-md-6">
                                             <label for="">Links</label>
-                                            <input type="text" class="form-control" name="links[]" placeholder="Enter Links" required>
+                                            <input type="text" class="form-control" name="links[]"
+                                                placeholder="Enter Links" required>
                                         </div>
-    
+
                                     </div>
 
                                 </div>
                                 <div class="row d-flex">
                                     <div class="col-md-2 mt-3">
-                                        <input type="button" onclick="addmore()" value="Add" class="btn btn-success btn-sm">
-                                        <input type="button" onclick="remove()" value="Remove" class="btn btn-danger btn-sm">
+                                        <input type="button" onclick="addmore()" value="Add"
+                                            class="btn btn-success btn-sm">
+                                        <input type="button" onclick="remove()" value="Remove"
+                                            class="btn btn-danger btn-sm">
 
                                     </div>
                                 </div>
@@ -84,19 +93,18 @@
 
     <script>
         var container = document.getElementsByClassName("container")[0];
-        
-        function addmore(){
+
+        function addmore() {
             var sub_container = document.getElementsByClassName("sub_container")[0];
             var data = sub_container.cloneNode(true);
             container.appendChild(data);
         }
 
-        function remove(){
+        function remove() {
             var length = document.getElementsByClassName("sub_container").length;
             if (length > 1) {
                 container.removeChild(container.lastChild);
             }
         }
-
     </script>
 @endsection

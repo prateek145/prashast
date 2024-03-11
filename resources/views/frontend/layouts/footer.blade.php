@@ -18,6 +18,18 @@
     .my-float {
         margin-top: 16px;
     }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
 </style>
 <section class="about py-5">
     <div class="container">
@@ -212,9 +224,9 @@
 
     <div>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
-        </button>
+        </button> --}}
 
         <!-- Modal -->
         {{-- {{dd(session()->get('StockPopUp'))}} --}}
@@ -229,7 +241,7 @@
                             onClick="stockPopUp()"></button>
                     </div>
                     <div class="modal-body">
-                        <p class="text-danger"> Product Add More is Not Possible</p>
+                        <p class="text-danger"> We have limited stock / Out of stock!</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -249,7 +261,7 @@
                             onClick="stockPopUp1()"></button>
                     </div>
                     <div class="modal-body">
-                        <p class="text-danger"> Product Add More is Not Possible</p>
+                        <p class="text-danger"> We have limited stock / Out of stock!</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"

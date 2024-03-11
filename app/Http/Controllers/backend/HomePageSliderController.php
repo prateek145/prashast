@@ -41,10 +41,12 @@ class HomePageSliderController extends Controller
 
             $home_slider = HomePageSlider::latest()->first();
             $data = $request->all();
-    
+
             if ($home_slider) {
                 # code...
-                // dd($home_slider);
+                $banners = json_decode($home_slider->images, true);
+                $links = json_decode($home_slider->links, true);
+
                 if ($request->images) {
                     # code...
                     unset($data['images']);
@@ -53,6 +55,8 @@ class HomePageSliderController extends Controller
 
                     $image_arr = [];
                     // dd($request->images);
+                    // dd($home_slider);
+
                     for ($i = 0; $i < count($request->images); $i++) {
                         # code...
                         $image = $request->images[$i];
@@ -62,13 +66,12 @@ class HomePageSliderController extends Controller
                         $image->move($destination_path, $filename);
                         $image_arr[] = $filename;
                     }
-                    $data['images'] = json_encode($image_arr);
+                    $data['images'] = json_encode(array_merge($banners, $image_arr));
                 }
 
-                $data['links'] = json_encode($request->links);
+                $data['links'] = json_encode(array_merge($links, $request->links));
                 $home_slider->update($data);
                 return redirect()->back()->with('success', 'Success Shop Page Slider Updated.');
-    
             } else {
                 # code...
                 if ($request->images) {
@@ -107,7 +110,35 @@ class HomePageSliderController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $home_slider = HomePageSlider::latest()->first();
+            $images = json_decode($home_slider->images, true);
+            $links = json_decode($home_slider->links, true);
+
+            foreach ($images as $key => $value) {
+                if ($key == $id) {
+                    # code...
+                    unset($images[$key]);
+                }
+            }
+
+            foreach ($links as $key => $value) {
+                if ($key == $id) {
+                    # code...
+                    unset($links[$key]);
+                }
+            }
+
+            $home_slider->images = json_encode($images);
+            $home_slider->links = json_encode($links);
+            $home_slider->save();
+            return redirect()->back()->with('success', 'Image Successfully Deleted.');
+        } catch (\Exception $th) {
+            //throw $th;
+            return redirect()
+                ->back()
+                ->with('error', $th->getMessage());
+        }
     }
 
     /**

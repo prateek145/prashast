@@ -26,16 +26,23 @@
                                     @php
                                         if (!is_null($home_slider)) {
                                             # code...
-                                            $images = json_decode($home_slider->images) ?? null;
-                                            $links = json_decode($home_slider->links) ?? null;
+                                            $images = json_decode($home_slider->images, true) ?? null;
+                                            $links = json_decode($home_slider->links, true) ?? null;
                                         } else {
                                             $images = null;
                                             $links = null;
                                         }
+
+                                        // dd($images, $links);
                                     @endphp
                                     @if ($images)
                                         @foreach ($images as $key => $item)
                                             <div class="col-md-6">
+                                                <a href="{{route('home-slider.show', $key)}}">
+                                                    <input type="button" class="btn btn-danger btn-sm" value="Delete"
+                                                        onclick="return confirm('Are You Sure ?')">
+                                                </a>
+
                                                 {{$links[$key] ?? ""}}
                                                 <img src="{{ asset('public/homeslider/' . $item) }}" width="100%"
                                                     class="mt-4">

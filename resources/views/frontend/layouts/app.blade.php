@@ -234,6 +234,9 @@
                         var popup = document.getElementById('stockPopUp1');
                         popup.classList.add('show');
                         popup.style.display = 'block';
+                    }else if(response.result == 'product_found'){
+                        alert('Product Already In Cart');
+
                     }else{
                         location.reload();
 
