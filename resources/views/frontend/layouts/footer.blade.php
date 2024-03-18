@@ -20,14 +20,13 @@
     }
 
     /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
+    .cartquantity{
         -webkit-appearance: none;
         margin: 0;
     }
 
     /* Firefox */
-    input[type=number] {
+    .cartquantity {
         -moz-appearance: textfield;
     }
 </style>
@@ -163,7 +162,7 @@
                         <tr>
                             <td>{{ $value['name'] }}</td>
                             <td>{{ $value['price'] }}</td>
-                            <td><input type="number" value="{{ $value['qty'] }}" min=1 class="form-control" />
+                            <td><input type="number" value="{{ $value['qty'] }}" min=1 class="form-control cartquantity" />
                                 <div class="input-group-btn-vertical d-flex">
                                     <form action="{{ route('remove.qty.cart') }}" method="post">
                                         @csrf

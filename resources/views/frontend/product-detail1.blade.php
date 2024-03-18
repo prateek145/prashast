@@ -1,5 +1,81 @@
 @extends('frontend.layouts.app')
 @section('content')
+    <style>
+        /* CSS */
+        #sync1 {
+            .item {
+                background: #0c83e7;
+                padding: 80px 0px;
+                margin: 5px;
+                color: #FFF;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                text-align: center;
+            }
+        }
+
+        #sync2 {
+            .item {
+                background: #C9C9C9;
+                padding: 10px 0px;
+                margin: 5px;
+                color: #FFF;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                text-align: center;
+                cursor: pointer;
+
+                h1 {
+                    font-size: 18px;
+                }
+            }
+
+            .current .item {
+                background: #0c83e7;
+            }
+        }
+
+
+
+        .owl-theme {
+            .owl-nav {
+
+                /*default owl-theme theme reset .disabled:hover links */
+                [class*='owl-'] {
+                    transition: all .3s ease;
+
+                    &.disabled:hover {
+                        background-color: #D6D6D6;
+                    }
+                }
+
+            }
+        }
+
+
+        #sync1.owl-theme {
+            position: relative;
+
+            .owl-next,
+            .owl-prev {
+                width: 22px;
+                height: 40px;
+                margin-top: -20px;
+                position: absolute;
+                top: 50%;
+            }
+
+            .owl-prev {
+                left: 10px;
+            }
+
+            .owl-next {
+                right: 10px;
+            }
+        }
+    </style>
     <section class="shop py-5">
         <div class="container pb-5">
             <div class="row">
@@ -13,37 +89,23 @@
             </div>
             <div class="row">
                 <div class="col-lg-5 mb-5 mb-lg-auto">
-                    <div id="carouselExampleIndicatorsf" class="carousel slide d-flex">
-                        <div class="carousel-indicators">
 
-                            @foreach (array_reverse(json_decode($product->featured_image)) as $key => $item)
-                                <button type="button" data-bs-target="#carouselExampleIndicatorsf"
-                                    data-bs-slide-to="{{ $key }}" class="active" aria-current="true"
-                                    aria-label="Slide {{ $key + 1 }}"><img src="{{ asset('public/product/' . $item) }}"
-                                        class="d-block" style="width:100px" alt=""></button>
-                            @endforeach
+                    <div id="sync1" class="owl-carousel owl-theme">
 
-
-                        </div>
-                        <div class="carousel-inner">
-                            {{-- <div class="carousel-item active">
-                                <img src="{{ asset('public/frontend/images/03.png') }}" class="d-block" alt="">
-                            </div> --}}
-
-                            @foreach (array_reverse(json_decode($product->featured_image)) as $key => $item)
-                                {{-- {{dd($key)}} --}}
-                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset('public/product/' . $item) }}" class="d-block" alt="">
-                                </div>
-                            @endforeach
-
-
-                        </div>
+                        @foreach (array_reverse(json_decode($product->featured_image)) as $key => $item)
+                            <div class="item">
+                                <img src="{{ asset('public/product/' . $item) }}" alt="">
+                            </div>
+                        @endforeach
                     </div>
 
-
-
-
+                    <div id="sync2" class="owl-carousel owl-theme">
+                        @foreach (array_reverse(json_decode($product->featured_image)) as $key => $item)
+                            <div class="item">
+                                <img src="{{ asset('public/product/' . $item) }}" alt="">
+                            </div>
+                        @endforeach
+                    </div>
 
                 </div>
                 <div class="col-lg-7  mt-5 mt-lg-auto">
@@ -57,7 +119,10 @@
                     <img src="{{ asset('public/frontend/images/line_separator_01.png') }}">
                     <h6>New Collection</h6>
                     @php
-                        $pro = \App\Models\wishlist::where(['product_id' => $product->id, 'user_id' => auth()->id()])->first();
+                        $pro = \App\Models\wishlist::where([
+                            'product_id' => $product->id,
+                            'user_id' => auth()->id(),
+                        ])->first();
                     @endphp
 
                     @if ($pro)

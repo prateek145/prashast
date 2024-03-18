@@ -52,13 +52,19 @@ class AjaxController extends Controller
                 # code...
                 $found = false;
                 foreach ($cart as $key => $value) {
-                    # code...
-                    // dd($value, $value['id']);
-                    if ($value['id'] == $request->productId) {
-                        $found = true;
-                        return response()->json(['result' => 'product_found']);
+                    if ($cart[$key]['id'] == $request->productId) {
+                        // dd($cart[$key]['qty'], $product->quantity);
+                        if ($cart[$key]['qty'] >= $product->quantity) {
+                            # code...
+                            return response()->json(['result' => 'out_of_stock']);
+                        } else {
+                            # code...
+                            $cart[$key]['qty'] = $cart[$key]['qty'] + $request->qty;
+                            $found = true;
+                        }
                     }
                 }
+                // dd($cart);
                 if ($found == false) {
                     # code...
                     array_push($cart, [

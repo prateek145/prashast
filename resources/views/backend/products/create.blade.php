@@ -141,7 +141,7 @@
                                         <div class="form-group">
                                             <label for="control-label font-weight-bold">Quantity</label>
                                             <input class="form-control" placeholder="Product Quantity" id="featuredimage" name="quantity" 
-                                                type="number" required />
+                                                type="number" min="1" required />
                                             @error('quantity')
                                                 <label id="quantity-error" class="error text-danger"
                                                     for="quantity">{{ $message }}</label>
