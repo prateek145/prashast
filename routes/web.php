@@ -24,6 +24,7 @@ use App\Http\Controllers\backend\UserOrderController;
 use App\Http\Controllers\backend\SideBarController;
 use App\Http\Controllers\backend\TagController;
 use App\Http\Controllers\frontend\AfterLoginController;
+use App\Http\Controllers\frontend\FCouponController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\PaymentController;
 use App\Models\backend\ProductSubcategory;
@@ -71,9 +72,10 @@ Route::get('place-a-bulk-order', [HomeController::class, 'place_a_bulk_order'])-
 Route::get('user-orders', [HomeController::class, 'user_orders'])->name('orders.page')->middleware('auth');
 Route::get('schedule-a-purchase', [HomeController::class, 'schedule_purchase'])->name('schedule.purchase');
 Route::resource('newsletter', NewsLetterController::class);
-Route::resource('coupon', CouponController::class);
 Route::resource('campaign-offer', CampaignOfferController::class);
 Route::resource('flash-deal', FlashDealController::class);
+Route::resource('coupon', CouponController::class);
+Route::post('coupon/apply', [FCouponController::class, 'coupon_apply'])->name('coupon.apply');
 
 //post save
 Route::post('become-a-vendor-save', [HomeController::class, 'vendor_save'])->name('become.a.vendor');

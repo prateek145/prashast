@@ -122,6 +122,7 @@
 
                         <h2 style="padding: 1rem">Filter</h2>
                         <form action="{{ route('shop.page') }}" method="get" id="filter_form">
+                            <input type="hidden" name="category" value="{{request()->segment(2) ?? request()->input('category')}}">
                             <input type="hidden" name="filter_search">
                             <select class="form-select form-control" onchange="filter_price(this.value)">
                                 <option value="" selected>Select</option>

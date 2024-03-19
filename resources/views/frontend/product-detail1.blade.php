@@ -4,8 +4,6 @@
         /* CSS */
         #sync1 {
             .item {
-                background: #0c83e7;
-                padding: 80px 0px;
                 margin: 5px;
                 color: #FFF;
                 -webkit-border-radius: 3px;
@@ -33,7 +31,7 @@
             }
 
             .current .item {
-                background: #0c83e7;
+                background: #f0b53f;
             }
         }
 
@@ -88,7 +86,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-5 mb-5 mb-lg-auto">
+                <div class="col-lg-4 mb-5 mb-lg-auto">
 
                     <div id="sync1" class="owl-carousel owl-theme">
 
@@ -106,6 +104,9 @@
                             </div>
                         @endforeach
                     </div>
+
+                </div>
+                <div class="col-lg-1 mb-5 mb-lg-auto">
 
                 </div>
                 <div class="col-lg-7  mt-5 mt-lg-auto">

@@ -8,7 +8,6 @@
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-primary">Your cart</span>
-                        {{-- <span class="badge bg-primary rounded-pill">2</span> --}}
                     </h4>
                     @if ($cart == true)
                         <ul class="list-group mb-3">
@@ -29,6 +28,25 @@
                                 @endphp
                             @endforeach
 
+                            <form action="{{ route('coupon.apply') }}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="text" name="code" class="form-control" placeholder="coupon"
+                                            id="">
+
+                                        <input type="hidden" name="products" value="{{ json_encode($products) }}">
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="submit" value="submit" class="btn btn-sm btn-warning">
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (INR)</span>
                                 <strong>{{ $totalprice }}</strong>
@@ -46,6 +64,24 @@
 
                                 <span class="text-muted">{{ $product->sale_price }}</span>
                             </li>
+
+                            <form action="{{ route('coupon.apply') }}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="text" name="code" class="form-control" placeholder="coupon"
+                                            id="">
+                                        <input type="hidden" name="products" value="{{ json_encode($product) }}">
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="submit" value="submit" class="btn btn-sm btn-warning">
+
+                                    </div>
+
+                                </div>
+
+                            </form>
 
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (INR)</span>
@@ -196,7 +232,8 @@
                                 data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
                                 aria-controls="collapseExample" name="shipping_address_button"
                                 {{ old('shipping_address_button') == 'on' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="same-address">Shipping address is different from my billing address</label>
+                            <label class="form-check-label" for="same-address">Shipping address is different from my
+                                billing address</label>
                         </div>
                         @if ($cart == true)
                             <input type="hidden" value="{{ json_encode(session()->get('cart')) }}"
