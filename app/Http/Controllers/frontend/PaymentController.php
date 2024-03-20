@@ -168,7 +168,7 @@ class PaymentController extends Controller
                 $order['order_id'] = $order_id;
                 $order['coupon_code'] = json_decode($pdetails)['coupon'] ?? Null;
                 $order['user_id'] = auth()->id();
-                dd($order, $pdetails);
+                dd($order, $pdetails, json_decode($pdetails));
                 $orders1 = Order::create($order);
                 // dd($orders1);
                 Mail::send('mail.customer', ['order' => $orders1], function ($message) use ($data) {
