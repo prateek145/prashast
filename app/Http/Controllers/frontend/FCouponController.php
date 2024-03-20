@@ -121,6 +121,9 @@ class FCouponController extends Controller
                                     $total_price += $product->sale_price;
                                     $discountedPrice += $products->sale_price - $coupon->value;
                                 }
+                            }else{
+                                $total_price += $product->sale_price;
+                                $discountedPrice += $products->sale_price - $coupon->value;
                             }
                         }
                     }
