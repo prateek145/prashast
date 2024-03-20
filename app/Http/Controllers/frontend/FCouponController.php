@@ -88,7 +88,6 @@ class FCouponController extends Controller
                             # code...
                             if ($coupon->category) {
                                 # code...
-                                dd($coupon->category);
                                 if (in_array($coupon->category, json_decode($product->product_subcategories))) {
                                     # code...
                                     if ($coupon->type == 'percent') {
@@ -104,12 +103,12 @@ class FCouponController extends Controller
                                         # code...
                                         $total_price += $product->sale_price;
                                         $discountedPrice += $product->sale_price - $coupon->value;
-                                    }else{
-                                        $total_price += $product->sale_price;
-                                        $discountedPrice += $product->sale_price;
                                     }
                                     // dd($discountedPrice);
 
+                                }else{
+                                    $total_price += $product->sale_price;
+                                    $discountedPrice += $product->sale_price;
                                 }
                             } elseif (in_array($product->id, json_decode($coupon->products))) {
                                 # code...
