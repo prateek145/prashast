@@ -181,7 +181,7 @@ class PaymentController extends Controller
                     $message->to(env('ADMINMAIL'));
                 });
 
-                dd($transaction_detials, session()->get('userdetails'), json_decode($data['productdetail']));
+                dd($transaction_detials, session()->get('userdetails'));
                 foreach (json_decode($data['productdetail']) as $key => $value) {
                     # code...
                     $product = Product::find($value->id);
