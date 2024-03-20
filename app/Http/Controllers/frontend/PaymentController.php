@@ -141,7 +141,7 @@ class PaymentController extends Controller
             if (auth()->user()) {
                 # code...
                 $transaction_detials = json_encode($request->all());
-                dd($transaction_detials);
+                dd($transaction_detials, session()->get('userdetails'));
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
                 $pdetails = $data['productdetail'];
