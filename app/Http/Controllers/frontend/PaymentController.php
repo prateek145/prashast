@@ -169,7 +169,7 @@ class PaymentController extends Controller
                 $order['transaction_details'] = $transaction_detials;
                 $order['order_id'] = $order_id;
                 $order['user_id'] = auth()->id();
-                dd($order, $pdetails, json_decode($pdetails));
+                // dd($order, $pdetails, json_decode($pdetails));
                 $orders1 = Order::create($order);
                 // dd($orders1);
                 Mail::send('mail.customer', ['order' => $orders1], function ($message) use ($data) {
@@ -184,7 +184,7 @@ class PaymentController extends Controller
                     $message->to(env('ADMINMAIL'));
                 });
 
-                dd($transaction_detials, session()->get('userdetails'));
+                // dd($transaction_detials, session()->get('userdetails'));
                 foreach (json_decode($pdetails) as $key => $value) {
                     # code...
                     $product = Product::find($value->id);

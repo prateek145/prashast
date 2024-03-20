@@ -28,6 +28,7 @@
                                     <th>Shipping to</th>
                                     <th>Shipping Name</th>
                                     <th>Shipping Address</th>
+                                    <th>Coupon Code</th>
                                     <th>Created at</th>
                                     <th>Actions</th>
                                 </tr>
@@ -45,6 +46,7 @@
                                         <td>{{ $item->shipping_address_button ?? 'off' }}</td>
                                         <td>{{ $item->shipping_name ?? '' }}</td>
                                         <td>{{ $item->shipping_address ?? '' }}</td>
+                                        <td>{{ $item->coupon_code ?? '' }}</td>
                                         <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <div style="display:flex;">
