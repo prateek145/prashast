@@ -166,9 +166,9 @@ class PaymentController extends Controller
                 $order['amount'] = $amount;
                 $order['transaction_details'] = $transaction_detials;
                 $order['order_id'] = $order_id;
-                $order['coupon_code'] = $pdetails['coupon'] ?? "Null";
+                $order['coupon_code'] = $pdetails['coupon'] ?? Null;
                 $order['user_id'] = auth()->id();
-                dd($order);
+                dd($order, $pdetails);
                 $orders1 = Order::create($order);
                 // dd($orders1);
                 Mail::send('mail.customer', ['order' => $orders1], function ($message) use ($data) {
@@ -210,7 +210,7 @@ class PaymentController extends Controller
                 $order['name'] = $data['name'];
                 $order['email'] = $data['email'];
                 $order['phone'] = $data['phone'];
-                $order['coupon_code'] = $pdetails['coupon'] ?? "Null";
+                $order['coupon_code'] = $pdetails['coupon'] ?? Null;
                 $order['billing_address'] = $data['address'] . ', ' . $data['address2'] . ', ' . $data['country'] . ', ' . $data['state'] . ', ' . $data['pincode'];
                 $order['shipping_address_button'] = $data['shipping_address_button'] ?? "";
                 $order['shipping_name'] = $data['shipping_name'] ?? "";
