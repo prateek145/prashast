@@ -36,6 +36,7 @@
                                             id="">
 
                                         <input type="hidden" name="products" value="{{ json_encode($products) }}">
+                                        <input type="hidden" name="type" value="multiple">
 
                                     </div>
                                     <div class="col-md-2">
@@ -49,7 +50,13 @@
 
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (INR)</span>
-                                <strong>{{ $totalprice }}</strong>
+                                {{-- {{ dd(session()->get('discountedPrice'), session()->get('priceChange')) }} --}}
+                                @if (session()->get('priceChange') && session()->get('priceChange') == true)
+                                    <strong>Total Price : {{ $totalprice }}</strong>
+                                    <strong>Discounted Price : {{ session()->get('discountedPrice') }}</strong>
+                                @else
+                                    <strong>{{ $totalprice }}</strong>
+                                @endif
                             </li>
                         </ul>
                     @endif
@@ -72,6 +79,7 @@
                                         <input type="text" name="code" class="form-control" placeholder="coupon"
                                             id="">
                                         <input type="hidden" name="products" value="{{ json_encode($product) }}">
+                                        <input type="hidden" name="type" value="single">
 
                                     </div>
                                     <div class="col-md-2">
@@ -85,7 +93,12 @@
 
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (INR)</span>
-                                <strong>{{ $product->sale_price * $qty }}</strong>
+                                @if (session()->get('priceChange') && session()->get('priceChange') == true)
+                                    <strong>Total Price : {{ $product->sale_price * $qty }}</strong>
+                                    <strong>Discounted Price : {{ session()->get('discountedPrice') }}</strong>
+                                @else
+                                    <strong>{{ $product->sale_price * $qty }}</strong>
+                                @endif
                             </li>
                         </ul>
                     @endif
@@ -108,7 +121,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <input type="hidden" value="{{ $totalprice ?? $product->sale_price * $qty }}" name="amount">
+                            <input type="hidden" value="{{ session()->get('discountedPrice') == true ? session()->get('discountedPrice') : $totalprice ?? $product->sale_price * $qty }}" name="amount">
                             <div class="col-12">
                                 <label for="email" class="form-label">Email <span class="text-muted"></span></label>
                                 <input type="email" name="email"
@@ -122,6 +135,8 @@
                                     </span>
                                 @enderror
                             </div>
+
+                            <input type="hidden" name="coupon" value="{{session()->get('priceChange') && session()->get('priceChange') == true ?   session()->get('couponName') : ''}}">
 
                             <div class="col-12">
                                 <label for="phone" class="form-label">Phone <span class="text-muted"></span></label>

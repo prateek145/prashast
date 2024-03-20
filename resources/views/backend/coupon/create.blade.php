@@ -49,6 +49,17 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label for="control-label font-weight-bold">Category/Product</label>
+                                            <select id="" class="form-control" onchange="showPC(this.value)" required>
+                                                <option value="">Select</option>
+                                                <option value="products">Products</option>
+                                                <option value="categories">Categories</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label for="control-label font-weight-bold">Single/Multiple Times</label>
                                             <select name="count" class="form-control">
                                                 <option value="2">Multiple</option>
@@ -78,6 +89,17 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label for="control-label font-weight-bold">Expiry Date</label>
+                                            <input type="date" name="expiry_date" class="form-control">
+                                            @error('expiry_date')
+                                                <label id="expiry_date-error" class="error text-danger"
+                                                    for="expiry_date">{{ $message }}</label>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4" id="categories" style="display: none">
+                                        <div class="form-group">
                                             <label for="control-label font-weight-bold">Category</label>
                                             <select name="category" id="" class="form-control">
                                                 <option value="">Select</option>
@@ -88,6 +110,22 @@
                                             @error('category')
                                                 <label id="category-error" class="error text-danger"
                                                     for="category">{{ $message }}</label>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" id="products" style="display: none">
+                                        <div class="form-group">
+                                            <label for="control-label font-weight-bold">Product</label>
+                                            <select name="products[]" id="" class="form-control" multiple>
+                                                <option value="">Select</option>
+                                                @foreach ($products as $item)
+                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('product')
+                                                <label id="product-error" class="error text-danger"
+                                                    for="product">{{ $message }}</label>
                                             @enderror
                                         </div>
                                     </div>
@@ -124,6 +162,7 @@
                                     <th>code</th>
                                     <th>Type</th>
                                     <th>value</th>
+                                    <th>Expiry Date</th>
                                     <th>Category</th>
                                     <th>Actions</th>
                                 </tr>
@@ -135,11 +174,15 @@
                                         <td>{{ $item->code }}</td>
                                         <td>{!! $item->type !!}</td>
                                         <td>{{ $item->value }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($item->expiry_date)) }}</td>
                                         <td>{{ $item->categoryName->name ?? '' }}</td>
                                         <td>
                                             <div style="display:flex;">
+                                                @if ($item->products != null)
                                                 <a href="{{ route('coupon.edit', $item->id) }}"
-                                                    class="btn btn-warning btn-sm">Edit</a>
+                                                    class="btn btn-warning btn-sm">Show Products</a>
+                                                    
+                                                @endif
                                                 &nbsp;
                                                 {{-- <form id="delete_form{{ $item->id }}" method="POST"
                                                 action="{{ route('blog.destroy', $item->id) }}"
@@ -161,4 +204,20 @@
             </div>
         </section>
     </main><!-- End #main -->
+    <script>
+        function showPC(value){
+            if (value == 'products') {
+                document.getElementById('products').style.display = 'block';
+                document.getElementById('categories').style.display = 'none';
+
+            }
+
+            if (value == 'categories') {
+                document.getElementById('categories').style.display = 'block';
+                document.getElementById('products').style.display = 'none';
+
+                
+            }
+        }
+    </script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\backend\CouponManagement;
+use App\Models\backend\Product;
 use App\Models\backend\ProductSubcategory;
 use Illuminate\Http\Request;
 
@@ -28,8 +29,9 @@ class CouponController extends Controller
     {
         $coupons = CouponManagement::latest()->get();
         $categories = ProductSubcategory::latest()->get();
+        $products = Product::where('status', 1)->latest()->get();
         $no = 1;
-        return view('backend/coupon/create', compact('coupons', 'categories', 'no'));
+        return view('backend/coupon/create', compact('coupons', 'categories', 'no', 'products'));
     }
 
     /**
@@ -45,7 +47,7 @@ class CouponController extends Controller
             'type' => 'required',
             'count' => 'required',
             'value' => 'required',
-            'category' => 'required'
+            // 'category' => 'required'
 
         ];
 
@@ -56,8 +58,15 @@ class CouponController extends Controller
         $this->validate($request, $rules, $custommessages);
         try {
             $data = $request->all();
+            // dd($data);
             unset($data['_token']);
+            if ($request->products) {
+                # code...
+                $data['products']=json_encode($request->products);
+            }
+            // dd($data);
             CouponManagement::create($data);
+
             return redirect()->back()->with('success', 'Successfully created.');
 
         } catch (\Exception $e) {
@@ -86,7 +95,8 @@ class CouponController extends Controller
     {
         $coupon = CouponManagement::find($id);
         $categories = ProductSubcategory::latest()->get();
-        return view('backend/coupon/edit', compact('coupon', 'categories'));
+        $products = Product::where('status', 1)->latest()->get();
+        return view('backend/coupon/edit', compact('coupon', 'categories', 'products'));
     }
 
     /**
@@ -103,7 +113,7 @@ class CouponController extends Controller
             'type' => 'required',
             'count' => 'required',
             'value' => 'required',
-            'category' => 'required'
+            // 'category' => 'required'
 
         ];
 
@@ -117,6 +127,10 @@ class CouponController extends Controller
             unset($data['_token']);
 
             $coupon = CouponManagement::find($id);
+            if ($request->products) {
+                # code...
+                $data['products']=json_encode($request->products);
+            }
             $coupon->update($data);
             return redirect()->back()->with('success', 'Successfully Updated Successfully.');
 

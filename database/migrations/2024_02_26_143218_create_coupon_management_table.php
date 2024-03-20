@@ -19,7 +19,9 @@ class CreateCouponManagementTable extends Migration
             $table->string('type')->nullable();
             $table->integer('value')->nullable();
             $table->integer('category')->nullable();
-            $table->integer('product')->nullable();
+            $table->longText('product')->nullable();
+            $table->integer('used')->default(0);
+            $table->date('expiry_date')->nullable();
             $table->integer('count')->nullable();
             $table->timestamps();
         });
