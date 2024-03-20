@@ -166,7 +166,7 @@ class PaymentController extends Controller
                 $order['amount'] = $amount;
                 $order['transaction_details'] = $transaction_detials;
                 $order['order_id'] = $order_id;
-                $order['coupon_code'] = $pdetails['coupon'] ?? Null;
+                $order['coupon_code'] = json_decode($pdetails['coupon']) ?? Null;
                 $order['user_id'] = auth()->id();
                 dd($order, $pdetails);
                 $orders1 = Order::create($order);
