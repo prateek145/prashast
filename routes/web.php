@@ -198,7 +198,7 @@ Route::get('sendmail', function () {
 
 //paytm payment routes 
 Route::post('paytm-payment', [PaymentController::class, 'paytm_payment'])->name('paytm.payment');
-Route::get('paytm-done', [PaymentController::class, 'paytm_done'])->name('paytm.payment.done')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+Route::post('paytm-done', [PaymentController::class, 'paytm_done'])->name('paytm.payment.done')->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
 
 //password change 
