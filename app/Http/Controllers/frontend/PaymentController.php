@@ -144,6 +144,7 @@ class PaymentController extends Controller
           
                 $order_id = $request->ORDERID;
                 $data = session()->get('userdetails');
+               
                 $pdetails = $data['productdetail'];
                 $amount = $request->TXNAMOUNT;
                 unset($data['productdetail']);
@@ -153,6 +154,7 @@ class PaymentController extends Controller
 
                 $order['name'] = $data['name'];
                 $order['email'] = $data['email'];
+                $order['coupon_code'] = $data['coupon'] ?? null;
                 $order['phone'] = $data['phone'];
                 $order['billing_address'] = $data['address'] . ', ' . $data['address2'] . ', ' . $data['country'] . ', ' . $data['state'] . ', ' . $data['pincode'];
                 $order['shipping_address_button'] = $data['shipping_address_button'] ?? "";
@@ -166,7 +168,6 @@ class PaymentController extends Controller
                 $order['amount'] = $amount;
                 $order['transaction_details'] = $transaction_detials;
                 $order['order_id'] = $order_id;
-                $order['coupon_code'] = json_decode($pdetails)['coupon'] ?? Null;
                 $order['user_id'] = auth()->id();
                 dd($order, $pdetails, json_decode($pdetails));
                 $orders1 = Order::create($order);
@@ -209,6 +210,7 @@ class PaymentController extends Controller
 
                 $order['name'] = $data['name'];
                 $order['email'] = $data['email'];
+                $order['coupon_code'] = $data['coupon'] ?? null;
                 $order['phone'] = $data['phone'];
                 $order['coupon_code'] = $pdetails['coupon'] ?? Null;
                 $order['billing_address'] = $data['address'] . ', ' . $data['address2'] . ', ' . $data['country'] . ', ' . $data['state'] . ', ' . $data['pincode'];
