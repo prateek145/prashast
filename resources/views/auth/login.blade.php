@@ -38,9 +38,9 @@
                         @enderror
                     </div>
 
-                    <strong>Google recaptcha :</strong>
+                    {{-- <strong>Google recaptcha :</strong>
                     {!! NoCaptcha::renderJs() !!}
-                    {!! NoCaptcha::display() !!}
+                    {!! NoCaptcha::display() !!} --}}
                    
                     <input type="submit" class="btn btn-primary mb-4" value="Sign-in" />
                     <a class="d-block text-white" href="{{ route('password.request') }}">Forgot Password?</a>
