@@ -120,7 +120,7 @@
                             {!! $fsidebar->description !!}
                         @endif
 
-                        <h2 style="padding: 1rem">Filter</h2>
+                        {{-- <h2 style="padding: 1rem">Filter</h2>
                         <form action="{{ route('shop.page') }}" method="get" id="filter_form">
                             <input type="hidden" name="category" value="{{request()->segment(2) ?? request()->input('category')}}">
                             <input type="hidden" name="filter_search">
@@ -130,7 +130,7 @@
                                 <option value="{{ $medium_price }}">{{ $medium_price }} to {{ $max_price }}</option>
                                 <option value="{{ $max_price }}">{{ $max_price }} ></option>
                             </select>
-                        </form>
+                        </form> --}}
 
                     </div>
                 </div>
