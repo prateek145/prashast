@@ -86,22 +86,27 @@ class FCouponController extends Controller
                             throw new \Exception("Coupon is already used.");
                         } elseif ($coupon->count == 1 && $coupon->used == 0 && $coupon->expiry_date >= date('Y-m-d') || $coupon->count == 2 && $coupon->expiry_date >= date('Y-m-d')) {
                             # code...
-                            if ($coupon->category && in_array($coupon->category, json_decode($product->product_subcategories))) {
-                                if ($coupon->type == 'percent') {
+                            if ($coupon->category) {
+                                # code...
+                                if (in_array($coupon->category, json_decode($product->product_subcategories))) {
                                     # code...
-                                    $total_price += $product->sale_price;
-                                    $price = $product->sale_price;
-                                    $discountPercentage = $coupon->value;
-                                    $discount = ($discountPercentage / 100) * $price;
-                                    $discountedPrice += intval(round($price - $discount));
+                                    if ($coupon->type == 'percent') {
+                                        # code...
+                                        $total_price += $product->sale_price;
+                                        $price = $product->sale_price;
+                                        $discountPercentage = $coupon->value;
+                                        $discount = ($discountPercentage / 100) * $price;
+                                        $discountedPrice += intval(round($price - $discount));
+                                        // dd($discountedPrice);
+
+                                    } elseif ($coupon->type == 'fixed') {
+                                        # code...
+                                        $total_price += $product->sale_price;
+                                        $discountedPrice += $product->sale_price - $coupon->value;
+                                    }
                                     // dd($discountedPrice);
 
-                                } elseif ($coupon->type == 'fixed') {
-                                    # code...
-                                    $total_price += $product->sale_price;
-                                    $discountedPrice += $product->sale_price - $coupon->value;
                                 }
-                       
                             } elseif (in_array($product->id, json_decode($coupon->products))) {
                                 # code...
                                 if ($coupon->type == 'percent') {
@@ -114,13 +119,15 @@ class FCouponController extends Controller
                                 } elseif ($coupon->type == 'fixed') {
                                     # code...
                                     $total_price += $product->sale_price;
-                                    $discountedPrice += $products->sale_price - $coupon->value;
+                                    $discountedPrice += $product->sale_price - $coupon->value;
                                 }
                             }else{
-                                dd('prateek');
+                                $total_price += $product->sale_price;
+                                $discountedPrice += $product->sale_price;
                             }
                         }
                     }
+                    // dd($discountedPrice);
                 }
             } else {
                 # code...
