@@ -181,8 +181,8 @@ class PaymentController extends Controller
                     $message->to(env('ADMINMAIL'));
                 });
 
-                dd($transaction_detials, session()->get('userdetails'));
-                foreach (json_decode($data['productdetail']) as $key => $value) {
+                // dd($transaction_detials, session()->get('userdetails'));
+                foreach (json_decode($pdetails) as $key => $value) {
                     # code...
                     $product = Product::find($value->id);
                     $product->quantity =$product->quantity - $value->qty;
@@ -236,7 +236,7 @@ class PaymentController extends Controller
                     $message->to(env('ADMINMAIL'));
                 });
 
-                foreach (json_decode($data['productdetail']) as $key => $value) {
+                foreach (json_decode($pdetails) as $key => $value) {
                     # code...
                     $product = Product::find($value->id);
                     $product->quantity =$product->quantity - $value->qty;
