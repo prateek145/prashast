@@ -103,6 +103,9 @@ class FCouponController extends Controller
                                         # code...
                                         $total_price += $product->sale_price;
                                         $discountedPrice += $product->sale_price - $coupon->value;
+                                    }else{
+                                        $total_price += $product->sale_price;
+                                        $discountedPrice += $product->sale_price;
                                     }
                                     // dd($discountedPrice);
 
@@ -120,6 +123,9 @@ class FCouponController extends Controller
                                     # code...
                                     $total_price += $product->sale_price;
                                     $discountedPrice += $product->sale_price - $coupon->value;
+                                }else{
+                                    $total_price += $product->sale_price;
+                                    $discountedPrice += $product->sale_price;
                                 }
                             }else{
                                 $total_price += $product->sale_price;
