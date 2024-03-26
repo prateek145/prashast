@@ -15,6 +15,11 @@ div {
     font-weight: 500;
 }
 
+.navbar-nav .nav-link.active {
+    color: #986633 !important;
+    /* Change to the desired color */
+}
+
 h1 {
     font-family: 'Playfair Display', serif;
 }
@@ -990,10 +995,10 @@ button.nav-link {
     font-weight: 700;
 }
 
-    .carousel-caption {
-        position: absolute;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-    }
+.carousel-caption {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
