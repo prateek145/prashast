@@ -19,17 +19,18 @@
                         <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link active" aria-current="page"
+                                    <a class="nav-link {{ request()->segment(1) == '' ? 'active' : '' }}" aria-current="page"
                                         href="{{ route('frontend.home') }}">Home</a>
                                 </li>
+                                {{-- {{dd(request()->segment(1))}} --}}
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link" href="{{ route('frontend.about') }}">About Us</a>
+                                    <a class="nav-link {{ request()->segment(1) == 'about-us' ? 'active' : '' }}"  href="{{ route('frontend.about') }}">About Us</a>
                                 </li>
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link" href="{{ route('shop.page') }}">Shop</a>
+                                    <a class="nav-link {{ request()->segment(1) == 'shop' ? 'active' : '' }}"  href="{{ route('shop.page') }}">Shop</a>
                                 </li>
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link" href="{{ route('frontend.contact') }}">Contact Us</a>
+                                    <a class="nav-link {{ request()->segment(1) == 'contact-us' ? 'active' : '' }}"  href="{{ route('frontend.contact') }}">Contact Us</a>
                                 </li>
 
                                 {{-- <li class="nav-item mx-4">
@@ -37,7 +38,7 @@
                                 </li> --}}
 
                                 <li class="nav-item dropdown mx-4">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button"
+                                    <a class="nav-link {{ request()->segment(1) == 'login' ? 'active' : '' }} {{ request()->segment(1) == 'register' ? 'active' : '' }} {{ request()->segment(1) == 'my-account' ? 'active' : '' }} dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         @if (auth()->user())
                                             {{ auth()->user()->name ?? '' }}
