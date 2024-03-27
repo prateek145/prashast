@@ -55,8 +55,8 @@ class PaymentController extends Controller
             $order_id = "ORDER_" . time();
             $PAYTM_MERCHANT_KEY = "VM60ziBspua&p%lk";
             $WEBSITE = "WEBSTAGING";
-            // $amount = $request->amount;
-            $amount =1;
+            $amount = $request->amount;
+            // $amount =1;
 
 
             // $chbody= '{"requestType":"Payment","mid":"'.$mid.'","orderId":"'.$order_id.'","websiteName":"'.$WEBSITE.'","txnAmount":{"amount":"1.00","currency":"INR"},"userInfo":{"custId":"CUST23645"},"callbackUrl":"https://eprashast.co.in/paytm-done"}}';
