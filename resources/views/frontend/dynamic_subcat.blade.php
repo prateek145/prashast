@@ -153,7 +153,7 @@
                                 <input type="hidden" name="search_box">
                                 <select class="form-select d-inline-block w-auto border pt-1"
                                     onchange="selectForm(this.value)">
-                                    <option value="">Short By</option>
+                                    <option value="">Sort By</option>
                                     <option value="low_to_high">Price Low to High</option>
                                     <option value="high_to_low">Price High to Low</option>
                                     <option value="now_product">What’s new?</option>

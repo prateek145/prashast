@@ -30,7 +30,7 @@
 
                             <form action="{{ route('coupon.apply') }}" method="post">
                                 @csrf
-                                <div class="row">
+                                <div class="d-flex">
                                     <div class="col-md-10">
                                         <input type="text" name="code" class="form-control" placeholder="coupon"
                                             id="">
@@ -40,7 +40,7 @@
 
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" value="submit" class="btn btn-sm btn-warning">
+                                        <input type="submit" value="submit" class="btn btn-sm btn-warning mt-1">
 
                                     </div>
 
@@ -74,7 +74,7 @@
 
                             <form action="{{ route('coupon.apply') }}" method="post">
                                 @csrf
-                                <div class="row">
+                                <div class="d-flex">
                                     <div class="col-md-10">
                                         <input type="text" name="code" class="form-control" placeholder="coupon"
                                             id="">
@@ -83,7 +83,7 @@
 
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" value="submit" class="btn btn-sm btn-warning">
+                                        <input type="submit" value="submit" class="btn btn-sm btn-warning mt-1">
 
                                     </div>
 
