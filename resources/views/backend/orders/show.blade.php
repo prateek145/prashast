@@ -430,16 +430,18 @@
             
             @if ($order->coupon_code)
             <tr>
+                <th class="text-center"><span>Befor Discount Price</span></th>
+                <td><span data-prefix>₹</span><span>{{ $bd_price ?? "" }}</span></td>
+
+            </tr>
+
+            <tr>
                 <th class="text-center"><span>Code</span></th>
                 <td><span>{{ $order->coupon_code ?? "" }}</span></td>
 
             </tr>
 
-            <tr>
-                <th class="text-center"><span>Befor Discount Price</span></th>
-                <td><span>{{ $bd_price ?? "" }}</span></td>
 
-            </tr>
                 
             @endif
 
