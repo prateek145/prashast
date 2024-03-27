@@ -46,13 +46,15 @@
         text-transform: uppercase;
 
     }
-    .address{
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow: hidden; /* Optionally add to handle long addresses */
-    line-height:14px;
-    
-}
+
+    .address {
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow: hidden;
+        /* Optionally add to handle long addresses */
+        line-height: 14px;
+
+    }
 
     /* table */
 
@@ -339,7 +341,8 @@
                 <p><b>Ship To:</b></p>
                 <p>Shipping Name: <span>{{ $order->shipping_name == '' ? $order->name : $order->shipping_name }}</span>
                 </p>
-                <p>Shipping Address: <span class="address" > {{ $order->shipping_address ?? $order->billing_address }}</span> </p>
+                <p>Shipping Address: <span class="address">
+                        {{ $order->shipping_address ?? $order->billing_address }}</span> </p>
 
             </div>
 
@@ -396,8 +399,13 @@
                 </tr>
             </thead>
             <tbody>
-
+                @php
+                    $bd_price = 0;
+                @endphp
                 @for ($i = 0; $i < count($order_details); $i++)
+                    @php
+                        $bd_price = +$order_details[$i]->price;
+                    @endphp
                     <tr>
                         <td class="text-center"><span>{{ $i + 1 }}</span></td>
                         <td colspan="3"><span>{{ $order_details[$i]->name ?? '' }}</span></td>
@@ -405,7 +413,8 @@
                         <td class="text-center"><span>{{ $order_details[$i]->qty ?? '' }}</span></td>
                         <td class="text-center"><span data-prefix></span><span>₹{{ $order_details[$i]->price }}</span>
                         </td>
-                        <td class="text-center"><span data-prefix></span><span>₹{{ $order_details[$i]->qty * $order_details[$i]->price }}</span>
+                        <td class="text-center"><span
+                                data-prefix></span><span>₹{{ $order_details[$i]->qty * $order_details[$i]->price }}</span>
                         </td>
                     </tr>
                 @endfor
@@ -420,9 +429,23 @@
         <table class="balance ">
 
             <tr>
-                <th class="text-center"><span>Total</span></th>
+                <th class="text-center"><span>Paid Amount</span></th>
                 <td><span data-prefix>₹</span><span>{{ $order->amount }}</span></td>
             </tr>
+
+            @if ($order->coupon_code)
+                <tr>
+                    <th class="text-center"><span>Total Amount</span></th>
+                    <td><span data-prefix>₹</span><span>{{ $bd_price ?? '' }}</span></td>
+
+                </tr>
+
+                <tr>
+                    <th class="text-center"><span>Code</span></th>
+                    <td><span>{{ $order->coupon_code ?? '' }}</span></td>
+
+                </tr>
+            @endif
 
         </table>
     </article>
