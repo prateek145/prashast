@@ -395,8 +395,13 @@
                 </tr>
             </thead>
             <tbody>
-
+                @php
+                    $bd_price = 0;
+                @endphp
                 @for ($i = 0; $i < count($order_details); $i++)
+                    @php
+                        $bd_price =+ $order_details[$i]->price;
+                    @endphp
                     <tr>
                         <td class="text-center"><span>{{ $i + 1 }}</span></td>
                         <td colspan="3"><span>{{ $order_details[$i]->name ?? '' }}</span></td>
@@ -422,6 +427,21 @@
                 <th class="text-center"><span>Total</span></th>
                 <td><span data-prefix>₹</span><span>{{ $order->amount }}</span></td>
             </tr>
+            
+            @if ($order->code !== null)
+            <tr>
+                <th class="text-center"><span>Code</span></th>
+                <td><span>{{ $order->coupon_code ?? "" }}</span></td>
+
+            </tr>
+
+            <tr>
+                <th class="text-center"><span>Befor Discount Price</span></th>
+                <td><span>{{ $bd_price ?? "" }}</span></td>
+
+            </tr>
+                
+            @endif
 
         </table>
     </article>
