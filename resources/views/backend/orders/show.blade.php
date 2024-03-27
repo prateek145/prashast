@@ -424,13 +424,13 @@
         <table class="balance ">
 
             <tr>
-                <th class="text-center"><span>Total</span></th>
+                <th class="text-center"><span>Paid Amount</span></th>
                 <td><span data-prefix>₹</span><span>{{ $order->amount }}</span></td>
             </tr>
             
             @if ($order->coupon_code)
             <tr>
-                <th class="text-center"><span>Befor Discount Price</span></th>
+                <th class="text-center"><span>Total Amount</span></th>
                 <td><span data-prefix>₹</span><span>{{ $bd_price ?? "" }}</span></td>
 
             </tr>
