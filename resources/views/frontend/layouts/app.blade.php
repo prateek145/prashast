@@ -31,7 +31,7 @@
 
 <body>
     @php
-        $annoucment = App\Models\backend\FlashDeal::latest()->first();
+        $annoucment = App\Models\backend\FlashDeal::where('status', 1)->latest()->first();
         // dd($annoucment);
     @endphp
     @if ($annoucment->description)
