@@ -34,7 +34,7 @@
         $annoucment = App\Models\backend\FlashDeal::where('status', 1)->latest()->first();
         // dd($annoucment);
     @endphp
-    @if ($annoucment->description)
+    @if ($annoucment)
     <div class="announcement">
         {!! $annoucment->description ?? '' !!}
     </div>
