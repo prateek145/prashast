@@ -20,7 +20,26 @@
         integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
 </head>
 
+<style>
+    .announcement {
+        background-color: #ffc107;
+        color: white;
+        text-align: center;
+        padding: 1px;
+    }
+</style>
+
 <body>
+    @php
+        $annoucment = App\Models\backend\FlashDeal::latest()->first();
+        // dd($annoucment);
+    @endphp
+    @if ($annoucment->description)
+    <div class="announcement">
+        {!! $annoucment->description ?? '' !!}
+    </div>
+        
+    @endif
     @include('frontend.layouts.header')
     @yield('content')
     @include('frontend.layouts.footer')
