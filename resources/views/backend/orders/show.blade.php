@@ -428,7 +428,7 @@
                 <td><span data-prefix>₹</span><span>{{ $order->amount }}</span></td>
             </tr>
             
-            @if ($order->code)
+            @if ($order->coupon_code)
             <tr>
                 <th class="text-center"><span>Code</span></th>
                 <td><span>{{ $order->coupon_code ?? "" }}</span></td>
