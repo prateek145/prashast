@@ -403,7 +403,7 @@
                 @endphp
                 @for ($i = 0; $i < count($order_details); $i++)
                     @php
-                        $bd_price =+ $order_details[$i]->price;
+                        $bd_price += $order_details[$i]->price;
                     @endphp
                     <tr>
                         <td class="text-center"><span>{{ $i + 1 }}</span></td>
