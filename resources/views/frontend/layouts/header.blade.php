@@ -19,18 +19,21 @@
                         <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link {{ request()->segment(1) == '' ? 'active' : '' }}" aria-current="page"
-                                        href="{{ route('frontend.home') }}">Home</a>
+                                    <a class="nav-link {{ request()->segment(1) == '' ? 'active' : '' }}"
+                                        aria-current="page" href="{{ route('frontend.home') }}">Home</a>
                                 </li>
                                 {{-- {{dd(request()->segment(1))}} --}}
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link {{ request()->segment(1) == 'about-us' ? 'active' : '' }}"  href="{{ route('frontend.about') }}">About Us</a>
+                                    <a class="nav-link {{ request()->segment(1) == 'about-us' ? 'active' : '' }}"
+                                        href="{{ route('frontend.about') }}">About Us</a>
                                 </li>
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link {{ request()->segment(1) == 'shop' ? 'active' : '' }}"  href="{{ route('shop.page') }}">Shop</a>
+                                    <a class="nav-link {{ request()->segment(1) == 'shop' ? 'active' : '' }}"
+                                        href="{{ route('shop.page') }}">Shop</a>
                                 </li>
                                 <li class="nav-item mx-4">
-                                    <a class="nav-link {{ request()->segment(1) == 'contact-us' ? 'active' : '' }}"  href="{{ route('frontend.contact') }}">Contact Us</a>
+                                    <a class="nav-link {{ request()->segment(1) == 'contact-us' ? 'active' : '' }}"
+                                        href="{{ route('frontend.contact') }}">Contact Us</a>
                                 </li>
 
                                 {{-- <li class="nav-item mx-4">
@@ -38,8 +41,8 @@
                                 </li> --}}
 
                                 <li class="nav-item dropdown mx-4">
-                                    <a class="nav-link {{ request()->segment(1) == 'login' ? 'active' : '' }} {{ request()->segment(1) == 'register' ? 'active' : '' }} {{ request()->segment(1) == 'my-account' ? 'active' : '' }} dropdown-toggle" href="#" role="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link {{ request()->segment(1) == 'login' ? 'active' : '' }} {{ request()->segment(1) == 'register' ? 'active' : '' }} {{ request()->segment(1) == 'my-account' ? 'active' : '' }} dropdown-toggle"
+                                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         @if (auth()->user())
                                             {{ auth()->user()->name ?? '' }}
                                         @else
@@ -68,12 +71,18 @@
 
                             </ul>
                         </div>
+                        @php
+                            $products = session()->get('cart');
+                        @endphp
                         <!-- Cart Icon -->
                         <div class="navbar-nav ml-auto d-none d-md-block">
-                            <a class="nav-link" href="{{route('cart')}}">
+                            <a class="nav-link" href="{{ route('cart') }}">
                                 <i class="bi bi-cart3 text-light h5"
-                                    style="width:50px;padding:10px;height:50px;border-radius: 50%; 
-    background-color: #986633;"></i>
+                                    style="width:50px;padding:10px;height:50px;border-radius: 50%; background-color: #986633;"></i>
+                                <span class=" badge rounded-pill bg-danger" style="top:1px">
+                                    {{ $products == true ? count($products) : 0 }}
+
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -93,6 +102,13 @@
     @if (Session::has('error'))
         <div class="alert alert-danger alert-dismissible fade in show col-md-12">
             <strong>Error!</strong> {{ session('error') }}
+            {{-- <button type="button" class="close" data-dismiss="alert">&times;</button> --}}
+        </div>
+    @endif
+
+    @if (Session::has('error12'))
+        <div class="alert alert-danger alert-dismissible fade in show col-md-12">
+            <strong>{{ session('error12') }}</strong>
             {{-- <button type="button" class="close" data-dismiss="alert">&times;</button> --}}
         </div>
     @endif

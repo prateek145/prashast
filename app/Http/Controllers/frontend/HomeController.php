@@ -324,7 +324,7 @@ class HomeController extends Controller
             return view('frontend.cart', compact('products', 'cart'));
         } else {
             # code...
-            return redirect()->back()->with('error', 'Add Product In Cart');
+            return redirect()->back()->with('error12', 'Your cart is empty!');
         }
     }
 
