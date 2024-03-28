@@ -79,7 +79,7 @@
                             <a class="nav-link" href="{{ route('cart') }}">
                                 <i class="bi bi-cart3 text-light h5"
                                     style="width:50px;padding:10px;height:50px;border-radius: 50%; background-color: #986633;"></i>
-                                <span class=" badge rounded-pill bg-danger" style="top:1px">
+                                <span class=" badge rounded-pill bg-danger top-0 start-100" style="transform: translate(-90%, -80%) !important;">
                                     {{ $products == true ? count($products) : 0 }}
 
                                 </span>

@@ -186,10 +186,12 @@ section.about {
     background-position: center center;
     background-repeat: no-repeat;
     border-radius: 10px;
-    padding: 60px 0px 80px;
+   
     border: 4px;
     border-color: #ffffff;
     border-style: solid;
+    
+   
 }
 
 /*.collection{border: 4px;
