@@ -1,39 +1,39 @@
 <header>
     <script>
-        document.addEventListener("DOMContentLoaded", function(){
-// make it as accordion for smaller screens
-if (window.innerWidth > 992) {
+        document.addEventListener("DOMContentLoaded", function() {
+            // make it as accordion for smaller screens
+            if (window.innerWidth > 992) {
 
-	document.querySelectorAll('.navbar .nav-item').forEach(function(everyitem){
+                document.querySelectorAll('.navbar .nav-item').forEach(function(everyitem) {
 
-		everyitem.addEventListener('mouseover', function(e){
+                    everyitem.addEventListener('mouseover', function(e) {
 
-			let el_link = this.querySelector('a[data-bs-toggle]');
+                        let el_link = this.querySelector('a[data-bs-toggle]');
 
-			if(el_link != null){
-				let nextEl = el_link.nextElementSibling;
-				el_link.classList.add('show');
-				nextEl.classList.add('show');
-			}
+                        if (el_link != null) {
+                            let nextEl = el_link.nextElementSibling;
+                            el_link.classList.add('show');
+                            nextEl.classList.add('show');
+                        }
 
-		});
-		everyitem.addEventListener('mouseleave', function(e){
-			let el_link = this.querySelector('a[data-bs-toggle]');
+                    });
+                    everyitem.addEventListener('mouseleave', function(e) {
+                        let el_link = this.querySelector('a[data-bs-toggle]');
 
-			if(el_link != null){
-				let nextEl = el_link.nextElementSibling;
-				el_link.classList.remove('show');
-				nextEl.classList.remove('show');
-			}
+                        if (el_link != null) {
+                            let nextEl = el_link.nextElementSibling;
+                            el_link.classList.remove('show');
+                            nextEl.classList.remove('show');
+                        }
 
 
-		})
-	});
+                    })
+                });
 
-}
-// end if innerWidth
-}); 
-// DOMContentLoaded  end
+            }
+            // end if innerWidth
+        });
+        // DOMContentLoaded  end
     </script>
     <div class="container pt-5 pb-4">
         <div class="row">
@@ -73,13 +73,14 @@ if (window.innerWidth > 992) {
                                 @endphp
                                 <li class="nav-item dropdown mx-4">
                                     <a class="nav-link  {{ request()->segment(1) == 'shop' ? 'active' : '' }} dropdown-toggle"
-                                        href="{{ route('shop.page') }}" role="button" data-bs-toggle="dropdown"
+                                        onclick="redirectshop()" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         Shop
                                     </a>
                                     <ul class="dropdown-menu bg-dark text-white">
                                         @foreach ($categories as $item)
-                                            <li><a class="dropdown-item" href="{{ route('dynamic.categories', $item->slug) }}">{{$item->name}}</a>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('dynamic.categories', $item->slug) }}">{{ $item->name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -169,3 +170,9 @@ if (window.innerWidth > 992) {
     @endif
 
 </main>
+
+<script>
+    function redirectshop(){
+        window.location.href = "{{ route('shop.page') }}";
+    }
+</script>
