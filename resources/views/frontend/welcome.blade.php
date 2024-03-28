@@ -185,7 +185,7 @@
                 <div class="col-lg-4 text-center py-3 order-1 order-lg-3">
                    <div class="collection">
                         <div id="carouselExampleAutoplayinga" style="opacity: 0;" class="carousel slide" data-bs-ride="carousel">
-                                                         <div class="carousel-inner">
+                                                    <div class="carousel-inner" style="padding-bottom:10px">
                                 @foreach ($top_products as $key => $item)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }} text-center">
                                         @if ($item->product_subcategory($item->product_subcategories)->icon_image)
@@ -200,7 +200,7 @@
                                         <p>TOP SELLER</p>
                                         <img src="{{ asset('public/product/' . $item->image) }}" class="d-block w-100"
                                             alt="...">
-                                        <h6>{{ $item->name }}</h6>
+                                        <h6>{{ substr($item->name, 0, 30)}} ...</h6>
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
                                     </div>
