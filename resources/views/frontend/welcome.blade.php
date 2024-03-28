@@ -116,7 +116,7 @@
                                         <p>TOP SELLER</p>
                                         <img src="{{ asset('public/product/' . $item->image) }}" class="d-block w-100"
                                             alt="...">
-                                        <h6>{{ substr($item->name, 0, 30)}} ...</h6>
+                                        <h6 class="mt-1">{{ substr($item->name, 0, 30)}} ...</h6>
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
                                     </div>
@@ -155,7 +155,7 @@
                                         <p>NEW COLLECTION</p>
                                         <img src="{{ asset('public/product/' . $item->image) }}" class="d-block w-100"
                                             alt="...">
-                                            <h6>{{ substr($item->name, 0, 30)}} ...</h6>
+                                            <h6 class="mt-2">{{ substr($item->name, 0, 30)}} ...</h6>
 
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
@@ -185,8 +185,8 @@
                 <div class="col-lg-4 text-center py-3 order-1 order-lg-3">
                    <div class="collection">
                         <div id="carouselExampleAutoplayinga" style="opacity: 0;" class="carousel slide" data-bs-ride="carousel">
-                                                    <div class="carousel-inner" style="padding-bottom:10px">
-                                @foreach ($top_products as $key => $item)
+                                                    <div class="carousel-inner">
+                                @foreach ($new_products as $key => $item)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }} text-center">
                                         @if ($item->product_subcategory($item->product_subcategories)->icon_image)
                                             <img src="{{ asset('public/productsubcategory/' . $item->product_subcategory($item->product_subcategories)->icon_image) }}"
@@ -197,10 +197,11 @@
                                         @endif
                                         <img src="{{ asset('public/frontend/images/top-separator-white.png') }}"
                                             class="img-fluid d-block mx-auto">
-                                        <p>TOP SELLER</p>
+                                        <p>NEW COLLECTION</p>
                                         <img src="{{ asset('public/product/' . $item->image) }}" class="d-block w-100"
                                             alt="...">
-                                        <h6>{{ substr($item->name, 0, 30)}} ...</h6>
+                                            <h6 class="mt-2">{{ substr($item->name, 0, 30)}} ...</h6>
+
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
                                     </div>
