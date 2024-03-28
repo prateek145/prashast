@@ -116,7 +116,7 @@
                                         <p>TOP SELLER</p>
                                         <img src="{{ asset('public/product/' . $item->image) }}" class="d-block w-100"
                                             alt="...">
-                                        <h6>{{ substr($item->name, 0, 35)}} ...</h6>
+                                        <h6>{{ substr($item->name, 0, 30)}} ...</h6>
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
                                     </div>
@@ -155,7 +155,7 @@
                                         <p>NEW COLLECTION</p>
                                         <img src="{{ asset('public/product/' . $item->image) }}" class="d-block w-100"
                                             alt="...">
-                                            <h6>{{ substr($item->name, 0, 35)}} ...</h6>
+                                            <h6>{{ substr($item->name, 0, 30)}} ...</h6>
 
                                         <a href="{{ route('product.detail', $item->slug) }}"
                                             class="btn btn-secondary">Shop</a>
