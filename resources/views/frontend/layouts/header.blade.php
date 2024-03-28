@@ -23,14 +23,32 @@
                                         aria-current="page" href="{{ route('frontend.home') }}">Home</a>
                                 </li>
                                 {{-- {{dd(request()->segment(1))}} --}}
+
                                 <li class="nav-item mx-4">
                                     <a class="nav-link {{ request()->segment(1) == 'about-us' ? 'active' : '' }}"
                                         href="{{ route('frontend.about') }}">About Us</a>
                                 </li>
-                                <li class="nav-item mx-4">
-                                    <a class="nav-link {{ request()->segment(1) == 'shop' ? 'active' : '' }}"
-                                        href="{{ route('shop.page') }}">Shop</a>
+
+                                @php
+                                    $categories = App\Models\backend\ProductSubcategory::where('status', 1)
+                                        ->latest()
+                                        ->get();
+
+                                @endphp
+                                <li class="nav-item dropdown mx-4">
+                                    <a class="nav-link  {{ request()->segment(1) == 'shop' ? 'active' : '' }} dropdown-toggle"
+                                        href="{{ route('shop.page') }}" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Shop
+                                    </a>
+                                    <ul class="dropdown-menu bg-dark text-white">
+                                        @foreach ($categories as $item)
+                                            <li><a class="dropdown-item" href="{{ route('dynamic.categories', $item->slug) }}">{{$item->name}}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </li>
+
                                 <li class="nav-item mx-4">
                                     <a class="nav-link {{ request()->segment(1) == 'contact-us' ? 'active' : '' }}"
                                         href="{{ route('frontend.contact') }}">Contact Us</a>
@@ -79,7 +97,8 @@
                             <a class="nav-link" href="{{ route('cart') }}">
                                 <i class="bi bi-cart3 text-light h5"
                                     style="width:50px;padding:10px;height:50px;border-radius: 50%; background-color: #986633;"></i>
-                                <span class=" badge rounded-pill bg-danger top-0 start-100" style="transform: translate(-90%, -80%) !important;">
+                                <span class=" badge rounded-pill bg-danger top-0 start-100"
+                                    style="transform: translate(-90%, -80%) !important;">
                                     {{ $products == true ? count($products) : 0 }}
 
                                 </span>
