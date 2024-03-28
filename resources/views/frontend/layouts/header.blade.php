@@ -1,40 +1,4 @@
 <header>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // make it as accordion for smaller screens
-            if (window.innerWidth > 992) {
-
-                document.querySelectorAll('.navbar .nav-item').forEach(function(everyitem) {
-
-                    everyitem.addEventListener('mouseover', function(e) {
-
-                        let el_link = this.querySelector('a[data-bs-toggle]');
-
-                        if (el_link != null) {
-                            let nextEl = el_link.nextElementSibling;
-                            el_link.classList.add('show');
-                            nextEl.classList.add('show');
-                        }
-
-                    });
-                    everyitem.addEventListener('mouseleave', function(e) {
-                        let el_link = this.querySelector('a[data-bs-toggle]');
-
-                        if (el_link != null) {
-                            let nextEl = el_link.nextElementSibling;
-                            el_link.classList.remove('show');
-                            nextEl.classList.remove('show');
-                        }
-
-
-                    })
-                });
-
-            }
-            // end if innerWidth
-        });
-        // DOMContentLoaded  end
-    </script>
     <div class="container pt-5 pb-4">
         <div class="row">
             <div class="d-none d-lg-block col-lg-12  mx-auto text-center">
@@ -71,13 +35,13 @@
                                         ->get();
 
                                 @endphp
-                                <li class="nav-item dropdown mx-4">
+                                <li class="nav-item dropdown mx-4" id="menu123">
                                     <a class="nav-link  {{ request()->segment(1) == 'shop' ? 'active' : '' }} dropdown-toggle"
                                         onclick="redirectshop()" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         Shop
                                     </a>
-                                    <ul class="dropdown-menu bg-dark text-white">
+                                    <ul class="dropdown-menu bg-dark text-white menuchilds">
                                         @foreach ($categories as $item)
                                             <li><a class="dropdown-item"
                                                     href="{{ route('dynamic.categories', $item->slug) }}">{{ $item->name }}</a>
@@ -172,7 +136,16 @@
 </main>
 
 <script>
-    function redirectshop(){
+    function redirectshop() {
         window.location.href = "{{ route('shop.page') }}";
     }
+
+    document.getElementById("menu123").addEventListener("mouseover", function() {
+        document.getElementsByClassName('menuchilds')[0].classList.add(
+            "show");
+        this.style.display = "block";
+    });
+    document.getElementById("menu123").addEventListener("mouseout", function() {
+        document.getElementsByClassName('menuchilds')[0].classList.remove("show");
+    });
 </script>
